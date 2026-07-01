@@ -13,6 +13,7 @@ export type IconName =
   | 'panda' | 'panda-sleepy' | 'panda-hug' | 'koala' | 'red-panda'
   | 'polar-bear' | 'brown-bear' | 'sun' | 'wave'
   | 'tiger' | 'ninja' | 'fireworks' | 'planet'
+  | 'mushroom' | 'strawberry' | 'icecream' | 'balloon' | 'sailboat'
   // board tokens
   | 'panda-token' | 'bamboo-token'
   | 'red-panda-token' | 'koala-token' | 'polar-token' | 'brown-token'
@@ -461,6 +462,48 @@ const ICONS: Record<IconName, ReactNode> = {
       <circle cx="8.6" cy="9" r="1.6" fill="#c4b5fd" />
       <circle cx="13" cy="13" r="1" fill="#8b6ff0" />
       <ellipse cx="11" cy="12" rx="10" ry="3.2" fill="none" stroke="#ffd66b" strokeWidth="1.6" transform="rotate(-20 11 12)" />
+    </>
+  ),
+  mushroom: (
+    <>
+      <path d="M3 12a9 6 0 0118 0z" fill={R} />
+      <circle cx="8" cy="9.5" r="1.2" fill={W} />
+      <circle cx="14" cy="8.8" r="1.4" fill={W} />
+      <circle cx="16.5" cy="11" r="1" fill={W} />
+      <rect x="9.5" y="12" width="5" height="8" rx="2" fill="#f0e6d0" />
+    </>
+  ),
+  strawberry: (
+    <>
+      <path d="M4 10c0-1 3-1 8-1s8 0 8 1c0 5-4 11-8 11S4 15 4 10z" fill={R} />
+      <path d="M8 6l4 3 4-3-1 3 3 0-3 2-6 0-3-2 3 0z" fill={G} />
+      <circle cx="9" cy="12" r="0.6" fill={Y} />
+      <circle cx="13" cy="13" r="0.6" fill={Y} />
+      <circle cx="11" cy="16" r="0.6" fill={Y} />
+      <circle cx="15" cy="16" r="0.6" fill={Y} />
+    </>
+  ),
+  icecream: (
+    <>
+      <path d="M6 12l6 10 6-10z" fill="#e2b06a" />
+      <circle cx="9" cy="9" r="3.4" fill={P} />
+      <circle cx="15" cy="9" r="3.4" fill="#fff0b3" />
+      <circle cx="12" cy="7" r="3.4" fill={R} />
+    </>
+  ),
+  balloon: (
+    <>
+      <ellipse cx="12" cy="9" rx="6" ry="7" fill={R} />
+      <path d="M12 16l-1 2 2 0z" fill={R} />
+      <path d="M12 18c0 2 2 2 2 4" fill="none" stroke={K} strokeWidth="1" />
+    </>
+  ),
+  sailboat: (
+    <>
+      <path d="M12 2l0 10-6 0z" fill={W} stroke="#dfe6ea" strokeWidth="0.6" />
+      <path d="M13 3l5 9-5 0z" fill={R} />
+      <path d="M3 15h18l-3 5H6z" fill="#c98a5e" />
+      <path d="M2 15c2 1 4 1 5 0s3-1 5 0 3 1 5 0" fill="none" stroke={B} strokeWidth="1.2" />
     </>
   ),
 };

@@ -66,46 +66,46 @@ export function HomeScreen({
           <Icon name={mascot} size="5rem" />
         </div>
         <h1 className="logo">Pandle</h1>
-        <p className="tagline">Solve by logic. Reveal the panda.</p>
+        <p className="tagline">Fill the grid. Find the little picture hiding inside.</p>
       </div>
 
       <div className="menu">
         <button className="menu-btn primary" onClick={() => onNavigate('daily')}>
           <span className="menu-emoji"><Icon name="calendar" size="2rem" /></span>
           <span className="menu-label">Daily Puzzle</span>
-          <span className="menu-note">{dailyDone ? 'Solved!' : 'New today!'}</span>
+          <span className="menu-note">{dailyDone ? 'Nice — see you tomorrow' : "Today's is ready"}</span>
         </button>
         <button className="menu-btn" onClick={() => onNavigate('levels')}>
           <span className="menu-emoji"><Icon name="map" size="2rem" /></span>
           <span className="menu-label">Adventure</span>
-          <span className="menu-note">Level up</span>
+          <span className="menu-note">Chapter by chapter</span>
         </button>
         <button className="menu-btn" onClick={() => onNavigate('events')}>
           <span className="menu-emoji"><Icon name="party" size="2rem" /></span>
           <span className="menu-label">Events</span>
           <span className="menu-note">
-            {activeEventCount > 0 ? `${activeEventCount} live` : 'Check back'}
+            {activeEventCount > 0 ? `${activeEventCount} in season` : 'Seasonal'}
           </span>
         </button>
         <button className="menu-btn" onClick={() => onNavigate('practice')}>
           <span className="menu-emoji"><Icon name="infinity" size="2rem" /></span>
           <span className="menu-label">Practice</span>
-          <span className="menu-note">Play freely</span>
+          <span className="menu-note">One more, anytime</span>
         </button>
         <button className="menu-btn" onClick={() => onNavigate('customize')}>
           <span className="menu-emoji"><Icon name="palette" size="2rem" /></span>
           <span className="menu-label">Customize</span>
-          <span className="menu-note">Themes & skins</span>
+          <span className="menu-note">Make it yours</span>
         </button>
         <button className="menu-btn" onClick={() => onNavigate('stats')}>
           <span className="menu-emoji"><Icon name="chart" size="2rem" /></span>
           <span className="menu-label">Stats</span>
-          <span className="menu-note">Your streaks</span>
+          <span className="menu-note">Streaks & records</span>
         </button>
       </div>
 
       <button className="link-btn" onClick={() => onNavigate('help')}>
-        How to play?
+        New here? How to play
       </button>
     </div>
   );

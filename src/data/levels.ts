@@ -177,6 +177,18 @@ export const CHAPTERS: Chapter[] = [
       { id: 'cv-6', puzzleId: 'ruby-frame', targetMs: 230000, rewardBamboo: 50 },
     ],
   },
+  {
+    id: 'field-guide',
+    name: 'Field Guide',
+    icon: 'strawberry',
+    levels: [
+      { id: 'fg-1', puzzleId: 'mushroom', targetMs: 150000, rewardBamboo: 35 },
+      { id: 'fg-2', puzzleId: 'strawberry', targetMs: 150000, rewardBamboo: 35 },
+      { id: 'fg-3', puzzleId: 'ice-cream', targetMs: 130000, rewardBamboo: 35 },
+      { id: 'fg-4', puzzleId: 'balloon', targetMs: 170000, rewardBamboo: 40 },
+      { id: 'fg-5', puzzleId: 'sailboat', targetMs: 170000, rewardBamboo: 45 },
+    ],
+  },
 ];
 
 /** Flat ordered list of levels across all chapters. */

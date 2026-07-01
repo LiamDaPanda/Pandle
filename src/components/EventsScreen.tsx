@@ -1,4 +1,4 @@
-import { activeEvents, EVENTS, GameEvent } from '../data/events';
+import { EVENTS, GameEvent, isEventLive, nextOpenMonth } from '../data/events';
 import { puzzleById } from '../data/puzzles';
 import { Progress, eventProgress } from '../state/progress';
 import { cosmeticById } from '../data/cosmetics';
@@ -34,7 +34,9 @@ function EventCard({
           <h3>{event.name}</h3>
           <p className="event-theme">{event.theme}</p>
         </div>
-        <span className={`event-badge ${live ? 'on' : ''}`}>{live ? 'LIVE' : 'Ended'}</span>
+        <span className={`event-badge ${live ? 'on' : ''}`}>
+          {live ? 'IN SEASON' : `back in ${nextOpenMonth(event)}`}
+        </span>
       </div>
 
       <div className="event-progress">
@@ -78,8 +80,13 @@ function EventCard({
 }
 
 export function EventsScreen({ progress, onPlayEventPuzzle, onHome }: EventsScreenProps) {
-  const live = activeEvents();
-  const liveIds = new Set(live.map((e) => e.id));
+  // In-season events first, then the rest by when they next return.
+  const ordered = [...EVENTS].sort((a, b) => {
+    const la = isEventLive(a) ? 0 : 1;
+    const lb = isEventLive(b) ? 0 : 1;
+    return la - lb;
+  });
+  const liveCount = ordered.filter((e) => isEventLive(e)).length;
 
   return (
     <div className="screen">
@@ -90,12 +97,17 @@ export function EventsScreen({ progress, onPlayEventPuzzle, onHome }: EventsScre
         <h2>Events</h2>
         <span />
       </header>
+      <p className="screen-intro">
+        {liveCount > 0
+          ? `${liveCount} event${liveCount > 1 ? 's' : ''} in season right now. Rewards only stick around while they’re live.`
+          : 'Nothing running this week — check back as the seasons turn.'}
+      </p>
       <div className="events">
-        {EVENTS.map((event) => (
+        {ordered.map((event) => (
           <EventCard
             key={event.id}
             event={event}
-            live={liveIds.has(event.id)}
+            live={isEventLive(event)}
             progress={progress}
             onPlay={(pid) => onPlayEventPuzzle(event.id, pid)}
           />

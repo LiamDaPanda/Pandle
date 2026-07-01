@@ -226,7 +226,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   },
   {
     id: 'bamboo-gem',
-    name: 'Jade Gem',
+    name: 'Jade',
     icon: 'gem',
     difficulty: 'easy',
     width: 5,
@@ -314,7 +314,7 @@ export const ALL_PUZZLES: Puzzle[] = [
 
   // ----- Panda Village (medium) -----
   {
-    id: 'big-gem', name: 'Big Gem', icon: 'gem', difficulty: 'medium',
+    id: 'big-gem', name: 'Sapphire', icon: 'gem', difficulty: 'medium',
     width: 10, height: 10,
     grid: [
       '....BB....', '...BBBB...', '..BBBBBB..', '.BBBBBBBB.', 'BBBBBBBBBB',
@@ -322,7 +322,7 @@ export const ALL_PUZZLES: Puzzle[] = [
     ],
   },
   {
-    id: 'bush', name: 'Bamboo Bush', icon: 'tree', difficulty: 'medium',
+    id: 'bush', name: 'Topiary', icon: 'tree', difficulty: 'medium',
     width: 10, height: 10,
     grid: [
       '..GGGGGG..', '.GGGGGGGG.', 'GGGGGGGGGG', 'GGGGGGGGGG', 'GGGGGGGGGG',
@@ -330,7 +330,7 @@ export const ALL_PUZZLES: Puzzle[] = [
     ],
   },
   {
-    id: 'big-gift', name: 'Big Gift', icon: 'gift', difficulty: 'medium',
+    id: 'big-gift', name: 'Music Box', icon: 'gift', difficulty: 'medium',
     width: 10, height: 10,
     grid: [
       'PPPPPPPPPP', 'P........P', 'P........P', 'P........P', 'P........P',
@@ -356,7 +356,7 @@ export const ALL_PUZZLES: Puzzle[] = [
 
   // ----- Misty Lake (hard) -----
   {
-    id: 'big-ruby', name: 'Big Ruby', icon: 'heart', difficulty: 'hard',
+    id: 'big-ruby', name: 'Ruby', icon: 'heart', difficulty: 'hard',
     width: 10, height: 10,
     grid: [
       '.RR..RR...', 'RRRRRRRR..', 'RRRRRRRR..', 'RRRRRRRR..', '.RRRRRRR..',
@@ -390,7 +390,7 @@ export const ALL_PUZZLES: Puzzle[] = [
 
   // ----- Golden Summit (hard/expert) -----
   {
-    id: 'compass', name: 'Compass', icon: 'star', difficulty: 'hard',
+    id: 'compass', name: 'North Star', icon: 'star', difficulty: 'hard',
     width: 10, height: 10,
     grid: [
       '....OO....', '....OO....', '....OO....', '....OO....', 'OOOOOOOOOO',
@@ -421,12 +421,12 @@ export const ALL_PUZZLES: Puzzle[] = [
 
   // ----- Crystal Cove (easy) -----
   {
-    id: 'water-drop', name: 'Water Drop', icon: 'wave', difficulty: 'easy',
+    id: 'water-drop', name: 'Raindrop', icon: 'wave', difficulty: 'easy',
     width: 5, height: 5,
     grid: ['..B..', '.BBB.', 'BBBBB', '.BBB.', '..B..'],
   },
   {
-    id: 'tiny-sun', name: 'Little Sun', icon: 'sun', difficulty: 'easy',
+    id: 'tiny-sun', name: 'Marigold', icon: 'sun', difficulty: 'easy',
     width: 5, height: 5,
     grid: ['.OOO.', 'OOOOO', 'OOOOO', 'OOOOO', '.OOO.'],
   },
@@ -441,14 +441,14 @@ export const ALL_PUZZLES: Puzzle[] = [
     grid: ['.G.G.', 'GGGGG', 'GGGGG', '.GGG.', '..G..'],
   },
   {
-    id: 'amber-gem', name: 'Amber Gem', icon: 'gem', difficulty: 'easy',
+    id: 'amber-gem', name: 'Honey Drop', icon: 'gem', difficulty: 'easy',
     width: 5, height: 5,
     grid: ['..O..', '.OOO.', 'OOOOO', '.OOO.', '..O..'],
   },
 
   // ----- Cloud Summit (medium/hard) -----
   {
-    id: 'moss-block', name: 'Moss Cube', icon: 'tree', difficulty: 'medium',
+    id: 'moss-block', name: 'Mossy Boulder', icon: 'tree', difficulty: 'medium',
     width: 10, height: 10,
     grid: [
       '..DDDDDD..', '.DDDDDDDD.', 'DDDDDDDDDD', 'DDDDDDDDDD', 'DDDDDDDDDD',
@@ -456,7 +456,7 @@ export const ALL_PUZZLES: Puzzle[] = [
     ],
   },
   {
-    id: 'rose-border', name: 'Rose Frame', icon: 'gift', difficulty: 'medium',
+    id: 'rose-border', name: 'Picture Frame', icon: 'gift', difficulty: 'medium',
     width: 10, height: 10,
     grid: [
       'PPPPPPPPPP', 'P........P', 'P........P', 'P........P', 'P........P',
@@ -464,7 +464,7 @@ export const ALL_PUZZLES: Puzzle[] = [
     ],
   },
   {
-    id: 'silver-cross', name: 'Silver Cross', icon: 'star', difficulty: 'hard',
+    id: 'silver-cross', name: 'Weathervane', icon: 'star', difficulty: 'hard',
     width: 10, height: 10,
     grid: [
       '....SS....', '....SS....', '....SS....', '....SS....', 'SSSSSSSSSS',
@@ -495,7 +495,7 @@ export const ALL_PUZZLES: Puzzle[] = [
     width: 5, height: 5, grid: ['..G..', '.GGG.', 'GGGGG', '.GGG.', '..G..'] },
   { id: 'grape-crystal', name: 'Grape Crystal', icon: 'gem', difficulty: 'easy',
     width: 5, height: 5, grid: ['..U..', '.UUU.', 'UUUUU', '.UUU.', '..U..'] },
-  { id: 'big-emerald', name: 'Big Emerald', icon: 'gem', difficulty: 'medium',
+  { id: 'big-emerald', name: 'Emerald Shard', icon: 'gem', difficulty: 'medium',
     width: 10, height: 10, grid: [
       '....GG....', '...GGGG...', '..GGGGGG..', '.GGGGGGGG.', 'GGGGGGGGGG',
       'GGGGGGGGGG', '.GGGGGGGG.', '..GGGGGG..', '...GGGG...', '....GG....'] },
@@ -509,13 +509,13 @@ export const ALL_PUZZLES: Puzzle[] = [
       '..UUUUU...', '...UUU....', '....U.....', '..........', '..........'] },
 
   // ===== Sky Harbor =====
-  { id: 'sky-stone', name: 'Sky Stone', icon: 'cloud', difficulty: 'easy',
+  { id: 'sky-stone', name: 'River Pebble', icon: 'cloud', difficulty: 'easy',
     width: 5, height: 5, grid: ['.BBB.', 'BBBBB', 'BBBBB', 'BBBBB', '.BBB.'] },
-  { id: 'blue-plus', name: 'Blue Plus', icon: 'star', difficulty: 'easy',
+  { id: 'blue-plus', name: 'Windmill', icon: 'star', difficulty: 'easy',
     width: 5, height: 5, grid: ['..B..', '..B..', 'BBBBB', '..B..', '..B..'] },
   { id: 'blue-heart', name: 'Blue Heart', icon: 'heart', difficulty: 'easy',
     width: 5, height: 5, grid: ['.B.B.', 'BBBBB', 'BBBBB', '.BBB.', '..B..'] },
-  { id: 'ice-frame', name: 'Ice Frame', icon: 'cloud', difficulty: 'medium',
+  { id: 'ice-frame', name: 'Fish Tank', icon: 'cloud', difficulty: 'medium',
     width: 10, height: 10, grid: [
       'BBBBBBBBBB', 'B........B', 'B........B', 'B........B', 'B........B',
       'B........B', 'B........B', 'B........B', 'B........B', 'BBBBBBBBBB'] },
@@ -531,17 +531,17 @@ export const ALL_PUZZLES: Puzzle[] = [
   // ===== Meadow Trail =====
   { id: 'cocoa-egg', name: 'Cocoa Egg', icon: 'egg', difficulty: 'easy',
     width: 5, height: 5, grid: ['.NNN.', 'NNNNN', 'NNNNN', 'NNNNN', '.NNN.'] },
-  { id: 'gold-frame', name: 'Gold Frame', icon: 'gift', difficulty: 'easy',
+  { id: 'gold-frame', name: 'Sun Catcher', icon: 'gift', difficulty: 'easy',
     width: 5, height: 5, grid: ['YYYYY', 'Y...Y', 'Y...Y', 'Y...Y', 'YYYYY'] },
-  { id: 'orange-sphere', name: 'Orange Sphere', icon: 'sun', difficulty: 'medium',
+  { id: 'orange-sphere', name: 'Peach', icon: 'sun', difficulty: 'medium',
     width: 10, height: 10, grid: [
       '..OOOOOO..', '.OOOOOOOO.', 'OOOOOOOOOO', 'OOOOOOOOOO', 'OOOOOOOOOO',
       'OOOOOOOOOO', 'OOOOOOOOOO', 'OOOOOOOOOO', '.OOOOOOOO.', '..OOOOOO..'] },
-  { id: 'green-cross', name: 'Green Cross', icon: 'tree', difficulty: 'hard',
+  { id: 'green-cross', name: 'Hedge Maze', icon: 'tree', difficulty: 'hard',
     width: 10, height: 10, grid: [
       '....GG....', '....GG....', '....GG....', '....GG....', 'GGGGGGGGGG',
       'GGGGGGGGGG', '....GG....', '....GG....', '....GG....', '....GG....'] },
-  { id: 'hedge', name: 'Hedge', icon: 'tree', difficulty: 'hard',
+  { id: 'hedge', name: 'Garden Wall', icon: 'tree', difficulty: 'hard',
     width: 10, height: 10, grid: [
       'GGGGGGGGGG', 'G........G', 'G........G', 'G........G', 'G........G',
       'G........G', 'G........G', 'G........G', 'G........G', 'GGGGGGGGGG'] },
@@ -563,15 +563,15 @@ export const ALL_PUZZLES: Puzzle[] = [
     width: 10, height: 10, grid: [
       '..........', '...GGGG...', '..GGGGGG.G', '.GGGGGGGGG', '.GGGGGGGGG',
       '.GGGGGGGGG', '..GGGGGG.G', '...GGGG...', '..........', '..........'] },
-  { id: 'pink-sphere', name: 'Pink Sphere', icon: 'heart', difficulty: 'hard',
+  { id: 'pink-sphere', name: 'Bubblegum', icon: 'heart', difficulty: 'hard',
     width: 10, height: 10, grid: [
       '..PPPPPP..', '.PPPPPPPP.', 'PPPPPPPPPP', 'PPPPPPPPPP', 'PPPPPPPPPP',
       'PPPPPPPPPP', 'PPPPPPPPPP', 'PPPPPPPPPP', '.PPPPPPPP.', '..PPPPPP..'] },
-  { id: 'sun-cross', name: 'Sun Cross', icon: 'sun', difficulty: 'hard',
+  { id: 'sun-cross', name: 'Compass Rose', icon: 'sun', difficulty: 'hard',
     width: 10, height: 10, grid: [
       '....YY....', '....YY....', '....YY....', '....YY....', 'YYYYYYYYYY',
       'YYYYYYYYYY', '....YY....', '....YY....', '....YY....', '....YY....'] },
-  { id: 'ruby-frame', name: 'Ruby Frame', icon: 'gift', difficulty: 'hard',
+  { id: 'ruby-frame', name: 'Shadow Box', icon: 'gift', difficulty: 'hard',
     width: 10, height: 10, grid: [
       'RRRRRRRRRR', 'R........R', 'R........R', 'R........R', 'R........R',
       'R........R', 'R........R', 'R........R', 'R........R', 'RRRRRRRRRR'] },
@@ -597,6 +597,80 @@ export const ALL_PUZZLES: Puzzle[] = [
     width: 5, height: 5, grid: ['.PPP.', 'PPPPP', 'PPPPP', 'PPPPP', '.PPP.'] },
   { id: 'sunny-day', name: 'Sunny Day', icon: 'sun', difficulty: 'easy', event: true,
     width: 5, height: 5, grid: ['..Y..', '.YYY.', 'YYYYY', '.YYY.', '..Y..'] },
+
+  // ===== Field Guide (hand-drawn pictures) =====
+  {
+    id: 'mushroom', name: 'Toadstool', icon: 'mushroom', difficulty: 'medium',
+    width: 8, height: 8,
+    grid: [
+      '..RRRR..',
+      '.RRWRRR.',
+      'RRRRRWRR',
+      'RRRRRRRR',
+      '.WWWWWW.',
+      '..WWWW..',
+      '..WWWW..',
+      '..WWWW..',
+    ],
+  },
+  {
+    id: 'strawberry', name: 'Strawberry', icon: 'strawberry', difficulty: 'medium',
+    width: 8, height: 8,
+    grid: [
+      '.GGGGGG.',
+      '..RRRR..',
+      '.RYRRYR.',
+      'RRRRRRRR',
+      'RYRRRYRR',
+      '.RRRRRR.',
+      '..RYRR..',
+      '...RR...',
+    ],
+  },
+  {
+    id: 'ice-cream', name: 'Ice Cream', icon: 'icecream', difficulty: 'medium',
+    width: 6, height: 8,
+    grid: [
+      '.PPPP.',
+      'PPPPPP',
+      'PPPPPP',
+      'NNNNNN',
+      '.NNNN.',
+      '.NNNN.',
+      '..NN..',
+      '..NN..',
+    ],
+  },
+  {
+    id: 'balloon', name: 'Balloon', icon: 'balloon', difficulty: 'medium',
+    width: 8, height: 10,
+    grid: [
+      '..PPPP..',
+      '.PPPPPP.',
+      '.PPPPPP.',
+      '.PPPPPP.',
+      '..PPPP..',
+      '...P....',
+      '...K....',
+      '...K....',
+      '...K....',
+      '...K....',
+    ],
+  },
+  {
+    id: 'sailboat', name: 'Little Boat', icon: 'sailboat', difficulty: 'hard',
+    width: 8, height: 8,
+    grid: [
+      '...W....',
+      '...WW...',
+      '...WWW..',
+      '...WWWW.',
+      '...W....',
+      'RRRRRRRR',
+      '.RRRRRR.',
+      '..RRRR..',
+    ],
+  },
 ];
 
 /** Puzzles used for the deterministic daily rotation (excludes event-only art). */
