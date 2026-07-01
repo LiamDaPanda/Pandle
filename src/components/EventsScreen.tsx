@@ -1,6 +1,6 @@
 import { activeEvents, EVENTS, GameEvent } from '../data/events';
 import { puzzleById } from '../data/puzzles';
-import { Progress } from '../state/progress';
+import { Progress, eventProgress } from '../state/progress';
 import { cosmeticById } from '../data/cosmetics';
 import { Icon } from './Icon';
 
@@ -22,6 +22,8 @@ function EventCard({
   onPlay: (puzzleId: string) => void;
 }) {
   const rewards = event.rewardCosmetics.map((id) => cosmeticById(id)).filter(Boolean);
+  const prog = eventProgress(progress, event);
+  const earned = progress.claimedEvents.includes(event.id);
   return (
     <section className={`event-card ${live ? 'live' : 'ended'}`}>
       <div className="event-head">
@@ -34,30 +36,42 @@ function EventCard({
         </div>
         <span className={`event-badge ${live ? 'on' : ''}`}>{live ? 'LIVE' : 'Ended'}</span>
       </div>
+
+      <div className="event-progress">
+        <div className="event-bar">
+          <span style={{ width: `${(prog.done / prog.total) * 100}%` }} />
+        </div>
+        <span className="event-count">
+          {prog.done}/{prog.total}
+        </span>
+      </div>
+
       <div className="event-puzzles">
         {event.puzzleIds.map((pid) => {
           const puzzle = puzzleById(pid);
           if (!puzzle) return null;
+          const done = progress.solvedPuzzles.includes(pid);
           return (
             <button
               key={pid}
-              className="event-puzzle"
+              className={`event-puzzle ${done ? 'done' : ''}`}
               disabled={!live}
               onClick={() => onPlay(pid)}
             >
-              <Icon name={puzzle.icon} /> {puzzle.name}
+              <Icon name={done ? 'star' : puzzle.icon} /> {puzzle.name}
             </button>
           );
         })}
       </div>
-      <p className="event-reward">
-        Reward:{' '}
+
+      <p className={`event-reward ${earned ? 'earned' : ''}`}>
+        <span className="reward-label">{earned ? 'Earned:' : 'Exclusive reward:'}</span>{' '}
         {rewards.map((c) => (
           <span key={c!.id} className="reward-item">
             <Icon name={c!.icon} /> {c!.name}
           </span>
         ))}
-        {progress.claimedEvents.includes(event.id) && ' (owned)'}
+        {earned && <Icon name="star" />}
       </p>
     </section>
   );

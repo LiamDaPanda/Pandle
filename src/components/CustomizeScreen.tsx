@@ -47,6 +47,10 @@ function Item({
         >
           {equipped ? 'Equipped' : 'Equip'}
         </button>
+      ) : cosmetic.exclusive ? (
+        <span className="shop-locked">
+          <Icon name="lock" /> Event
+        </span>
       ) : (
         <button
           className="btn btn-small btn-primary"

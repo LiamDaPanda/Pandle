@@ -6,7 +6,7 @@ import { levelById, ALL_LEVELS, levelIndex } from './data/levels';
 import { eventById } from './data/events';
 import { activeEvents } from './data/events';
 import { tokenFor, particleStyle } from './data/cosmetics';
-import { loadProgress, saveProgress, completeLevel, claimEventRewards, Progress } from './state/progress';
+import { loadProgress, saveProgress, completeLevel, markSolved, Progress } from './state/progress';
 import { loadStats, recordDailyWin, saveStats, Stats } from './state/stats';
 import { loadSettings, saveSettings, prefersReducedMotion, Settings } from './state/settings';
 import { loadRaw, save } from './state/storage';
@@ -131,6 +131,7 @@ export default function App() {
             save(`daily:${today}`, { marks: [], solved: true, timeMs } as DailySave);
             const next = recordDailyWin(timeMs);
             setStats(next);
+            setProgress((p) => markSolved(p, puzzle.id));
             return { streak: next.streak, puzzleNumber: num };
           }}
           onHome={goHome}
@@ -158,7 +159,7 @@ export default function App() {
           subtitle={`Level ${idx + 1}`}
           onSolved={(timeMs): RevealInfo => {
             const result = completeLevel(progress, level, timeMs);
-            setProgress(result.progress);
+            setProgress(markSolved(result.progress, puzzle.id));
             return { stars: result.stars, bambooEarned: result.bambooEarned };
           }}
           onHome={goHome}
@@ -185,12 +186,11 @@ export default function App() {
           onSpendBamboo={spendBamboo}
           subtitle={event.name}
           onSolved={(): RevealInfo => {
-            const already = progress.claimedEvents.includes(event.id);
             setProgress((p) => {
-              const withReward = claimEventRewards(p, event.id, event.rewardCosmetics);
-              return { ...withReward, bamboo: withReward.bamboo + 15 };
+              const m = markSolved(p, puzzle.id);
+              return { ...m, bamboo: m.bamboo + 15 };
             });
-            return { bambooEarned: already ? 15 : 15 };
+            return { bambooEarned: 15 };
           }}
           onHome={goHome}
         />
@@ -213,7 +213,10 @@ export default function App() {
         onSpendBamboo={spendBamboo}
         subtitle="Practice"
         onSolved={(): RevealInfo => {
-          setProgress((p) => ({ ...p, bamboo: p.bamboo + 5 }));
+          setProgress((p) => {
+            const m = markSolved(p, puzzle.id);
+            return { ...m, bamboo: m.bamboo + 5 };
+          });
           return { bambooEarned: 5 };
         }}
         onHome={goHome}

@@ -30,6 +30,8 @@ export interface Cosmetic {
   /** For skins: the mascot art (home + celebration) and the board fill token. */
   mascot?: IconName;
   token?: IconName;
+  /** Exclusive cosmetics can only be earned from events (never bought). */
+  exclusive?: boolean;
 }
 
 export const THEMES: Cosmetic[] = [
@@ -135,6 +137,24 @@ export const THEMES: Cosmetic[] = [
       '--cell-fill': '#4d5f31',
     },
   },
+  {
+    id: 'theme-galaxy',
+    kind: 'theme',
+    name: 'Galaxy',
+    icon: 'planet',
+    cost: 0,
+    exclusive: true,
+    theme: {
+      '--bg': '#14122b',
+      '--surface': '#221f45',
+      '--ink': '#eae6ff',
+      '--accent': '#a78bfa',
+      '--accent-soft': '#2f2a5c',
+      '--grid-line': '#3a3568',
+      '--cell-empty': '#1b1838',
+      '--cell-fill': '#eae6ff',
+    },
+  },
 ];
 
 export const EFFECTS: Cosmetic[] = [
@@ -192,6 +212,16 @@ export const EFFECTS: Cosmetic[] = [
     particleColors: ['#ff8fab', '#ffb3c6', '#ffd6e0'],
     particleShape: 'heart',
   },
+  {
+    id: 'effect-fireworks',
+    kind: 'effect',
+    name: 'Fireworks',
+    icon: 'fireworks',
+    cost: 0,
+    exclusive: true,
+    particleColors: ['#ff6b6b', '#ffd166', '#6bcb77', '#4d96ff', '#c780e8', '#ff9fb6'],
+    particleShape: 'star',
+  },
 ];
 
 export const SKINS: Cosmetic[] = [
@@ -200,6 +230,8 @@ export const SKINS: Cosmetic[] = [
   { id: 'skin-koala', kind: 'skin', name: 'Koala Buddy', icon: 'koala', cost: 45, mascot: 'koala', token: 'koala-token' },
   { id: 'skin-polar', kind: 'skin', name: 'Polar Bear', icon: 'polar-bear', cost: 65, mascot: 'polar-bear', token: 'polar-token' },
   { id: 'skin-brown', kind: 'skin', name: 'Brown Bear', icon: 'brown-bear', cost: 65, mascot: 'brown-bear', token: 'brown-token' },
+  { id: 'skin-tiger', kind: 'skin', name: 'Tiger', icon: 'tiger', cost: 0, exclusive: true, mascot: 'tiger', token: 'tiger-token' },
+  { id: 'skin-ninja', kind: 'skin', name: 'Ninja Panda', icon: 'ninja', cost: 0, exclusive: true, mascot: 'ninja', token: 'ninja-token' },
 ];
 
 export const ALL_COSMETICS: Cosmetic[] = [...THEMES, ...EFFECTS, ...SKINS];
@@ -215,7 +247,7 @@ export function cosmeticById(id: string): Cosmetic | undefined {
 }
 
 export function defaultOwned(): string[] {
-  return ALL_COSMETICS.filter((c) => c.cost === 0).map((c) => c.id);
+  return ALL_COSMETICS.filter((c) => c.cost === 0 && !c.exclusive).map((c) => c.id);
 }
 
 /** The board fill token for an equipped skin id. */

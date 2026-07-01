@@ -125,6 +125,58 @@ export const CHAPTERS: Chapter[] = [
       { id: 'cs-5', puzzleId: 'aqua-diamond', targetMs: 240000, rewardBamboo: 50 },
     ],
   },
+  {
+    id: 'jewel-cavern',
+    name: 'Jewel Cavern',
+    icon: 'gem',
+    levels: [
+      { id: 'jc-1', puzzleId: 'rose-crystal', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'jc-2', puzzleId: 'emerald', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'jc-3', puzzleId: 'grape-crystal', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'jc-4', puzzleId: 'big-emerald', targetMs: 200000, rewardBamboo: 40 },
+      { id: 'jc-5', puzzleId: 'amethyst', targetMs: 200000, rewardBamboo: 40 },
+      { id: 'jc-6', puzzleId: 'violet-heart', targetMs: 230000, rewardBamboo: 50 },
+    ],
+  },
+  {
+    id: 'sky-harbor',
+    name: 'Sky Harbor',
+    icon: 'cloud',
+    levels: [
+      { id: 'sh-1', puzzleId: 'sky-stone', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'sh-2', puzzleId: 'blue-plus', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'sh-3', puzzleId: 'blue-heart', targetMs: 75000, rewardBamboo: 25 },
+      { id: 'sh-4', puzzleId: 'ice-frame', targetMs: 200000, rewardBamboo: 40 },
+      { id: 'sh-5', puzzleId: 'blue-ghost', targetMs: 210000, rewardBamboo: 45 },
+      { id: 'sh-6', puzzleId: 'ice-cube', targetMs: 230000, rewardBamboo: 50 },
+    ],
+  },
+  {
+    id: 'meadow-trail',
+    name: 'Meadow Trail',
+    icon: 'tree',
+    levels: [
+      { id: 'mt-1', puzzleId: 'cocoa-egg', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'mt-2', puzzleId: 'gold-frame', targetMs: 75000, rewardBamboo: 25 },
+      { id: 'mt-3', puzzleId: 'orange-sphere', targetMs: 200000, rewardBamboo: 40 },
+      { id: 'mt-4', puzzleId: 'green-cross', targetMs: 220000, rewardBamboo: 45 },
+      { id: 'mt-5', puzzleId: 'hedge', targetMs: 220000, rewardBamboo: 45 },
+      { id: 'mt-6', puzzleId: 'topaz', targetMs: 230000, rewardBamboo: 50 },
+    ],
+  },
+  {
+    id: 'critter-cove',
+    name: 'Critter Cove',
+    icon: 'cat',
+    levels: [
+      { id: 'cv-1', puzzleId: 'tabby', targetMs: 200000, rewardBamboo: 40 },
+      { id: 'cv-2', puzzleId: 'white-duck', targetMs: 200000, rewardBamboo: 40 },
+      { id: 'cv-3', puzzleId: 'green-fish', targetMs: 200000, rewardBamboo: 40 },
+      { id: 'cv-4', puzzleId: 'pink-sphere', targetMs: 220000, rewardBamboo: 45 },
+      { id: 'cv-5', puzzleId: 'sun-cross', targetMs: 230000, rewardBamboo: 50 },
+      { id: 'cv-6', puzzleId: 'ruby-frame', targetMs: 230000, rewardBamboo: 50 },
+    ],
+  },
 ];
 
 /** Flat ordered list of levels across all chapters. */

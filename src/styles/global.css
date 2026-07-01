@@ -625,6 +625,56 @@ body {
   font-size: 0.85rem;
   opacity: 0.8;
 }
+.event-reward.earned {
+  color: var(--accent);
+  opacity: 1;
+  font-weight: 600;
+}
+.reward-label {
+  opacity: 0.7;
+}
+.reward-item {
+  margin-right: 8px;
+  white-space: nowrap;
+}
+.event-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+.event-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--accent-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.event-bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+.event-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+.event-puzzle.done {
+  background: var(--accent);
+  color: #fff;
+}
+.shop-locked {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.7;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+}
 
 /* ---------- shop / customize ---------- */
 .shop-group {

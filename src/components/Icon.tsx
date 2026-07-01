@@ -12,9 +12,11 @@ export type IconName =
   // characters
   | 'panda' | 'panda-sleepy' | 'panda-hug' | 'koala' | 'red-panda'
   | 'polar-bear' | 'brown-bear' | 'sun' | 'wave'
+  | 'tiger' | 'ninja' | 'fireworks' | 'planet'
   // board tokens
   | 'panda-token' | 'bamboo-token'
-  | 'red-panda-token' | 'koala-token' | 'polar-token' | 'brown-token';
+  | 'red-panda-token' | 'koala-token' | 'polar-token' | 'brown-token'
+  | 'tiger-token' | 'ninja-token';
 
 // palette
 const K = '#2b2b2b'; // black
@@ -28,6 +30,7 @@ const B = '#8ecae6'; // blue
 const GR = '#b8bfc7'; // grey
 const S = '#aab2ba'; // slate grey (koala)
 const N = '#c98a5e'; // brown (bear)
+const R = '#e8615a'; // red (ninja band)
 
 /** Reusable panda face centred in a 24x24 box. */
 function pandaFace(sleepy = false) {
@@ -94,6 +97,43 @@ function critter({ face, ear, nose, eye = K, innerEar, muzzle, patch }: Critter)
         </>
       )}
       <ellipse cx="12" cy="16.3" rx="1.6" ry="1.2" fill={nose} />
+    </>
+  );
+}
+
+/** Tiger face token (orange with stripes) in a 24x24 box. */
+function tigerFace() {
+  return (
+    <>
+      <circle cx="6" cy="6.5" r="3.2" fill={O} />
+      <circle cx="18" cy="6.5" r="3.2" fill={O} />
+      <circle cx="6" cy="6.8" r="1.4" fill={K} />
+      <circle cx="18" cy="6.8" r="1.4" fill={K} />
+      <circle cx="12" cy="13" r="8.4" fill={O} />
+      <ellipse cx="12" cy="15.5" rx="4.4" ry="3.4" fill={W} />
+      <path d="M4.5 10.5l1.4 2M6 8l1 2.4M19.5 10.5l-1.4 2M18 8l-1 2.4" stroke={K} strokeWidth="1.1" strokeLinecap="round" />
+      <circle cx="8.7" cy="12" r="1.3" fill={K} />
+      <circle cx="15.3" cy="12" r="1.3" fill={K} />
+      <ellipse cx="12" cy="16.2" rx="1.5" ry="1.1" fill={K} />
+    </>
+  );
+}
+
+/** Panda face wearing a red ninja headband. */
+function ninjaFace() {
+  return (
+    <>
+      <circle cx="6" cy="6.5" r="3.2" fill={K} />
+      <circle cx="18" cy="6.5" r="3.2" fill={K} />
+      <circle cx="12" cy="13" r="8.4" fill={W} />
+      <ellipse cx="8.4" cy="14.5" rx="1.9" ry="2.3" fill={K} />
+      <ellipse cx="15.6" cy="14.5" rx="1.9" ry="2.3" fill={K} />
+      <circle cx="8.7" cy="15" r="0.6" fill={W} />
+      <circle cx="15.9" cy="15" r="0.6" fill={W} />
+      <ellipse cx="12" cy="18" rx="1.4" ry="1" fill={K} />
+      <rect x="2.5" y="9.5" width="19" height="2.8" fill={R} />
+      <path d="M21.5 9.5l3 -1v6l-3 -1.5z" fill={R} />
+      <circle cx="12" cy="10.9" r="1" fill={W} />
     </>
   );
 }
@@ -398,6 +438,29 @@ const ICONS: Record<IconName, ReactNode> = {
     <>
       <path d="M2 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0v11H2z" fill={B} />
       <path d="M2 13c2-2 4-2 6 0s4 2 6 0 4-2 6 0" fill="none" stroke="#5fa8d3" strokeWidth="1.4" />
+    </>
+  ),
+  tiger: tigerFace(),
+  'tiger-token': tigerFace(),
+  ninja: ninjaFace(),
+  'ninja-token': ninjaFace(),
+  fireworks: (
+    <>
+      <circle cx="12" cy="12" r="1.6" fill={Y} />
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((a, i) => (
+        <g key={a} transform={`rotate(${a} 12 12)`}>
+          <rect x="11.4" y="3" width="1.2" height="5" rx="0.6" fill={[P, B, Y, O, G][i % 5]} />
+          <circle cx="12" cy="3" r="1.1" fill={[P, B, Y, O, G][i % 5]} />
+        </g>
+      ))}
+    </>
+  ),
+  planet: (
+    <>
+      <circle cx="11" cy="11" r="6.5" fill="#a78bfa" />
+      <circle cx="8.6" cy="9" r="1.6" fill="#c4b5fd" />
+      <circle cx="13" cy="13" r="1" fill="#8b6ff0" />
+      <ellipse cx="11" cy="12" rx="10" ry="3.2" fill="none" stroke="#ffd66b" strokeWidth="1.6" transform="rotate(-20 11 12)" />
     </>
   ),
 };

@@ -487,15 +487,126 @@ export const ALL_PUZZLES: Puzzle[] = [
       'BBBBBBBBBB', '.BBBBBBBB.', '..BBBBBB..', '...BBBB...', '....BB....',
     ],
   },
+
+  // ===== Jewel Cavern (easy/mixed) =====
+  { id: 'rose-crystal', name: 'Rose Crystal', icon: 'gem', difficulty: 'easy',
+    width: 5, height: 5, grid: ['..P..', '.PPP.', 'PPPPP', '.PPP.', '..P..'] },
+  { id: 'emerald', name: 'Emerald', icon: 'gem', difficulty: 'easy',
+    width: 5, height: 5, grid: ['..G..', '.GGG.', 'GGGGG', '.GGG.', '..G..'] },
+  { id: 'grape-crystal', name: 'Grape Crystal', icon: 'gem', difficulty: 'easy',
+    width: 5, height: 5, grid: ['..U..', '.UUU.', 'UUUUU', '.UUU.', '..U..'] },
+  { id: 'big-emerald', name: 'Big Emerald', icon: 'gem', difficulty: 'medium',
+    width: 10, height: 10, grid: [
+      '....GG....', '...GGGG...', '..GGGGGG..', '.GGGGGGGG.', 'GGGGGGGGGG',
+      'GGGGGGGGGG', '.GGGGGGGG.', '..GGGGGG..', '...GGGG...', '....GG....'] },
+  { id: 'amethyst', name: 'Amethyst', icon: 'gem', difficulty: 'medium',
+    width: 10, height: 10, grid: [
+      '....UU....', '...UUUU...', '..UUUUUU..', '.UUUUUUUU.', 'UUUUUUUUUU',
+      'UUUUUUUUUU', '.UUUUUUUU.', '..UUUUUU..', '...UUUU...', '....UU....'] },
+  { id: 'violet-heart', name: 'Violet Heart', icon: 'heart', difficulty: 'hard',
+    width: 10, height: 10, grid: [
+      '.UU..UU...', 'UUUUUUUU..', 'UUUUUUUU..', 'UUUUUUUU..', '.UUUUUUU..',
+      '..UUUUU...', '...UUU....', '....U.....', '..........', '..........'] },
+
+  // ===== Sky Harbor =====
+  { id: 'sky-stone', name: 'Sky Stone', icon: 'cloud', difficulty: 'easy',
+    width: 5, height: 5, grid: ['.BBB.', 'BBBBB', 'BBBBB', 'BBBBB', '.BBB.'] },
+  { id: 'blue-plus', name: 'Blue Plus', icon: 'star', difficulty: 'easy',
+    width: 5, height: 5, grid: ['..B..', '..B..', 'BBBBB', '..B..', '..B..'] },
+  { id: 'blue-heart', name: 'Blue Heart', icon: 'heart', difficulty: 'easy',
+    width: 5, height: 5, grid: ['.B.B.', 'BBBBB', 'BBBBB', '.BBB.', '..B..'] },
+  { id: 'ice-frame', name: 'Ice Frame', icon: 'cloud', difficulty: 'medium',
+    width: 10, height: 10, grid: [
+      'BBBBBBBBBB', 'B........B', 'B........B', 'B........B', 'B........B',
+      'B........B', 'B........B', 'B........B', 'B........B', 'BBBBBBBBBB'] },
+  { id: 'blue-ghost', name: 'Blue Ghost', icon: 'ghost', difficulty: 'medium',
+    width: 10, height: 10, grid: [
+      '...BBBB...', '..BBBBBB..', '.BBBBBBBB.', '.BBBBBBBB.', '.BKBBBBKB.',
+      '.BKBBBBKB.', '.BBBBBBBB.', '.BBBBBBBB.', '.BBBBBBBB.', '.BBBBBBBB.'] },
+  { id: 'ice-cube', name: 'Ice Cube', icon: 'cloud', difficulty: 'hard',
+    width: 10, height: 10, grid: [
+      '..BBBBBB..', '.BBBBBBBB.', 'BBBBBBBBBB', 'BBBBBBBBBB', 'BBBBBBBBBB',
+      'BBBBBBBBBB', 'BBBBBBBBBB', 'BBBBBBBBBB', '.BBBBBBBB.', '..BBBBBB..'] },
+
+  // ===== Meadow Trail =====
+  { id: 'cocoa-egg', name: 'Cocoa Egg', icon: 'egg', difficulty: 'easy',
+    width: 5, height: 5, grid: ['.NNN.', 'NNNNN', 'NNNNN', 'NNNNN', '.NNN.'] },
+  { id: 'gold-frame', name: 'Gold Frame', icon: 'gift', difficulty: 'easy',
+    width: 5, height: 5, grid: ['YYYYY', 'Y...Y', 'Y...Y', 'Y...Y', 'YYYYY'] },
+  { id: 'orange-sphere', name: 'Orange Sphere', icon: 'sun', difficulty: 'medium',
+    width: 10, height: 10, grid: [
+      '..OOOOOO..', '.OOOOOOOO.', 'OOOOOOOOOO', 'OOOOOOOOOO', 'OOOOOOOOOO',
+      'OOOOOOOOOO', 'OOOOOOOOOO', 'OOOOOOOOOO', '.OOOOOOOO.', '..OOOOOO..'] },
+  { id: 'green-cross', name: 'Green Cross', icon: 'tree', difficulty: 'hard',
+    width: 10, height: 10, grid: [
+      '....GG....', '....GG....', '....GG....', '....GG....', 'GGGGGGGGGG',
+      'GGGGGGGGGG', '....GG....', '....GG....', '....GG....', '....GG....'] },
+  { id: 'hedge', name: 'Hedge', icon: 'tree', difficulty: 'hard',
+    width: 10, height: 10, grid: [
+      'GGGGGGGGGG', 'G........G', 'G........G', 'G........G', 'G........G',
+      'G........G', 'G........G', 'G........G', 'G........G', 'GGGGGGGGGG'] },
+  { id: 'topaz', name: 'Topaz', icon: 'sun', difficulty: 'hard',
+    width: 10, height: 10, grid: [
+      '....OO....', '...OOOO...', '..OOOOOO..', '.OOOOOOOO.', 'OOOOOOOOOO',
+      'OOOOOOOOOO', '.OOOOOOOO.', '..OOOOOO..', '...OOOO...', '....OO....'] },
+
+  // ===== Critter Cove =====
+  { id: 'tabby', name: 'Tabby Cat', icon: 'cat', difficulty: 'medium',
+    width: 10, height: 10, grid: [
+      'NN......NN', 'NNN....NNN', '.NNNNNNNN.', 'NNNNNNNNNN', 'NKNNNNNNKN',
+      'NNNNNNNNNN', 'NNNNNNNNNN', 'NNNNKKNNNN', '.NNNNNNNN.', '..NNNNNN..'] },
+  { id: 'white-duck', name: 'White Duck', icon: 'duck', difficulty: 'medium',
+    width: 10, height: 10, grid: [
+      '..........', '....WWW...', '...WWWWW..', '...WWWWW..', '.WWWWWWW..',
+      'WWWWWWWW..', 'WWWWWWWWW.', 'WWWWWWWW..', '.WWWWWW...', '..........'] },
+  { id: 'green-fish', name: 'Green Fish', icon: 'fish', difficulty: 'medium',
+    width: 10, height: 10, grid: [
+      '..........', '...GGGG...', '..GGGGGG.G', '.GGGGGGGGG', '.GGGGGGGGG',
+      '.GGGGGGGGG', '..GGGGGG.G', '...GGGG...', '..........', '..........'] },
+  { id: 'pink-sphere', name: 'Pink Sphere', icon: 'heart', difficulty: 'hard',
+    width: 10, height: 10, grid: [
+      '..PPPPPP..', '.PPPPPPPP.', 'PPPPPPPPPP', 'PPPPPPPPPP', 'PPPPPPPPPP',
+      'PPPPPPPPPP', 'PPPPPPPPPP', 'PPPPPPPPPP', '.PPPPPPPP.', '..PPPPPP..'] },
+  { id: 'sun-cross', name: 'Sun Cross', icon: 'sun', difficulty: 'hard',
+    width: 10, height: 10, grid: [
+      '....YY....', '....YY....', '....YY....', '....YY....', 'YYYYYYYYYY',
+      'YYYYYYYYYY', '....YY....', '....YY....', '....YY....', '....YY....'] },
+  { id: 'ruby-frame', name: 'Ruby Frame', icon: 'gift', difficulty: 'hard',
+    width: 10, height: 10, grid: [
+      'RRRRRRRRRR', 'R........R', 'R........R', 'R........R', 'R........R',
+      'R........R', 'R........R', 'R........R', 'R........R', 'RRRRRRRRRR'] },
+
+  // ===== Event-exclusive puzzles =====
+  { id: 'jack-o', name: 'Pumpkin', icon: 'sun', difficulty: 'easy', event: true,
+    width: 5, height: 5, grid: ['.OOO.', 'OOOOO', 'OOOOO', 'OOOOO', '.OOO.'] },
+  { id: 'ghostie', name: 'Boo!', icon: 'ghost', difficulty: 'medium', event: true,
+    width: 10, height: 10, grid: [
+      '...WWWW...', '..WWWWWW..', '.WWWWWWWW.', '.WWWWWWWW.', '.WKWWWWKW.',
+      '.WKWWWWKW.', '.WWWWWWWW.', '.WWWWWWWW.', '.WWWWWWWW.', '.WWWWWWWW.'] },
+  { id: 'snowflake', name: 'Snowflake', icon: 'cloud', difficulty: 'easy', event: true,
+    width: 5, height: 5, grid: ['..W..', '..W..', 'WWWWW', '..W..', '..W..'] },
+  { id: 'holly', name: 'Holly', icon: 'leaf', difficulty: 'easy', event: true,
+    width: 5, height: 5, grid: ['..G..', '.GGG.', 'GGGGG', '.GGG.', '..G..'] },
+  { id: 'firecracker', name: 'Firecracker', icon: 'fireworks', difficulty: 'easy', event: true,
+    width: 5, height: 5, grid: ['..R..', '..R..', 'RRRRR', '..R..', '..R..'] },
+  { id: 'starburst', name: 'Starburst', icon: 'fireworks', difficulty: 'hard', event: true,
+    width: 10, height: 10, grid: [
+      '....YY....', '...YYYY...', '..YYYYYY..', '.YYYYYYYY.', 'YYYYYYYYYY',
+      'YYYYYYYYYY', '.YYYYYYYY.', '..YYYYYY..', '...YYYY...', '....YY....'] },
+  { id: 'spring-egg', name: 'Spring Egg', icon: 'egg', difficulty: 'easy', event: true,
+    width: 5, height: 5, grid: ['.PPP.', 'PPPPP', 'PPPPP', 'PPPPP', '.PPP.'] },
+  { id: 'sunny-day', name: 'Sunny Day', icon: 'sun', difficulty: 'easy', event: true,
+    width: 5, height: 5, grid: ['..Y..', '.YYY.', 'YYYYY', '.YYY.', '..Y..'] },
 ];
 
-/** Puzzles used for the deterministic daily rotation. */
-export const DAILY_PUZZLES: Puzzle[] = ALL_PUZZLES;
+/** Puzzles used for the deterministic daily rotation (excludes event-only art). */
+export const DAILY_PUZZLES: Puzzle[] = ALL_PUZZLES.filter((p) => !p.event);
 
 export function puzzleById(id: string): Puzzle | undefined {
   return ALL_PUZZLES.find((p) => p.id === id);
 }
 
+/** Practice pool by difficulty (excludes event-exclusive puzzles). */
 export function puzzlesByDifficulty(d: Puzzle['difficulty']): Puzzle[] {
-  return ALL_PUZZLES.filter((p) => p.difficulty === d);
+  return ALL_PUZZLES.filter((p) => p.difficulty === d && !p.event);
 }

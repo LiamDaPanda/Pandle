@@ -1,6 +1,7 @@
 import { load, save } from './storage';
 import { ALL_LEVELS, Level, levelIndex, starsForTime } from '../data/levels';
 import { DEFAULT_EQUIPPED, cosmeticById, defaultOwned } from '../data/cosmetics';
+import { EVENTS, GameEvent } from '../data/events';
 
 export interface Progress {
   /** levelId -> best star rating earned (1-3). */
@@ -10,6 +11,8 @@ export interface Progress {
   equipped: { theme: string; effect: string; skin: string };
   /** Event ids whose reward has been claimed. */
   claimedEvents: string[];
+  /** Ids of every puzzle the player has ever solved. */
+  solvedPuzzles: string[];
 }
 
 export function defaultProgress(): Progress {
@@ -19,6 +22,7 @@ export function defaultProgress(): Progress {
     ownedCosmetics: defaultOwned(),
     equipped: { ...DEFAULT_EQUIPPED },
     claimedEvents: [],
+    solvedPuzzles: [],
   };
 }
 
@@ -98,4 +102,31 @@ export function claimEventRewards(p: Progress, eventId: string, cosmeticIds: str
 
 export function totalStars(p: Progress): number {
   return Object.values(p.stars).reduce((a, b) => a + b, 0);
+}
+
+/** Per-event completion progress. */
+export function eventProgress(
+  p: Progress,
+  event: GameEvent,
+): { done: number; total: number; complete: boolean } {
+  const done = event.puzzleIds.filter((id) => p.solvedPuzzles.includes(id)).length;
+  const total = event.puzzleIds.length;
+  return { done, total, complete: total > 0 && done === total };
+}
+
+/**
+ * Record a solved puzzle, then auto-claim the rewards of any event whose whole
+ * puzzle set is now complete. Idempotent.
+ */
+export function markSolved(p: Progress, puzzleId: string): Progress {
+  let next = p.solvedPuzzles.includes(puzzleId)
+    ? p
+    : { ...p, solvedPuzzles: [...p.solvedPuzzles, puzzleId] };
+  for (const event of EVENTS) {
+    if (next.claimedEvents.includes(event.id)) continue;
+    if (eventProgress(next, event).complete) {
+      next = claimEventRewards(next, event.id, event.rewardCosmetics);
+    }
+  }
+  return next;
 }

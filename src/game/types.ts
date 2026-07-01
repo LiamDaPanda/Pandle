@@ -16,6 +16,8 @@ export interface Puzzle {
   width: number;
   height: number;
   grid: string[];
+  /** Event-exclusive puzzles are kept out of the daily & practice pools. */
+  event?: boolean;
 }
 
 /** Maps a grid character to a CSS color used when revealing the finished art. */
@@ -31,6 +33,7 @@ export const PALETTE: Record<string, string> = {
   O: '#f0913e', // orange
   R: '#e8615a', // red
   S: '#b8bfc7', // slate / grey
+  U: '#a78bfa', // purple
 };
 
 export const EMPTY = '.';
