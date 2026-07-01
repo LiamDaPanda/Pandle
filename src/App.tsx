@@ -11,6 +11,7 @@ import { loadStats, recordDailyWin, saveStats, Stats } from './state/stats';
 import { loadSettings, saveSettings, prefersReducedMotion, Settings } from './state/settings';
 import { loadRaw, save } from './state/storage';
 import { useTheme } from './hooks/useTheme';
+import { setMuted } from './effects/sound';
 import { GameScreen, RevealInfo } from './components/GameScreen';
 import { HomeScreen, mascotFor } from './components/HomeScreen';
 import { HowToPlay } from './components/HowToPlay';
@@ -63,7 +64,10 @@ export default function App() {
 
   useEffect(() => saveProgress(progress), [progress]);
   useEffect(() => saveStats(stats), [stats]);
-  useEffect(() => saveSettings(settings), [settings]);
+  useEffect(() => {
+    saveSettings(settings);
+    setMuted(settings.muted);
+  }, [settings]);
 
   const effectColors = useMemo(() => {
     const eff = cosmeticById(progress.equipped.effect);
@@ -74,6 +78,9 @@ export default function App() {
   const dailySave = loadRaw<DailySave | null>(`daily:${today}`, null);
   const dailyDone = dailySave?.solved ?? false;
   const mascot = mascotFor(progress.equipped.skin);
+
+  const spendBamboo = (n: number) =>
+    setProgress((p) => ({ ...p, bamboo: Math.max(0, p.bamboo - n) }));
 
   const goHome = () => {
     setSession(null);
@@ -111,6 +118,8 @@ export default function App() {
           mode="daily"
           settings={settings}
           effectColors={effectColors}
+          bamboo={progress.bamboo}
+          onSpendBamboo={spendBamboo}
           subtitle={`Daily #${num}`}
           initialMarks={dailySave?.marks}
           onPersist={(marks, solved) =>
@@ -140,6 +149,8 @@ export default function App() {
           mode="level"
           settings={settings}
           effectColors={effectColors}
+          bamboo={progress.bamboo}
+          onSpendBamboo={spendBamboo}
           subtitle={`Level ${idx + 1}`}
           onSolved={(timeMs): RevealInfo => {
             const result = completeLevel(progress, level, timeMs);
@@ -164,6 +175,8 @@ export default function App() {
           mode="event"
           settings={settings}
           effectColors={effectColors}
+          bamboo={progress.bamboo}
+          onSpendBamboo={spendBamboo}
           subtitle={event.name}
           onSolved={(): RevealInfo => {
             const already = progress.claimedEvents.includes(event.id);
@@ -188,6 +201,8 @@ export default function App() {
         mode="practice"
         settings={settings}
         effectColors={effectColors}
+        bamboo={progress.bamboo}
+        onSpendBamboo={spendBamboo}
         subtitle="Practice"
         onSolved={(): RevealInfo => {
           setProgress((p) => ({ ...p, bamboo: p.bamboo + 5 }));

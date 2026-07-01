@@ -40,6 +40,19 @@ export const CHAPTERS: Chapter[] = [
       { id: 'sp-5', puzzleId: 'bamboo-stalk', targetMs: 240000, rewardBamboo: 40 },
     ],
   },
+  {
+    id: 'panda-party',
+    name: 'Panda Party',
+    emoji: '🎉',
+    levels: [
+      { id: 'pp-1', puzzleId: 'panda-egg', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'pp-2', puzzleId: 'plus-leaf', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'pp-3', puzzleId: 'gift-box', targetMs: 75000, rewardBamboo: 25 },
+      { id: 'pp-4', puzzleId: 'bamboo-gem', targetMs: 75000, rewardBamboo: 25 },
+      { id: 'pp-5', puzzleId: 'panda-hug', targetMs: 210000, rewardBamboo: 45 },
+      { id: 'pp-6', puzzleId: 'crown', targetMs: 240000, rewardBamboo: 50 },
+    ],
+  },
 ];
 
 /** Flat ordered list of levels across all chapters. */

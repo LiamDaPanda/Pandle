@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { GameState, PaintAction } from '../../hooks/useGameState';
+import { tick } from '../../effects/sound';
 import { Cell } from './Cell';
 import { ColClues, RowClues } from './Clues';
 
@@ -35,6 +36,7 @@ export function Board({ game, mode, width, height }: BoardProps) {
     (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
     const action = game.actionFor(pos.x, pos.y, mode);
     dragAction.current = action;
+    tick(action);
     game.paint(pos.x, pos.y, action);
   };
 

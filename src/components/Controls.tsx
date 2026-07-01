@@ -3,10 +3,22 @@ interface ControlsProps {
   onMode: (m: 'fill' | 'cross') => void;
   onUndo: () => void;
   onReset: () => void;
+  onHint: () => void;
+  hintCost: number;
+  canHint: boolean;
   canUndo: boolean;
 }
 
-export function Controls({ mode, onMode, onUndo, onReset, canUndo }: ControlsProps) {
+export function Controls({
+  mode,
+  onMode,
+  onUndo,
+  onReset,
+  onHint,
+  hintCost,
+  canHint,
+  canUndo,
+}: ControlsProps) {
   return (
     <div className="controls">
       <div className="mode-toggle" role="group" aria-label="Paint mode">
@@ -28,6 +40,9 @@ export function Controls({ mode, onMode, onUndo, onReset, canUndo }: ControlsPro
       <div className="control-actions">
         <button className="btn btn-small" onClick={onUndo} disabled={!canUndo}>
           ↩︎ Undo
+        </button>
+        <button className="btn btn-small btn-primary" onClick={onHint} disabled={!canHint}>
+          💡 Hint · 🎋{hintCost}
         </button>
         <button className="btn btn-small btn-ghost" onClick={onReset}>
           Reset

@@ -15,7 +15,7 @@ export interface Progress {
 export function defaultProgress(): Progress {
   return {
     stars: {},
-    bamboo: 0,
+    bamboo: 25,
     ownedCosmetics: defaultOwned(),
     equipped: { ...DEFAULT_EQUIPPED },
     claimedEvents: [],

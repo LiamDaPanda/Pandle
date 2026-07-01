@@ -102,6 +102,14 @@ export function CustomizeScreen({
       <section className="shop-group">
         <h3>♿ Accessibility</h3>
         <label className="toggle-row">
+          <span>Sound effects</span>
+          <input
+            type="checkbox"
+            checked={!settings.muted}
+            onChange={(e) => onSettings({ ...settings, muted: !e.target.checked })}
+          />
+        </label>
+        <label className="toggle-row">
           <span>Reduced motion (fewer effects)</span>
           <input
             type="checkbox"

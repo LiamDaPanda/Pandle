@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CellMark, Clues, Puzzle } from '../game/types';
 import { deriveClues } from '../game/clues';
 import { emptyBoard, isSolved, isLineSatisfied } from '../game/solve';
+import { computeHint } from '../game/hint';
 
 export type PaintAction = 'fill' | 'cross' | 'clear';
 
@@ -16,6 +17,7 @@ export interface GameState {
   actionFor: (x: number, y: number, mode: 'fill' | 'cross') => PaintAction;
   undo: () => void;
   reset: () => void;
+  hint: () => boolean;
   canUndo: boolean;
 }
 
@@ -98,6 +100,14 @@ export function useGameState(
     });
   }, [puzzle.width, puzzle.height]);
 
+  const hint = useCallback((): boolean => {
+    if (solvedRef.current) return false;
+    const h = computeHint(marks, clues);
+    if (!h) return false;
+    paint(h.x, h.y, h.mark === 'filled' ? 'fill' : 'cross');
+    return true;
+  }, [marks, clues, paint]);
+
   // Win detection.
   useEffect(() => {
     if (solvedRef.current) return;
@@ -131,6 +141,7 @@ export function useGameState(
     actionFor,
     undo,
     reset,
+    hint,
     canUndo: history.length > 0,
   };
 }
