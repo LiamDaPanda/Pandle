@@ -5,7 +5,7 @@ import { emptyBoard } from '../game/solve';
 import { CellMark, Puzzle } from '../game/types';
 
 const puzzle: Puzzle = {
-  id: 'ring', name: 'Ring', emoji: '🐼', difficulty: 'easy',
+  id: 'ring', name: 'Ring', icon: 'panda', difficulty: 'easy',
   width: 3, height: 3, grid: ['KKK', 'K.K', 'KKK'],
 };
 const clues = deriveClues(puzzle);

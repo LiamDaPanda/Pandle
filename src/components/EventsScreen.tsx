@@ -2,6 +2,7 @@ import { activeEvents, EVENTS, GameEvent } from '../data/events';
 import { puzzleById } from '../data/puzzles';
 import { Progress } from '../state/progress';
 import { cosmeticById } from '../data/cosmetics';
+import { Icon } from './Icon';
 
 interface EventsScreenProps {
   progress: Progress;
@@ -20,10 +21,13 @@ function EventCard({
   progress: Progress;
   onPlay: (puzzleId: string) => void;
 }) {
+  const rewards = event.rewardCosmetics.map((id) => cosmeticById(id)).filter(Boolean);
   return (
     <section className={`event-card ${live ? 'live' : 'ended'}`}>
       <div className="event-head">
-        <span className="event-emoji">{event.emoji}</span>
+        <span className="event-emoji">
+          <Icon name={event.icon} size="2rem" />
+        </span>
         <div>
           <h3>{event.name}</h3>
           <p className="event-theme">{event.theme}</p>
@@ -41,19 +45,19 @@ function EventCard({
               disabled={!live}
               onClick={() => onPlay(pid)}
             >
-              {puzzle.emoji} {puzzle.name}
+              <Icon name={puzzle.icon} /> {puzzle.name}
             </button>
           );
         })}
       </div>
       <p className="event-reward">
         Reward:{' '}
-        {event.rewardCosmetics
-          .map((id) => cosmeticById(id))
-          .filter(Boolean)
-          .map((c) => `${c!.emoji} ${c!.name}`)
-          .join(', ')}
-        {progress.claimedEvents.includes(event.id) ? ' ✓' : ''}
+        {rewards.map((c) => (
+          <span key={c!.id} className="reward-item">
+            <Icon name={c!.icon} /> {c!.name}
+          </span>
+        ))}
+        {progress.claimedEvents.includes(event.id) && ' (owned)'}
       </p>
     </section>
   );
@@ -67,9 +71,9 @@ export function EventsScreen({ progress, onPlayEventPuzzle, onHome }: EventsScre
     <div className="screen">
       <header className="screen-header">
         <button className="btn btn-ghost btn-small" onClick={onHome}>
-          ← Home
+          <Icon name="back" /> Home
         </button>
-        <h2>Events 🎉</h2>
+        <h2>Events</h2>
         <span />
       </header>
       <div className="events">

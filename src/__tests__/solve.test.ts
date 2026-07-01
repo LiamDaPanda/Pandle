@@ -5,7 +5,7 @@ import { CellMark, Puzzle } from '../game/types';
 import { toBoolGrid } from '../game/clues';
 
 const puzzle: Puzzle = {
-  id: 'p', name: 'P', emoji: '🐼', difficulty: 'easy',
+  id: 'p', name: 'P', icon: 'panda', difficulty: 'easy',
   width: 3, height: 3, grid: ['KKK', 'K.K', 'KKK'],
 };
 

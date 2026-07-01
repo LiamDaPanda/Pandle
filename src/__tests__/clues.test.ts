@@ -19,7 +19,7 @@ describe('runLengths', () => {
 
 describe('deriveClues', () => {
   const puzzle: Puzzle = {
-    id: 't', name: 'T', emoji: '🐼', difficulty: 'easy',
+    id: 't', name: 'T', icon: 'panda', difficulty: 'easy',
     width: 3, height: 3,
     grid: ['K.K', '.K.', 'K.K'],
   };

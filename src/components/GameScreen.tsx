@@ -4,6 +4,7 @@ import { useGameState } from '../hooks/useGameState';
 import { Settings } from '../state/settings';
 import { celebrate } from '../effects/celebrate';
 import { playWin, playHint } from '../effects/sound';
+import { Icon } from './Icon';
 import { Board } from './Board/Board';
 import { Controls } from './Controls';
 import { RevealOverlay } from './RevealOverlay';
@@ -76,11 +77,11 @@ export function GameScreen(props: GameScreenProps) {
     <div className="game-screen">
       <header className="game-header">
         <button className="btn btn-ghost btn-small" onClick={props.onHome}>
-          ← Back
+          <Icon name="back" /> Back
         </button>
         <div className="game-title">
           <span className="game-name">
-            {puzzle.emoji} {puzzle.name}
+            <Icon name={puzzle.icon} /> {puzzle.name}
           </span>
           {props.subtitle && <span className="game-sub">{props.subtitle}</span>}
         </div>

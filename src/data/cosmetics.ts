@@ -1,3 +1,5 @@
+import type { IconName } from '../components/Icon';
+
 export type CosmeticKind = 'theme' | 'effect' | 'skin';
 
 export interface Theme {
@@ -15,15 +17,15 @@ export interface Cosmetic {
   id: string;
   kind: CosmeticKind;
   name: string;
-  emoji: string;
+  icon: IconName;
   /** Cost in bamboo; 0 means unlocked by default. */
   cost: number;
   /** For themes: the CSS variable overrides. */
   theme?: Theme;
   /** For effect packs: particle color palette. */
   particleColors?: string[];
-  /** For skins: an emoji shown on the celebration mascot. */
-  mascot?: string;
+  /** For skins: the mascot art shown on the celebration + home screen. */
+  mascot?: IconName;
 }
 
 export const THEMES: Cosmetic[] = [
@@ -31,7 +33,7 @@ export const THEMES: Cosmetic[] = [
     id: 'theme-bamboo',
     kind: 'theme',
     name: 'Bamboo Grove',
-    emoji: '🎋',
+    icon: 'bamboo',
     cost: 0,
     theme: {
       '--bg': '#fdf6ec',
@@ -48,7 +50,7 @@ export const THEMES: Cosmetic[] = [
     id: 'theme-sakura',
     kind: 'theme',
     name: 'Sakura Blossom',
-    emoji: '🌸',
+    icon: 'sakura',
     cost: 40,
     theme: {
       '--bg': '#fff0f4',
@@ -65,7 +67,7 @@ export const THEMES: Cosmetic[] = [
     id: 'theme-midnight',
     kind: 'theme',
     name: 'Midnight Panda',
-    emoji: '🌙',
+    icon: 'moon',
     cost: 60,
     theme: {
       '--bg': '#1e2233',
@@ -85,7 +87,7 @@ export const EFFECTS: Cosmetic[] = [
     id: 'effect-leaves',
     kind: 'effect',
     name: 'Bamboo Leaves',
-    emoji: '🍃',
+    icon: 'leaf',
     cost: 0,
     particleColors: ['#7bc47f', '#4f9d54', '#a8d8a0'],
   },
@@ -93,7 +95,7 @@ export const EFFECTS: Cosmetic[] = [
     id: 'effect-confetti',
     kind: 'effect',
     name: 'Party Confetti',
-    emoji: '🎉',
+    icon: 'confetti',
     cost: 30,
     particleColors: ['#ff6b6b', '#ffd166', '#6bcB77', '#4d96ff', '#c780e8'],
   },
@@ -101,16 +103,16 @@ export const EFFECTS: Cosmetic[] = [
     id: 'effect-sakura',
     kind: 'effect',
     name: 'Petal Storm',
-    emoji: '🌸',
+    icon: 'sakura',
     cost: 50,
     particleColors: ['#ff9fb6', '#ffc2d1', '#ffe0e8'],
   },
 ];
 
 export const SKINS: Cosmetic[] = [
-  { id: 'skin-classic', kind: 'skin', name: 'Classic Panda', emoji: '🐼', cost: 0, mascot: '🐼' },
-  { id: 'skin-red', kind: 'skin', name: 'Red Panda', emoji: '🦊', cost: 45, mascot: '🦊' },
-  { id: 'skin-koala', kind: 'skin', name: 'Koala Buddy', emoji: '🐨', cost: 45, mascot: '🐨' },
+  { id: 'skin-classic', kind: 'skin', name: 'Classic Panda', icon: 'panda', cost: 0, mascot: 'panda' },
+  { id: 'skin-red', kind: 'skin', name: 'Red Panda', icon: 'red-panda', cost: 45, mascot: 'red-panda' },
+  { id: 'skin-koala', kind: 'skin', name: 'Koala Buddy', icon: 'koala', cost: 45, mascot: 'koala' },
 ];
 
 export const ALL_COSMETICS: Cosmetic[] = [...THEMES, ...EFFECTS, ...SKINS];

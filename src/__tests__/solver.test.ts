@@ -27,7 +27,7 @@ describe('solveLine', () => {
 describe('solveLogically', () => {
   it('solves a simple logic-only puzzle', () => {
     const puzzle: Puzzle = {
-      id: 'x', name: 'X', emoji: '🐼', difficulty: 'easy',
+      id: 'x', name: 'X', icon: 'panda', difficulty: 'easy',
       width: 3, height: 3, grid: ['KKK', 'K.K', 'KKK'],
     };
     const res = solveLogically(deriveClues(puzzle));
@@ -40,7 +40,7 @@ describe('solveLogically', () => {
 describe('validateNoGuess', () => {
   it('accepts a logic-solvable puzzle', () => {
     const good: Puzzle = {
-      id: 'g', name: 'G', emoji: '🐼', difficulty: 'easy',
+      id: 'g', name: 'G', icon: 'panda', difficulty: 'easy',
       width: 3, height: 3, grid: ['KKK', 'KKK', 'KKK'],
     };
     expect(validateNoGuess(good)).toBe(true);
@@ -48,7 +48,7 @@ describe('validateNoGuess', () => {
   it('rejects a puzzle that would require guessing', () => {
     // Classic 2x2 checkerboard: clues are ambiguous between two solutions.
     const ambiguous: Puzzle = {
-      id: 'a', name: 'A', emoji: '🐼', difficulty: 'easy',
+      id: 'a', name: 'A', icon: 'panda', difficulty: 'easy',
       width: 2, height: 2, grid: ['K.', '.K'],
     };
     expect(validateNoGuess(ambiguous)).toBe(false);

@@ -1,7 +1,9 @@
+import type { IconName } from '../components/Icon';
+
 export interface GameEvent {
   id: string;
   name: string;
-  emoji: string;
+  icon: IconName;
   theme: string;
   /** ISO date (inclusive) the event opens. */
   startsAt: string;
@@ -21,7 +23,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: 'spring-festival',
     name: 'Spring Festival',
-    emoji: '🌸',
+    icon: 'sakura',
     theme: 'Cherry blossoms & baby pandas',
     startsAt: '2025-03-01',
     endsAt: '2025-05-31',
@@ -31,7 +33,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: 'bamboo-harvest',
     name: 'Bamboo Harvest',
-    emoji: '🎋',
+    icon: 'bamboo',
     theme: 'Fill the forest with fresh bamboo',
     startsAt: '2025-06-01',
     endsAt: '2030-12-31',

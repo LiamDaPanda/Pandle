@@ -1,3 +1,4 @@
+import type { IconName } from '../components/Icon';
 import { puzzleById } from './puzzles';
 
 export interface Level {
@@ -11,7 +12,7 @@ export interface Level {
 export interface Chapter {
   id: string;
   name: string;
-  emoji: string;
+  icon: IconName;
   levels: Level[];
 }
 
@@ -19,7 +20,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'bamboo-forest',
     name: 'Bamboo Forest',
-    emoji: '🎋',
+    icon: 'bamboo',
     levels: [
       { id: 'bf-1', puzzleId: 'bamboo', targetMs: 60000, rewardBamboo: 10 },
       { id: 'bf-2', puzzleId: 'leaf', targetMs: 60000, rewardBamboo: 10 },
@@ -31,7 +32,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'snowy-peaks',
     name: 'Snowy Peaks',
-    emoji: '🏔️',
+    icon: 'mountain',
     levels: [
       { id: 'sp-1', puzzleId: 'happy-cloud', targetMs: 90000, rewardBamboo: 20 },
       { id: 'sp-2', puzzleId: 'panda-face', targetMs: 180000, rewardBamboo: 30 },
@@ -43,7 +44,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'panda-party',
     name: 'Panda Party',
-    emoji: '🎉',
+    icon: 'party',
     levels: [
       { id: 'pp-1', puzzleId: 'panda-egg', targetMs: 60000, rewardBamboo: 20 },
       { id: 'pp-2', puzzleId: 'plus-leaf', targetMs: 60000, rewardBamboo: 20 },
@@ -51,6 +52,53 @@ export const CHAPTERS: Chapter[] = [
       { id: 'pp-4', puzzleId: 'bamboo-gem', targetMs: 75000, rewardBamboo: 25 },
       { id: 'pp-5', puzzleId: 'panda-hug', targetMs: 210000, rewardBamboo: 45 },
       { id: 'pp-6', puzzleId: 'crown', targetMs: 240000, rewardBamboo: 50 },
+    ],
+  },
+  {
+    id: 'sakura-garden',
+    name: 'Sakura Garden',
+    icon: 'sakura',
+    levels: [
+      { id: 'sg-1', puzzleId: 'twinkle', targetMs: 60000, rewardBamboo: 15 },
+      { id: 'sg-2', puzzleId: 'window', targetMs: 60000, rewardBamboo: 15 },
+      { id: 'sg-3', puzzleId: 'sunflower', targetMs: 60000, rewardBamboo: 15 },
+      { id: 'sg-4', puzzleId: 'ruby-heart', targetMs: 75000, rewardBamboo: 20 },
+      { id: 'sg-5', puzzleId: 'crescent', targetMs: 75000, rewardBamboo: 20 },
+      { id: 'sg-6', puzzleId: 'pine', targetMs: 75000, rewardBamboo: 20 },
+    ],
+  },
+  {
+    id: 'panda-village',
+    name: 'Panda Village',
+    icon: 'house',
+    levels: [
+      { id: 'pv-1', puzzleId: 'big-gem', targetMs: 180000, rewardBamboo: 30 },
+      { id: 'pv-2', puzzleId: 'bush', targetMs: 180000, rewardBamboo: 30 },
+      { id: 'pv-3', puzzleId: 'big-gift', targetMs: 180000, rewardBamboo: 30 },
+      { id: 'pv-4', puzzleId: 'ghost', targetMs: 210000, rewardBamboo: 35 },
+      { id: 'pv-5', puzzleId: 'kitty', targetMs: 210000, rewardBamboo: 35 },
+    ],
+  },
+  {
+    id: 'misty-lake',
+    name: 'Misty Lake',
+    icon: 'cloud',
+    levels: [
+      { id: 'ml-1', puzzleId: 'big-ruby', targetMs: 210000, rewardBamboo: 40 },
+      { id: 'ml-2', puzzleId: 'blossom', targetMs: 240000, rewardBamboo: 40 },
+      { id: 'ml-3', puzzleId: 'snowball', targetMs: 240000, rewardBamboo: 40 },
+      { id: 'ml-4', puzzleId: 'house', targetMs: 240000, rewardBamboo: 45 },
+    ],
+  },
+  {
+    id: 'golden-summit',
+    name: 'Golden Summit',
+    icon: 'crown',
+    levels: [
+      { id: 'gs-1', puzzleId: 'compass', targetMs: 240000, rewardBamboo: 45 },
+      { id: 'gs-2', puzzleId: 'grand-panda', targetMs: 240000, rewardBamboo: 50 },
+      { id: 'gs-3', puzzleId: 'duck', targetMs: 240000, rewardBamboo: 50 },
+      { id: 'gs-4', puzzleId: 'starfish', targetMs: 90000, rewardBamboo: 55 },
     ],
   },
 ];

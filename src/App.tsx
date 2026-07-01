@@ -216,7 +216,7 @@ export default function App() {
             difficulty: session.difficulty,
           })
         }
-        nextLabel="New puzzle 🎲"
+        nextLabel="New puzzle"
       />
     );
   };

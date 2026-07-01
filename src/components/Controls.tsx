@@ -1,3 +1,5 @@
+import { Icon } from './Icon';
+
 interface ControlsProps {
   mode: 'fill' | 'cross';
   onMode: (m: 'fill' | 'cross') => void;
@@ -27,22 +29,23 @@ export function Controls({
           onClick={() => onMode('fill')}
           aria-pressed={mode === 'fill'}
         >
-          <span className="mode-swatch fill" /> Fill
+          <Icon name="panda-token" className="mode-swatch" size="1.4em" /> Fill
         </button>
         <button
           className={`mode-btn ${mode === 'cross' ? 'active' : ''}`}
           onClick={() => onMode('cross')}
           aria-pressed={mode === 'cross'}
         >
-          <span className="mode-swatch cross">✕</span> Cross
+          <Icon name="bamboo-token" className="mode-swatch" size="1.4em" /> Cross
         </button>
       </div>
       <div className="control-actions">
         <button className="btn btn-small" onClick={onUndo} disabled={!canUndo}>
-          ↩︎ Undo
+          <Icon name="undo" /> Undo
         </button>
         <button className="btn btn-small btn-primary" onClick={onHint} disabled={!canHint}>
-          💡 Hint · 🎋{hintCost}
+          <Icon name="bulb" /> Hint · <Icon name="bamboo" />
+          {hintCost}
         </button>
         <button className="btn btn-small btn-ghost" onClick={onReset}>
           Reset

@@ -1,6 +1,7 @@
 import { EFFECTS, SKINS, THEMES, Cosmetic } from '../data/cosmetics';
 import { Progress, buyCosmetic, equipCosmetic } from '../state/progress';
 import { Settings } from '../state/settings';
+import { Icon, IconName } from './Icon';
 
 interface CustomizeScreenProps {
   progress: Progress;
@@ -35,7 +36,7 @@ function Item({
             : { background: 'var(--accent-soft)' }
         }
       >
-        <span>{cosmetic.emoji}</span>
+        <Icon name={cosmetic.icon} size="2rem" />
       </div>
       <div className="shop-name">{cosmetic.name}</div>
       {owned ? (
@@ -44,7 +45,7 @@ function Item({
           disabled={equipped}
           onClick={() => onEquip(cosmetic.id)}
         >
-          {equipped ? 'Equipped ✓' : 'Equip'}
+          {equipped ? 'Equipped' : 'Equip'}
         </button>
       ) : (
         <button
@@ -52,7 +53,7 @@ function Item({
           disabled={!affordable}
           onClick={() => onBuy(cosmetic.id)}
         >
-          🎋 {cosmetic.cost}
+          <Icon name="bamboo" /> {cosmetic.cost}
         </button>
       )}
     </div>
@@ -72,25 +73,29 @@ export function CustomizeScreen({
   };
   const equip = (id: string) => onProgress(equipCosmetic(progress, id));
 
-  const groups: { title: string; items: Cosmetic[] }[] = [
-    { title: '🎨 Themes', items: THEMES },
-    { title: '✨ Effects', items: EFFECTS },
-    { title: '🐼 Skins', items: SKINS },
+  const groups: { title: string; icon: IconName; items: Cosmetic[] }[] = [
+    { title: 'Themes', icon: 'palette', items: THEMES },
+    { title: 'Effects', icon: 'confetti', items: EFFECTS },
+    { title: 'Skins', icon: 'panda', items: SKINS },
   ];
 
   return (
     <div className="screen">
       <header className="screen-header">
         <button className="btn btn-ghost btn-small" onClick={onHome}>
-          ← Home
+          <Icon name="back" /> Home
         </button>
-        <h2>Customize 🎨</h2>
-        <span className="chip">🎋 {progress.bamboo}</span>
+        <h2>Customize</h2>
+        <span className="chip">
+          <Icon name="bamboo" /> {progress.bamboo}
+        </span>
       </header>
 
       {groups.map((g) => (
         <section key={g.title} className="shop-group">
-          <h3>{g.title}</h3>
+          <h3>
+            <Icon name={g.icon} /> {g.title}
+          </h3>
           <div className="shop-grid">
             {g.items.map((c) => (
               <Item key={c.id} cosmetic={c} progress={progress} onBuy={buy} onEquip={equip} />
@@ -100,7 +105,7 @@ export function CustomizeScreen({
       ))}
 
       <section className="shop-group">
-        <h3>♿ Accessibility</h3>
+        <h3>Accessibility</h3>
         <label className="toggle-row">
           <span>Sound effects</span>
           <input

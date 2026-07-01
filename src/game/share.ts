@@ -20,7 +20,7 @@ export function formatTime(ms: number): string {
  * Downscale the solved art into a small emoji mosaic (max 8 wide) so the share
  * text carries a recognizable peek of the panda without spoiling the grid.
  */
-export function emojiMosaic(puzzle: Puzzle, maxWidth = 8): string {
+export function mosaic(puzzle: Puzzle, maxWidth = 10): string {
   const scale = Math.max(1, Math.ceil(puzzle.width / maxWidth));
   const lines: string[] = [];
   for (let y = 0; y < puzzle.height; y += scale) {
@@ -34,23 +34,23 @@ export function emojiMosaic(puzzle: Puzzle, maxWidth = 8): string {
           if (isFilledChar(puzzle.grid[y + dy][x + dx] ?? '.')) filled++;
         }
       }
-      line += filled * 2 >= total ? '⬛' : '⬜';
+      line += filled * 2 >= total ? '█' : '·';
     }
     lines.push(line);
   }
   return lines.join('\n');
 }
 
-/** Wordle-style shareable summary text. */
+/** Wordle-style shareable summary text (no emojis). */
 export function buildShareText(result: ShareResult): string {
   const { puzzle, puzzleNumber, timeMs, streak, mode } = result;
   const header =
     mode === 'daily' && puzzleNumber
-      ? `Pandle #${puzzleNumber}`
+      ? `Pandle #${puzzleNumber} — ${puzzle.name}`
       : `Pandle — ${puzzle.name}`;
-  const bits = [`${puzzle.emoji} ${puzzle.name}`, `⏱️ ${formatTime(timeMs)}`];
-  if (streak && streak > 0) bits.push(`🔥${streak}`);
-  return `${header}\n${bits.join('  ·  ')}\n${emojiMosaic(puzzle)}\n🐼🎋 Pandle`;
+  const bits = [formatTime(timeMs)];
+  if (streak && streak > 0) bits.push(`Streak ${streak}`);
+  return `${header}\n${bits.join('  ·  ')}\n${mosaic(puzzle)}\nplay Pandle`;
 }
 
 /** Copy text to clipboard; resolves false if unavailable. */

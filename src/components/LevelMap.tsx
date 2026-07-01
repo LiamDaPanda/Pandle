@@ -1,6 +1,7 @@
 import { CHAPTERS } from '../data/levels';
 import { Progress, isLevelUnlocked } from '../state/progress';
 import { puzzleById } from '../data/puzzles';
+import { Icon } from './Icon';
 
 interface LevelMapProps {
   progress: Progress;
@@ -13,17 +14,19 @@ export function LevelMap({ progress, onPlayLevel, onHome }: LevelMapProps) {
     <div className="screen">
       <header className="screen-header">
         <button className="btn btn-ghost btn-small" onClick={onHome}>
-          ← Home
+          <Icon name="back" /> Home
         </button>
-        <h2>Adventure 🗺️</h2>
-        <span className="chip">🎋 {progress.bamboo}</span>
+        <h2>Adventure</h2>
+        <span className="chip">
+          <Icon name="bamboo" /> {progress.bamboo}
+        </span>
       </header>
 
       <div className="chapters">
         {CHAPTERS.map((chapter) => (
           <section key={chapter.id} className="chapter">
             <h3 className="chapter-title">
-              {chapter.emoji} {chapter.name}
+              <Icon name={chapter.icon} /> {chapter.name}
             </h3>
             <div className="level-grid">
               {chapter.levels.map((level, i) => {
@@ -37,13 +40,13 @@ export function LevelMap({ progress, onPlayLevel, onHome }: LevelMapProps) {
                     disabled={!unlocked}
                     onClick={() => onPlayLevel(level.id)}
                   >
-                    <span className="level-emoji">{unlocked ? puzzle?.emoji ?? '❓' : '🔒'}</span>
+                    <span className="level-emoji">
+                      <Icon name={unlocked ? puzzle?.icon ?? 'question' : 'lock'} size="1.8rem" />
+                    </span>
                     <span className="level-num">{i + 1}</span>
                     <span className="level-stars">
                       {[1, 2, 3].map((s) => (
-                        <span key={s} className={s <= stars ? 'star on' : 'star'}>
-                          ★
-                        </span>
+                        <Icon key={s} name={s <= stars ? 'star' : 'star-outline'} size="0.8rem" />
                       ))}
                     </span>
                   </button>

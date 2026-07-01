@@ -12,7 +12,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'baby-panda',
     name: 'Baby Panda',
-    emoji: '🐼',
+    icon: 'panda',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -27,7 +27,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'bamboo',
     name: 'Bamboo Shoot',
-    emoji: '🎋',
+    icon: 'bamboo',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -42,7 +42,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'panda-love',
     name: 'Panda Love',
-    emoji: '💗',
+    icon: 'heart',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -57,7 +57,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'rice-ball',
     name: 'Rice Ball',
-    emoji: '🍙',
+    icon: 'rice',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -72,7 +72,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'happy-cloud',
     name: 'Sky Cloud',
-    emoji: '☁️',
+    icon: 'cloud',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -87,7 +87,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'leaf',
     name: 'Bamboo Leaf',
-    emoji: '🌿',
+    icon: 'leaf',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -102,7 +102,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'panda-face',
     name: 'Panda Face',
-    emoji: '🐼',
+    icon: 'panda',
     difficulty: 'medium',
     width: 10,
     height: 10,
@@ -122,7 +122,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'sleepy-panda',
     name: 'Sleepy Panda',
-    emoji: '😴',
+    icon: 'panda-sleepy',
     difficulty: 'medium',
     width: 10,
     height: 10,
@@ -142,7 +142,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'panda-heart',
     name: 'Big Heart',
-    emoji: '❤️',
+    icon: 'heart',
     difficulty: 'medium',
     width: 10,
     height: 10,
@@ -162,7 +162,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'bamboo-stalk',
     name: 'Tall Bamboo',
-    emoji: '🎍',
+    icon: 'bamboo-tall',
     difficulty: 'medium',
     width: 10,
     height: 10,
@@ -182,7 +182,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'panda-egg',
     name: 'Panda Egg',
-    emoji: '🥚',
+    icon: 'egg',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -197,7 +197,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'plus-leaf',
     name: 'Lucky Clover',
-    emoji: '🍀',
+    icon: 'clover',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -212,7 +212,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'gift-box',
     name: 'Gift Box',
-    emoji: '🎁',
+    icon: 'gift',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -227,7 +227,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'bamboo-gem',
     name: 'Jade Gem',
-    emoji: '💎',
+    icon: 'gem',
     difficulty: 'easy',
     width: 5,
     height: 5,
@@ -242,7 +242,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'panda-hug',
     name: 'Panda Hug',
-    emoji: '🤗',
+    icon: 'panda-hug',
     difficulty: 'hard',
     width: 10,
     height: 10,
@@ -262,7 +262,7 @@ export const ALL_PUZZLES: Puzzle[] = [
   {
     id: 'crown',
     name: 'Panda Crown',
-    emoji: '👑',
+    icon: 'crown',
     difficulty: 'hard',
     width: 10,
     height: 10,
@@ -278,6 +278,145 @@ export const ALL_PUZZLES: Puzzle[] = [
       'YYYYYYYYYY',
       'YYYYYYYYYY',
     ],
+  },
+
+  // ----- Sakura Garden (easy) -----
+  {
+    id: 'twinkle', name: 'Twinkle', icon: 'star', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['..Y..', '.YYY.', 'YYYYY', '.YYY.', '..Y..'],
+  },
+  {
+    id: 'window', name: 'Window', icon: 'house', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['BBBBB', 'B...B', 'B...B', 'B...B', 'BBBBB'],
+  },
+  {
+    id: 'sunflower', name: 'Sunflower', icon: 'flower', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['.YYY.', 'YYYYY', 'YYYYY', 'YYYYY', '.YYY.'],
+  },
+  {
+    id: 'ruby-heart', name: 'Ruby Heart', icon: 'heart', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['.R.R.', 'RRRRR', 'RRRRR', '.RRR.', '..R..'],
+  },
+  {
+    id: 'crescent', name: 'Crescent', icon: 'moon', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['.YYY.', 'YY...', 'YY...', 'YY...', '.YYY.'],
+  },
+  {
+    id: 'pine', name: 'Pine Tree', icon: 'tree', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['.GGG.', 'GGGGG', '.GGG.', '..N..', '..N..'],
+  },
+
+  // ----- Panda Village (medium) -----
+  {
+    id: 'big-gem', name: 'Big Gem', icon: 'gem', difficulty: 'medium',
+    width: 10, height: 10,
+    grid: [
+      '....BB....', '...BBBB...', '..BBBBBB..', '.BBBBBBBB.', 'BBBBBBBBBB',
+      'BBBBBBBBBB', '.BBBBBBBB.', '..BBBBBB..', '...BBBB...', '....BB....',
+    ],
+  },
+  {
+    id: 'bush', name: 'Bamboo Bush', icon: 'tree', difficulty: 'medium',
+    width: 10, height: 10,
+    grid: [
+      '..GGGGGG..', '.GGGGGGGG.', 'GGGGGGGGGG', 'GGGGGGGGGG', 'GGGGGGGGGG',
+      'GGGGGGGGGG', 'GGGGGGGGGG', 'GGGGGGGGGG', '.GGGGGGGG.', '..GGGGGG..',
+    ],
+  },
+  {
+    id: 'big-gift', name: 'Big Gift', icon: 'gift', difficulty: 'medium',
+    width: 10, height: 10,
+    grid: [
+      'PPPPPPPPPP', 'P........P', 'P........P', 'P........P', 'P........P',
+      'P........P', 'P........P', 'P........P', 'P........P', 'PPPPPPPPPP',
+    ],
+  },
+  {
+    id: 'ghost', name: 'Little Ghost', icon: 'ghost', difficulty: 'medium',
+    width: 10, height: 10,
+    grid: [
+      '...WWWW...', '..WWWWWW..', '.WWWWWWWW.', '.WWWWWWWW.', '.WKWWWWKW.',
+      '.WKWWWWKW.', '.WWWWWWWW.', '.WWWWWWWW.', '.WWWWWWWW.', '.WWWWWWWW.',
+    ],
+  },
+  {
+    id: 'kitty', name: 'Kitty', icon: 'cat', difficulty: 'medium',
+    width: 10, height: 10,
+    grid: [
+      'SS......SS', 'SSS....SSS', '.SSSSSSSS.', 'SSSSSSSSSS', 'SKSSSSSSKS',
+      'SSSSSSSSSS', 'SSSSSSSSSS', 'SSSSKKSSSS', '.SSSSSSSS.', '..SSSSSS..',
+    ],
+  },
+
+  // ----- Misty Lake (hard) -----
+  {
+    id: 'big-ruby', name: 'Big Ruby', icon: 'heart', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '.RR..RR...', 'RRRRRRRR..', 'RRRRRRRR..', 'RRRRRRRR..', '.RRRRRRR..',
+      '..RRRRR...', '...RRR....', '....R.....', '..........', '..........',
+    ],
+  },
+  {
+    id: 'blossom', name: 'Blossom', icon: 'flower', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '....PP....', '...PPPP...', '..PPPPPP..', '.PPPPPPPP.', 'PPPPYYPPPP',
+      'PPPPYYPPPP', '.PPPPPPPP.', '..PPPPPP..', '...PPPP...', '....PP....',
+    ],
+  },
+  {
+    id: 'snowball', name: 'Snowball', icon: 'cloud', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '..WWWWWW..', '.WWWWWWWW.', 'WWWWWWWWWW', 'WWWWWWWWWW', 'WWWWWWWWWW',
+      'WWWWWWWWWW', 'WWWWWWWWWW', 'WWWWWWWWWW', '.WWWWWWWW.', '..WWWWWW..',
+    ],
+  },
+  {
+    id: 'house', name: 'Cottage', icon: 'house', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '....OO....', '...OOOO...', '..OOOOOO..', '.OOOOOOOO.', 'OOOOOOOOOO',
+      '.YYYYYYYY.', '.YYYYYYYY.', '.YYYYYYYY.', '.YYYYYYYY.', '.YYYYYYYY.',
+    ],
+  },
+
+  // ----- Golden Summit (hard/expert) -----
+  {
+    id: 'compass', name: 'Compass', icon: 'star', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '....OO....', '....OO....', '....OO....', '....OO....', 'OOOOOOOOOO',
+      'OOOOOOOOOO', '....OO....', '....OO....', '....OO....', '....OO....',
+    ],
+  },
+  {
+    id: 'grand-panda', name: 'Grand Panda', icon: 'panda', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      'KK......KK', 'KKK....KKK', '.WWWWWWWW.', 'WWWWWWWWWW', 'WKKWWWWKKW',
+      'WKKWWWWKKW', 'WWWNNNWWWW', 'WWWWWWWWWW', '.WWWWWWWW.', '..WWWWWW..',
+    ],
+  },
+  {
+    id: 'duck', name: 'Ducky', icon: 'duck', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '..........', '....YYY...', '...YYYYY..', '...YYYYY..', '.YYYYYYY..',
+      'YYYYYYYY..', 'YYYYYYYYY.', 'YYYYYYYY..', '.YYYYYY...', '..........',
+    ],
+  },
+  {
+    id: 'starfish', name: 'Starfish', icon: 'star', difficulty: 'expert',
+    width: 5, height: 5,
+    grid: ['O.O.O', 'OOOOO', 'OOOOO', '.OOO.', 'O...O'],
   },
 ];
 

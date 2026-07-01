@@ -6,9 +6,9 @@ export function HowToPlay({ onClose }: HowToPlayProps) {
   return (
     <div className="sheet">
       <div className="sheet-header">
-        <h2>How to play 🐼</h2>
+        <h2>How to play</h2>
         <button className="btn btn-ghost btn-small" onClick={onClose}>
-          ✕
+          Close
         </button>
       </div>
       <div className="sheet-body">
@@ -31,7 +31,7 @@ export function HowToPlay({ onClose }: HowToPlayProps) {
           </li>
           <li>
             <strong>Reveal the panda.</strong> Satisfy every row and column and the hidden picture
-            comes to life! 🎉
+            comes to life!
           </li>
         </ol>
         <div className="rule-example">

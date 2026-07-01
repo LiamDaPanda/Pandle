@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PALETTE, Puzzle, EMPTY } from '../game/types';
 import { formatTime, buildShareText, copyToClipboard, ShareResult } from '../game/share';
+import { Icon } from './Icon';
 
 interface RevealOverlayProps {
   puzzle: Puzzle;
@@ -72,29 +73,33 @@ export function RevealOverlay(props: RevealOverlayProps) {
   return (
     <div className="overlay" role="dialog" aria-modal="true">
       <div className="reveal-card">
-        <div className="reveal-burst">🎉</div>
+        <div className="reveal-burst"><Icon name="party" size="2.4rem" /></div>
         <ArtGrid puzzle={puzzle} />
         <h2 id="reveal-title" tabIndex={-1} className="reveal-name">
-          {puzzle.emoji} {puzzle.name}
+          <Icon name={puzzle.icon} /> {puzzle.name}
         </h2>
         {stars != null && (
           <div className="stars" aria-label={`${stars} of 3 stars`}>
             {[1, 2, 3].map((s) => (
-              <span key={s} className={s <= stars ? 'star on' : 'star'}>
-                ★
-              </span>
+              <Icon key={s} name={s <= stars ? 'star' : 'star-outline'} size="1.8rem" />
             ))}
           </div>
         )}
-        <p className="reveal-time">⏱️ {formatTime(timeMs)}</p>
+        <p className="reveal-time">{formatTime(timeMs)}</p>
         {bambooEarned != null && bambooEarned > 0 && (
-          <p className="reveal-reward">🎋 +{bambooEarned} bamboo</p>
+          <p className="reveal-reward">
+            <Icon name="bamboo" /> +{bambooEarned} bamboo
+          </p>
         )}
-        {streak != null && streak > 0 && <p className="reveal-streak">🔥 Streak {streak}</p>}
+        {streak != null && streak > 0 && (
+          <p className="reveal-streak">
+            <Icon name="flame" /> Streak {streak}
+          </p>
+        )}
 
         <div className="reveal-actions">
           <button className="btn btn-primary" onClick={share}>
-            {copied ? 'Copied! ✓' : 'Share 📋'}
+            {copied ? 'Copied!' : 'Share'}
           </button>
           {props.onNext && (
             <button className="btn" onClick={props.onNext}>

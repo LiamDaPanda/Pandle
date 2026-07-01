@@ -1,3 +1,5 @@
+import type { IconName } from '../components/Icon';
+
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'expert';
 
 /**
@@ -9,7 +11,7 @@ export type Difficulty = 'easy' | 'medium' | 'hard' | 'expert';
 export interface Puzzle {
   id: string;
   name: string;
-  emoji: string;
+  icon: IconName;
   difficulty: Difficulty;
   width: number;
   height: number;
@@ -26,6 +28,9 @@ export const PALETTE: Record<string, string> = {
   Y: '#ffd66b', // sunny yellow
   B: '#8ecae6', // sky blue
   N: '#c98a5e', // nose / brown
+  O: '#f0913e', // orange
+  R: '#e8615a', // red
+  S: '#b8bfc7', // slate / grey
 };
 
 export const EMPTY = '.';

@@ -1,4 +1,5 @@
 import { CellMark } from '../../game/types';
+import { Icon } from '../Icon';
 
 interface CellProps {
   x: number;
@@ -9,8 +10,8 @@ interface CellProps {
 }
 
 /**
- * A single board cell. Filled and crossed are distinguished by *shape* (solid
- * block vs. an ✕) as well as color, for colorblind friendliness.
+ * A single board cell. Filled shows a panda token, crossed shows a bamboo token
+ * — distinct shapes (not just color) for colorblind friendliness.
  */
 export function Cell({ x, y, mark, thickRight, thickBottom }: CellProps) {
   const cls = [
@@ -21,9 +22,11 @@ export function Cell({ x, y, mark, thickRight, thickBottom }: CellProps) {
   ]
     .filter(Boolean)
     .join(' ');
+  const label = `cell ${x + 1}, ${y + 1}${mark === 'empty' ? '' : `, ${mark}`}`;
   return (
-    <div className={cls} data-cell data-x={x} data-y={y} aria-label={`cell ${x + 1}, ${y + 1}`}>
-      {mark === 'crossed' && <span className="cross-mark">✕</span>}
+    <div className={cls} data-cell data-x={x} data-y={y} aria-label={label}>
+      {mark === 'filled' && <Icon name="panda-token" className="token" />}
+      {mark === 'crossed' && <Icon name="bamboo-token" className="token" />}
     </div>
   );
 }
