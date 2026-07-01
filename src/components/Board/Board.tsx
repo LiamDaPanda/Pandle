@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { GameState, PaintAction } from '../../hooks/useGameState';
 import { tick } from '../../effects/sound';
+import { IconName } from '../Icon';
 import { Cell } from './Cell';
 import { ColClues, RowClues } from './Clues';
 
@@ -9,6 +10,7 @@ interface BoardProps {
   mode: 'fill' | 'cross';
   width: number;
   height: number;
+  fillToken: IconName;
 }
 
 /**
@@ -16,7 +18,7 @@ interface BoardProps {
  * touch. On pointer-down we lock in an action (fill / cross / clear) and drag
  * applies that same action to every cell the finger passes over.
  */
-export function Board({ game, mode, width, height }: BoardProps) {
+export function Board({ game, mode, width, height, fillToken }: BoardProps) {
   const dragAction = useRef<PaintAction | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -79,6 +81,7 @@ export function Board({ game, mode, width, height }: BoardProps) {
               x={x}
               y={y}
               mark={mark}
+              fillToken={fillToken}
               thickRight={(x + 1) % 5 === 0 && x + 1 < width}
               thickBottom={(y + 1) % 5 === 0 && y + 1 < height}
             />

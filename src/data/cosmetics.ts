@@ -13,6 +13,8 @@ export interface Theme {
   '--cell-fill': string;
 }
 
+export type ParticleShape = 'leaf' | 'petal' | 'confetti' | 'star' | 'snow' | 'heart';
+
 export interface Cosmetic {
   id: string;
   kind: CosmeticKind;
@@ -22,10 +24,12 @@ export interface Cosmetic {
   cost: number;
   /** For themes: the CSS variable overrides. */
   theme?: Theme;
-  /** For effect packs: particle color palette. */
+  /** For effect packs: particle color palette + shape. */
   particleColors?: string[];
-  /** For skins: the mascot art shown on the celebration + home screen. */
+  particleShape?: ParticleShape;
+  /** For skins: the mascot art (home + celebration) and the board fill token. */
   mascot?: IconName;
+  token?: IconName;
 }
 
 export const THEMES: Cosmetic[] = [
@@ -80,6 +84,57 @@ export const THEMES: Cosmetic[] = [
       '--cell-fill': '#eef1ff',
     },
   },
+  {
+    id: 'theme-ocean',
+    kind: 'theme',
+    name: 'Ocean Breeze',
+    icon: 'wave',
+    cost: 55,
+    theme: {
+      '--bg': '#eaf6fb',
+      '--surface': '#ffffff',
+      '--ink': '#2b4a58',
+      '--accent': '#3fa7d6',
+      '--accent-soft': '#d5eef8',
+      '--grid-line': '#bcdcea',
+      '--cell-empty': '#f2fafd',
+      '--cell-fill': '#2b6f8f',
+    },
+  },
+  {
+    id: 'theme-sunset',
+    kind: 'theme',
+    name: 'Sunset Glow',
+    icon: 'sun',
+    cost: 55,
+    theme: {
+      '--bg': '#fff2e6',
+      '--surface': '#fffaf5',
+      '--ink': '#6a3d33',
+      '--accent': '#ff8c5a',
+      '--accent-soft': '#ffe1cf',
+      '--grid-line': '#f3ccae',
+      '--cell-empty': '#fff6ef',
+      '--cell-fill': '#8a4a34',
+    },
+  },
+  {
+    id: 'theme-matcha',
+    kind: 'theme',
+    name: 'Matcha Latte',
+    icon: 'leaf',
+    cost: 70,
+    theme: {
+      '--bg': '#eef3e2',
+      '--surface': '#fbfdf6',
+      '--ink': '#41502f',
+      '--accent': '#8bb04f',
+      '--accent-soft': '#e2edcd',
+      '--grid-line': '#c9d6a9',
+      '--cell-empty': '#f4f8ea',
+      '--cell-fill': '#4d5f31',
+    },
+  },
 ];
 
 export const EFFECTS: Cosmetic[] = [
@@ -90,6 +145,7 @@ export const EFFECTS: Cosmetic[] = [
     icon: 'leaf',
     cost: 0,
     particleColors: ['#7bc47f', '#4f9d54', '#a8d8a0'],
+    particleShape: 'leaf',
   },
   {
     id: 'effect-confetti',
@@ -97,7 +153,8 @@ export const EFFECTS: Cosmetic[] = [
     name: 'Party Confetti',
     icon: 'confetti',
     cost: 30,
-    particleColors: ['#ff6b6b', '#ffd166', '#6bcB77', '#4d96ff', '#c780e8'],
+    particleColors: ['#ff6b6b', '#ffd166', '#6bcb77', '#4d96ff', '#c780e8'],
+    particleShape: 'confetti',
   },
   {
     id: 'effect-sakura',
@@ -106,13 +163,43 @@ export const EFFECTS: Cosmetic[] = [
     icon: 'sakura',
     cost: 50,
     particleColors: ['#ff9fb6', '#ffc2d1', '#ffe0e8'],
+    particleShape: 'petal',
+  },
+  {
+    id: 'effect-stars',
+    kind: 'effect',
+    name: 'Starfall',
+    icon: 'star',
+    cost: 60,
+    particleColors: ['#ffd66b', '#ffe9a8', '#fff3cf'],
+    particleShape: 'star',
+  },
+  {
+    id: 'effect-snow',
+    kind: 'effect',
+    name: 'Snow Flurry',
+    icon: 'cloud',
+    cost: 60,
+    particleColors: ['#ffffff', '#e7f1f7', '#cfe4ef'],
+    particleShape: 'snow',
+  },
+  {
+    id: 'effect-hearts',
+    kind: 'effect',
+    name: 'Heart Shower',
+    icon: 'heart',
+    cost: 70,
+    particleColors: ['#ff8fab', '#ffb3c6', '#ffd6e0'],
+    particleShape: 'heart',
   },
 ];
 
 export const SKINS: Cosmetic[] = [
-  { id: 'skin-classic', kind: 'skin', name: 'Classic Panda', icon: 'panda', cost: 0, mascot: 'panda' },
-  { id: 'skin-red', kind: 'skin', name: 'Red Panda', icon: 'red-panda', cost: 45, mascot: 'red-panda' },
-  { id: 'skin-koala', kind: 'skin', name: 'Koala Buddy', icon: 'koala', cost: 45, mascot: 'koala' },
+  { id: 'skin-classic', kind: 'skin', name: 'Classic Panda', icon: 'panda', cost: 0, mascot: 'panda', token: 'panda-token' },
+  { id: 'skin-red', kind: 'skin', name: 'Red Panda', icon: 'red-panda', cost: 45, mascot: 'red-panda', token: 'red-panda-token' },
+  { id: 'skin-koala', kind: 'skin', name: 'Koala Buddy', icon: 'koala', cost: 45, mascot: 'koala', token: 'koala-token' },
+  { id: 'skin-polar', kind: 'skin', name: 'Polar Bear', icon: 'polar-bear', cost: 65, mascot: 'polar-bear', token: 'polar-token' },
+  { id: 'skin-brown', kind: 'skin', name: 'Brown Bear', icon: 'brown-bear', cost: 65, mascot: 'brown-bear', token: 'brown-token' },
 ];
 
 export const ALL_COSMETICS: Cosmetic[] = [...THEMES, ...EFFECTS, ...SKINS];
@@ -129,4 +216,18 @@ export function cosmeticById(id: string): Cosmetic | undefined {
 
 export function defaultOwned(): string[] {
   return ALL_COSMETICS.filter((c) => c.cost === 0).map((c) => c.id);
+}
+
+/** The board fill token for an equipped skin id. */
+export function tokenFor(skinId: string): IconName {
+  return cosmeticById(skinId)?.token ?? 'panda-token';
+}
+
+/** Colors + particle shape for an equipped effect id. */
+export function particleStyle(effectId: string): { colors: string[]; shape: ParticleShape } {
+  const c = cosmeticById(effectId);
+  return {
+    colors: c?.particleColors ?? ['#7bc47f', '#4f9d54'],
+    shape: c?.particleShape ?? 'leaf',
+  };
 }

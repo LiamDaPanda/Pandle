@@ -9,7 +9,16 @@ interface HomeScreenProps {
   mascot: IconName;
   dailyDone: boolean;
   activeEventCount: number;
+  reducedMotion: boolean;
 }
+
+const AMBIENT = [
+  { left: '8%', size: '20px', dur: '9s', delay: '0s' },
+  { left: '24%', size: '14px', dur: '12s', delay: '3s' },
+  { left: '46%', size: '22px', dur: '10s', delay: '1.5s' },
+  { left: '68%', size: '16px', dur: '13s', delay: '5s' },
+  { left: '85%', size: '18px', dur: '11s', delay: '2.5s' },
+];
 
 export function HomeScreen({
   onNavigate,
@@ -18,9 +27,29 @@ export function HomeScreen({
   mascot,
   dailyDone,
   activeEventCount,
+  reducedMotion,
 }: HomeScreenProps) {
   return (
     <div className="home">
+      {!reducedMotion && (
+        <div className="ambient" aria-hidden="true">
+          {AMBIENT.map((a, i) => (
+            <span
+              key={i}
+              className="ambient-leaf"
+              style={{
+                left: a.left,
+                animationDuration: a.dur,
+                animationDelay: a.delay,
+                width: a.size,
+                height: a.size,
+              }}
+            >
+              <Icon name="leaf" size={a.size} />
+            </span>
+          ))}
+        </div>
+      )}
       <div className="home-top">
         <span className="chip">
           <Icon name="bamboo" /> {bamboo}

@@ -11,8 +11,10 @@ export type IconName =
   | 'cat' | 'moon' | 'cup' | 'duck' | 'ghost' | 'sakura' | 'confetti'
   // characters
   | 'panda' | 'panda-sleepy' | 'panda-hug' | 'koala' | 'red-panda'
+  | 'polar-bear' | 'brown-bear' | 'sun' | 'wave'
   // board tokens
-  | 'panda-token' | 'bamboo-token';
+  | 'panda-token' | 'bamboo-token'
+  | 'red-panda-token' | 'koala-token' | 'polar-token' | 'brown-token';
 
 // palette
 const K = '#2b2b2b'; // black
@@ -24,6 +26,8 @@ const Y = '#ffd66b'; // yellow
 const O = '#f0913e'; // orange
 const B = '#8ecae6'; // blue
 const GR = '#b8bfc7'; // grey
+const S = '#aab2ba'; // slate grey (koala)
+const N = '#c98a5e'; // brown (bear)
 
 /** Reusable panda face centred in a 24x24 box. */
 function pandaFace(sleepy = false) {
@@ -48,6 +52,48 @@ function pandaFace(sleepy = false) {
       <ellipse cx="12" cy="16.4" rx="1.5" ry="1.1" fill={K} />
       <circle cx="6.6" cy="16.2" r="1.3" fill={P} opacity="0.75" />
       <circle cx="17.4" cy="16.2" r="1.3" fill={P} opacity="0.75" />
+    </>
+  );
+}
+
+interface Critter {
+  face: string;
+  ear: string;
+  nose: string;
+  eye?: string;
+  innerEar?: string;
+  muzzle?: string;
+  patch?: string; // panda-style eye patches
+}
+
+/** A round animal face token centred in a 24x24 box (used for board tokens + skins). */
+function critter({ face, ear, nose, eye = K, innerEar, muzzle, patch }: Critter) {
+  return (
+    <>
+      <circle cx="6" cy="6.5" r="3.4" fill={ear} />
+      <circle cx="18" cy="6.5" r="3.4" fill={ear} />
+      {innerEar && (
+        <>
+          <circle cx="6" cy="6.8" r="1.7" fill={innerEar} />
+          <circle cx="18" cy="6.8" r="1.7" fill={innerEar} />
+        </>
+      )}
+      <circle cx="12" cy="13" r="8.4" fill={face} />
+      {muzzle && <ellipse cx="12" cy="15.2" rx="4.6" ry="3.7" fill={muzzle} />}
+      {patch ? (
+        <>
+          <ellipse cx="8.4" cy="12" rx="2.1" ry="2.7" fill={patch} />
+          <ellipse cx="15.6" cy="12" rx="2.1" ry="2.7" fill={patch} />
+          <circle cx="8.7" cy="12.6" r="0.7" fill={face} />
+          <circle cx="15.9" cy="12.6" r="0.7" fill={face} />
+        </>
+      ) : (
+        <>
+          <circle cx="8.7" cy="12" r="1.3" fill={eye} />
+          <circle cx="15.3" cy="12" r="1.3" fill={eye} />
+        </>
+      )}
+      <ellipse cx="12" cy="16.3" rx="1.6" ry="1.2" fill={nose} />
     </>
   );
 }
@@ -332,6 +378,26 @@ const ICONS: Record<IconName, ReactNode> = {
       <rect x="9.2" y="14" width="5.6" height="1.7" fill={DG} />
       <path d="M9.2 6.5q-4.5 0.2 -5.7 -2.8 3.8 -0.8 5.7 2.8z" fill={DG} />
       <path d="M14.8 12.5q4.5 0.2 5.7 -2.8 -3.8 -0.8 -5.7 2.8z" fill={DG} />
+    </>
+  ),
+  'red-panda-token': critter({ face: O, ear: '#c96a34', innerEar: W, muzzle: W, nose: K }),
+  'koala-token': critter({ face: S, ear: S, innerEar: '#d7dbe0', nose: K, muzzle: '#cfd4da' }),
+  'polar-token': critter({ face: W, ear: W, innerEar: '#e7eef2', muzzle: '#eef4f7', nose: K }),
+  'brown-token': critter({ face: N, ear: '#a8703f', muzzle: '#e0b483', nose: K }),
+  'polar-bear': critter({ face: W, ear: W, innerEar: '#e7eef2', muzzle: '#eef4f7', nose: K }),
+  'brown-bear': critter({ face: N, ear: '#a8703f', muzzle: '#e0b483', nose: K }),
+  sun: (
+    <>
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
+        <rect key={a} x="11" y="1.5" width="2" height="4" rx="1" fill={O} transform={`rotate(${a} 12 12)`} />
+      ))}
+      <circle cx="12" cy="12" r="6" fill={Y} />
+    </>
+  ),
+  wave: (
+    <>
+      <path d="M2 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0v11H2z" fill={B} />
+      <path d="M2 13c2-2 4-2 6 0s4 2 6 0 4-2 6 0" fill="none" stroke="#5fa8d3" strokeWidth="1.4" />
     </>
   ),
 };

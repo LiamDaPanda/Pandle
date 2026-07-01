@@ -4,7 +4,8 @@ import { useGameState } from '../hooks/useGameState';
 import { Settings } from '../state/settings';
 import { celebrate } from '../effects/celebrate';
 import { playWin, playHint } from '../effects/sound';
-import { Icon } from './Icon';
+import { Icon, IconName } from './Icon';
+import type { ParticleShape } from '../data/cosmetics';
 import { Board } from './Board/Board';
 import { Controls } from './Controls';
 import { RevealOverlay } from './RevealOverlay';
@@ -34,6 +35,8 @@ interface GameScreenProps {
   /** Bamboo available to spend on hints. */
   bamboo?: number;
   onSpendBamboo?: (n: number) => void;
+  fillToken: IconName;
+  effectShape: ParticleShape;
 }
 
 const HINT_COST = 3;
@@ -49,11 +52,11 @@ export function GameScreen(props: GameScreenProps) {
     (timeMs: number) => {
       const info = props.onSolved?.(timeMs) ?? {};
       setReveal(info);
-      celebrate(effectColors, settings.reducedMotion);
+      celebrate(effectColors, props.effectShape, settings.reducedMotion);
       playWin();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [effectColors, settings.reducedMotion],
+    [effectColors, props.effectShape, settings.reducedMotion],
   );
 
   const game = useGameState(puzzle, props.initialMarks, handleSolved);
@@ -91,7 +94,13 @@ export function GameScreen(props: GameScreenProps) {
       </header>
 
       <div className="board-wrap">
-        <Board game={game} mode={mode} width={puzzle.width} height={puzzle.height} />
+        <Board
+          game={game}
+          mode={mode}
+          width={puzzle.width}
+          height={puzzle.height}
+          fillToken={props.fillToken}
+        />
       </div>
 
       <Controls
@@ -103,6 +112,7 @@ export function GameScreen(props: GameScreenProps) {
         hintCost={HINT_COST}
         canHint={canHint}
         canUndo={game.canUndo}
+        fillToken={props.fillToken}
       />
 
       {reveal && (

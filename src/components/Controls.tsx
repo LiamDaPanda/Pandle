@@ -1,4 +1,4 @@
-import { Icon } from './Icon';
+import { Icon, IconName } from './Icon';
 
 interface ControlsProps {
   mode: 'fill' | 'cross';
@@ -9,6 +9,7 @@ interface ControlsProps {
   hintCost: number;
   canHint: boolean;
   canUndo: boolean;
+  fillToken: IconName;
 }
 
 export function Controls({
@@ -20,6 +21,7 @@ export function Controls({
   hintCost,
   canHint,
   canUndo,
+  fillToken,
 }: ControlsProps) {
   return (
     <div className="controls">
@@ -29,7 +31,7 @@ export function Controls({
           onClick={() => onMode('fill')}
           aria-pressed={mode === 'fill'}
         >
-          <Icon name="panda-token" className="mode-swatch" size="1.4em" /> Fill
+          <Icon name={fillToken} className="mode-swatch" size="1.4em" /> Fill
         </button>
         <button
           className={`mode-btn ${mode === 'cross' ? 'active' : ''}`}

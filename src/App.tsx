@@ -5,7 +5,7 @@ import { puzzleById, puzzlesByDifficulty } from './data/puzzles';
 import { levelById, ALL_LEVELS, levelIndex } from './data/levels';
 import { eventById } from './data/events';
 import { activeEvents } from './data/events';
-import { cosmeticById } from './data/cosmetics';
+import { tokenFor, particleStyle } from './data/cosmetics';
 import { loadProgress, saveProgress, completeLevel, claimEventRewards, Progress } from './state/progress';
 import { loadStats, recordDailyWin, saveStats, Stats } from './state/stats';
 import { loadSettings, saveSettings, prefersReducedMotion, Settings } from './state/settings';
@@ -69,10 +69,10 @@ export default function App() {
     setMuted(settings.muted);
   }, [settings]);
 
-  const effectColors = useMemo(() => {
-    const eff = cosmeticById(progress.equipped.effect);
-    return eff?.particleColors ?? ['#7bc47f', '#4f9d54'];
-  }, [progress.equipped.effect]);
+  const effect = useMemo(() => particleStyle(progress.equipped.effect), [progress.equipped.effect]);
+  const effectColors = effect.colors;
+  const effectShape = effect.shape;
+  const fillToken = useMemo(() => tokenFor(progress.equipped.skin), [progress.equipped.skin]);
 
   const today = dateKey();
   const dailySave = loadRaw<DailySave | null>(`daily:${today}`, null);
@@ -118,6 +118,8 @@ export default function App() {
           mode="daily"
           settings={settings}
           effectColors={effectColors}
+          effectShape={effectShape}
+          fillToken={fillToken}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
           subtitle={`Daily #${num}`}
@@ -149,6 +151,8 @@ export default function App() {
           mode="level"
           settings={settings}
           effectColors={effectColors}
+          effectShape={effectShape}
+          fillToken={fillToken}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
           subtitle={`Level ${idx + 1}`}
@@ -159,7 +163,7 @@ export default function App() {
           }}
           onHome={goHome}
           onNext={next ? () => startLevel(next.id) : undefined}
-          nextLabel="Next level →"
+          nextLabel="Next level"
         />
       );
     }
@@ -175,6 +179,8 @@ export default function App() {
           mode="event"
           settings={settings}
           effectColors={effectColors}
+          effectShape={effectShape}
+          fillToken={fillToken}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
           subtitle={event.name}
@@ -201,6 +207,8 @@ export default function App() {
         mode="practice"
         settings={settings}
         effectColors={effectColors}
+        effectShape={effectShape}
+        fillToken={fillToken}
         bamboo={progress.bamboo}
         onSpendBamboo={spendBamboo}
         subtitle="Practice"
@@ -231,6 +239,7 @@ export default function App() {
           mascot={mascot}
           dailyDone={dailyDone}
           activeEventCount={activeEvents().length}
+          reducedMotion={settings.reducedMotion}
         />
       )}
       {screen === 'game' && renderGame()}

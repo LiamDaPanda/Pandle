@@ -418,6 +418,75 @@ export const ALL_PUZZLES: Puzzle[] = [
     width: 5, height: 5,
     grid: ['O.O.O', 'OOOOO', 'OOOOO', '.OOO.', 'O...O'],
   },
+
+  // ----- Crystal Cove (easy) -----
+  {
+    id: 'water-drop', name: 'Water Drop', icon: 'wave', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['..B..', '.BBB.', 'BBBBB', '.BBB.', '..B..'],
+  },
+  {
+    id: 'tiny-sun', name: 'Little Sun', icon: 'sun', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['.OOO.', 'OOOOO', 'OOOOO', 'OOOOO', '.OOO.'],
+  },
+  {
+    id: 'red-gift', name: 'Red Parcel', icon: 'gift', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['RRRRR', 'R...R', 'R...R', 'R...R', 'RRRRR'],
+  },
+  {
+    id: 'green-heart', name: 'Green Heart', icon: 'heart', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['.G.G.', 'GGGGG', 'GGGGG', '.GGG.', '..G..'],
+  },
+  {
+    id: 'amber-gem', name: 'Amber Gem', icon: 'gem', difficulty: 'easy',
+    width: 5, height: 5,
+    grid: ['..O..', '.OOO.', 'OOOOO', '.OOO.', '..O..'],
+  },
+
+  // ----- Cloud Summit (medium/hard) -----
+  {
+    id: 'moss-block', name: 'Moss Cube', icon: 'tree', difficulty: 'medium',
+    width: 10, height: 10,
+    grid: [
+      '..DDDDDD..', '.DDDDDDDD.', 'DDDDDDDDDD', 'DDDDDDDDDD', 'DDDDDDDDDD',
+      'DDDDDDDDDD', 'DDDDDDDDDD', 'DDDDDDDDDD', '.DDDDDDDD.', '..DDDDDD..',
+    ],
+  },
+  {
+    id: 'rose-border', name: 'Rose Frame', icon: 'gift', difficulty: 'medium',
+    width: 10, height: 10,
+    grid: [
+      'PPPPPPPPPP', 'P........P', 'P........P', 'P........P', 'P........P',
+      'P........P', 'P........P', 'P........P', 'P........P', 'PPPPPPPPPP',
+    ],
+  },
+  {
+    id: 'silver-cross', name: 'Silver Cross', icon: 'star', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '....SS....', '....SS....', '....SS....', '....SS....', 'SSSSSSSSSS',
+      'SSSSSSSSSS', '....SS....', '....SS....', '....SS....', '....SS....',
+    ],
+  },
+  {
+    id: 'sky-fish', name: 'Sky Fish', icon: 'fish', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '..........', '...BBBB...', '..BBBBBB.B', '.BBBBBBBBB', '.BBBBBBBBB',
+      '.BBBBBBBBB', '..BBBBBB.B', '...BBBB...', '..........', '..........',
+    ],
+  },
+  {
+    id: 'aqua-diamond', name: 'Aqua Diamond', icon: 'wave', difficulty: 'hard',
+    width: 10, height: 10,
+    grid: [
+      '....BB....', '...BBBB...', '..BBBBBB..', '.BBBBBBBB.', 'BBBBBBBBBB',
+      'BBBBBBBBBB', '.BBBBBBBB.', '..BBBBBB..', '...BBBB...', '....BB....',
+    ],
+  },
 ];
 
 /** Puzzles used for the deterministic daily rotation. */

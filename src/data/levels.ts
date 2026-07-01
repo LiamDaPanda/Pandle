@@ -101,6 +101,30 @@ export const CHAPTERS: Chapter[] = [
       { id: 'gs-4', puzzleId: 'starfish', targetMs: 90000, rewardBamboo: 55 },
     ],
   },
+  {
+    id: 'crystal-cove',
+    name: 'Crystal Cove',
+    icon: 'gem',
+    levels: [
+      { id: 'cc-1', puzzleId: 'water-drop', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'cc-2', puzzleId: 'tiny-sun', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'cc-3', puzzleId: 'red-gift', targetMs: 75000, rewardBamboo: 25 },
+      { id: 'cc-4', puzzleId: 'green-heart', targetMs: 75000, rewardBamboo: 25 },
+      { id: 'cc-5', puzzleId: 'amber-gem', targetMs: 75000, rewardBamboo: 25 },
+    ],
+  },
+  {
+    id: 'cloud-summit',
+    name: 'Cloud Summit',
+    icon: 'cloud',
+    levels: [
+      { id: 'cs-1', puzzleId: 'moss-block', targetMs: 210000, rewardBamboo: 40 },
+      { id: 'cs-2', puzzleId: 'rose-border', targetMs: 210000, rewardBamboo: 40 },
+      { id: 'cs-3', puzzleId: 'silver-cross', targetMs: 240000, rewardBamboo: 45 },
+      { id: 'cs-4', puzzleId: 'sky-fish', targetMs: 240000, rewardBamboo: 50 },
+      { id: 'cs-5', puzzleId: 'aqua-diamond', targetMs: 240000, rewardBamboo: 50 },
+    ],
+  },
 ];
 
 /** Flat ordered list of levels across all chapters. */

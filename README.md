@@ -1,4 +1,4 @@
-# Pandle — Bamboo Grove 🐼🎋
+# Pandle — Bamboo Grove
 
 A cute panda **picross / nonogram** puzzle game. Use the number clues on each row
 and column to deduce which cells are filled — solve the grid and a hidden, colored
@@ -10,14 +10,14 @@ full-screen, offline experience).
 
 ## Features
 
-- 🧩 **Picross puzzles** with a satisfying colored-art reveal
-- 🚫 **No guessing, ever** — a logical solver validates every puzzle at build time
-- 📅 **Daily puzzle** — one shared puzzle per day, with streaks and a shareable result
-- 🗺️ **Adventure mode** — level-based progression across chapters, earn 1–3 stars
-- 🎉 **Events** — limited-time, date-windowed themed puzzle packs with rewards
-- ♾️ **Practice** — endless random puzzles by difficulty
-- 🎨 **Customization** — unlockable themes, effect packs, and panda skins (spend 🎋 bamboo)
-- ✨ **Effects** — celebratory particle bursts (with a reduced-motion option)
+- **Picross puzzles** with a satisfying colored-art reveal
+- **No guessing, ever** — a logical solver validates every puzzle at build time
+- **Daily puzzle** — one shared puzzle per day, with streaks and a shareable result
+- **Adventure mode** — level-based progression across chapters, earn 1-3 stars
+- **Events** — limited-time, date-windowed themed puzzle packs with rewards
+- **Practice** — endless random puzzles by difficulty
+- **Customization** — unlockable themes, effect packs, and panda skins (spend bamboo)
+- **Effects** — celebratory particle bursts (with a reduced-motion option)
 
 ## Tech
 
