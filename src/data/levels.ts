@@ -13,6 +13,8 @@ export interface Chapter {
   id: string;
   name: string;
   icon: IconName;
+  /** Accent color used to tint the play background for this chapter. */
+  tint: string;
   levels: Level[];
 }
 
@@ -20,6 +22,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'bamboo-forest',
     name: 'Bamboo Forest',
+    tint: '#7bc47f',
     icon: 'bamboo',
     levels: [
       { id: 'bf-1', puzzleId: 'bamboo', targetMs: 60000, rewardBamboo: 10 },
@@ -32,6 +35,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'snowy-peaks',
     name: 'Snowy Peaks',
+    tint: '#8ecae6',
     icon: 'mountain',
     levels: [
       { id: 'sp-1', puzzleId: 'happy-cloud', targetMs: 90000, rewardBamboo: 20 },
@@ -44,6 +48,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'panda-party',
     name: 'Panda Party',
+    tint: '#ffb7c5',
     icon: 'party',
     levels: [
       { id: 'pp-1', puzzleId: 'panda-egg', targetMs: 60000, rewardBamboo: 20 },
@@ -57,6 +62,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'sakura-garden',
     name: 'Sakura Garden',
+    tint: '#ff9fb6',
     icon: 'sakura',
     levels: [
       { id: 'sg-1', puzzleId: 'twinkle', targetMs: 60000, rewardBamboo: 15 },
@@ -70,6 +76,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'panda-village',
     name: 'Panda Village',
+    tint: '#f0913e',
     icon: 'house',
     levels: [
       { id: 'pv-1', puzzleId: 'big-gem', targetMs: 180000, rewardBamboo: 30 },
@@ -82,6 +89,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'misty-lake',
     name: 'Misty Lake',
+    tint: '#a8d8ea',
     icon: 'cloud',
     levels: [
       { id: 'ml-1', puzzleId: 'big-ruby', targetMs: 210000, rewardBamboo: 40 },
@@ -93,6 +101,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'golden-summit',
     name: 'Golden Summit',
+    tint: '#ffd66b',
     icon: 'crown',
     levels: [
       { id: 'gs-1', puzzleId: 'compass', targetMs: 240000, rewardBamboo: 45 },
@@ -104,6 +113,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'crystal-cove',
     name: 'Crystal Cove',
+    tint: '#a78bfa',
     icon: 'gem',
     levels: [
       { id: 'cc-1', puzzleId: 'water-drop', targetMs: 60000, rewardBamboo: 20 },
@@ -116,6 +126,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'cloud-summit',
     name: 'Cloud Summit',
+    tint: '#b8c6db',
     icon: 'cloud',
     levels: [
       { id: 'cs-1', puzzleId: 'moss-block', targetMs: 210000, rewardBamboo: 40 },
@@ -128,6 +139,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'jewel-cavern',
     name: 'Jewel Cavern',
+    tint: '#9b7ede',
     icon: 'gem',
     levels: [
       { id: 'jc-1', puzzleId: 'rose-crystal', targetMs: 60000, rewardBamboo: 20 },
@@ -141,6 +153,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'sky-harbor',
     name: 'Sky Harbor',
+    tint: '#6fb7e0',
     icon: 'cloud',
     levels: [
       { id: 'sh-1', puzzleId: 'sky-stone', targetMs: 60000, rewardBamboo: 20 },
@@ -154,6 +167,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'meadow-trail',
     name: 'Meadow Trail',
+    tint: '#9ccc65',
     icon: 'tree',
     levels: [
       { id: 'mt-1', puzzleId: 'cocoa-egg', targetMs: 60000, rewardBamboo: 20 },
@@ -167,6 +181,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'critter-cove',
     name: 'Critter Cove',
+    tint: '#c98a5e',
     icon: 'cat',
     levels: [
       { id: 'cv-1', puzzleId: 'tabby', targetMs: 200000, rewardBamboo: 40 },
@@ -180,6 +195,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'field-guide',
     name: 'Field Guide',
+    tint: '#e8615a',
     icon: 'strawberry',
     levels: [
       { id: 'fg-1', puzzleId: 'mushroom', targetMs: 150000, rewardBamboo: 35 },
@@ -200,6 +216,10 @@ export function levelIndex(levelId: string): number {
 
 export function levelById(levelId: string): Level | undefined {
   return ALL_LEVELS.find((l) => l.id === levelId);
+}
+
+export function chapterOfLevel(levelId: string): Chapter | undefined {
+  return CHAPTERS.find((c) => c.levels.some((l) => l.id === levelId));
 }
 
 /** Star rating (1-3) for finishing a level in the given time. */

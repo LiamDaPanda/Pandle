@@ -4,6 +4,7 @@ export interface Settings {
   reducedMotion: boolean;
   colorblind: boolean;
   muted: boolean;
+  music: boolean;
   defaultPaintMode: 'fill' | 'cross';
 }
 
@@ -11,6 +12,7 @@ export const DEFAULT_SETTINGS: Settings = {
   reducedMotion: false,
   colorblind: false,
   muted: false,
+  music: true,
   defaultPaintMode: 'fill',
 };
 

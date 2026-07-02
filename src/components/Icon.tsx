@@ -402,14 +402,16 @@ const ICONS: Record<IconName, ReactNode> = {
   ),
   'panda-token': (
     <>
-      <circle cx="6" cy="6.5" r="3.2" fill={K} />
-      <circle cx="18" cy="6.5" r="3.2" fill={K} />
-      <circle cx="12" cy="13" r="8.4" fill={W} />
-      <ellipse cx="8.4" cy="12" rx="2.1" ry="2.7" fill={K} />
-      <ellipse cx="15.6" cy="12" rx="2.1" ry="2.7" fill={K} />
-      <circle cx="8.7" cy="12.6" r="0.7" fill={W} />
-      <circle cx="15.9" cy="12.6" r="0.7" fill={W} />
-      <ellipse cx="12" cy="16.4" rx="1.6" ry="1.2" fill={K} />
+      <circle cx="5.6" cy="6" r="3.7" fill={K} />
+      <circle cx="18.4" cy="6" r="3.7" fill={K} />
+      <circle cx="12" cy="12.6" r="9.4" fill={W} />
+      <ellipse cx="8" cy="11.6" rx="2.4" ry="3.1" fill={K} />
+      <ellipse cx="16" cy="11.6" rx="2.4" ry="3.1" fill={K} />
+      <circle cx="8.4" cy="12.3" r="0.8" fill={W} />
+      <circle cx="16.4" cy="12.3" r="0.8" fill={W} />
+      <circle cx="5.7" cy="16" r="1.5" fill={P} opacity="0.75" />
+      <circle cx="18.3" cy="16" r="1.5" fill={P} opacity="0.75" />
+      <ellipse cx="12" cy="16.4" rx="1.9" ry="1.4" fill={K} />
     </>
   ),
   'bamboo-token': (

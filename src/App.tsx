@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { CellMark, Difficulty, Puzzle } from './game/types';
 import { getDailyPuzzle, puzzleNumber, dateKey } from './game/daily';
 import { puzzleById, puzzlesByDifficulty } from './data/puzzles';
-import { levelById, ALL_LEVELS, levelIndex } from './data/levels';
+import { levelById, ALL_LEVELS, levelIndex, chapterOfLevel } from './data/levels';
 import { eventById } from './data/events';
 import { activeEvents } from './data/events';
 import { tokenFor, particleStyle } from './data/cosmetics';
@@ -12,6 +12,7 @@ import { loadSettings, saveSettings, prefersReducedMotion, Settings } from './st
 import { loadRaw, save } from './state/storage';
 import { useTheme } from './hooks/useTheme';
 import { setMuted } from './effects/sound';
+import { setMusicEnabled, primeMusic } from './effects/music';
 import { GameScreen, RevealInfo } from './components/GameScreen';
 import { HomeScreen, mascotFor } from './components/HomeScreen';
 import { HowToPlay } from './components/HowToPlay';
@@ -67,7 +68,15 @@ export default function App() {
   useEffect(() => {
     saveSettings(settings);
     setMuted(settings.muted);
+    setMusicEnabled(settings.music);
   }, [settings]);
+
+  // Browsers block audio until the first gesture — start music then if enabled.
+  useEffect(() => {
+    const prime = () => primeMusic();
+    window.addEventListener('pointerdown', prime, { once: true });
+    return () => window.removeEventListener('pointerdown', prime);
+  }, []);
 
   const effect = useMemo(() => particleStyle(progress.equipped.effect), [progress.equipped.effect]);
   const effectColors = effect.colors;
@@ -81,6 +90,16 @@ export default function App() {
 
   const spendBamboo = (n: number) =>
     setProgress((p) => ({ ...p, bamboo: Math.max(0, p.bamboo - n) }));
+
+  // A soft, theme-safe background tint for the play area.
+  const bgFor = (tint: string) =>
+    `radial-gradient(135% 95% at 50% -20%, ${tint}3a, transparent 62%), var(--bg)`;
+  const PRACTICE_TINT: Record<Difficulty, string> = {
+    easy: '#9ccc65',
+    medium: '#6fb7e0',
+    hard: '#a78bfa',
+    expert: '#ffd66b',
+  };
 
   const goHome = () => {
     setSession(null);
@@ -120,6 +139,7 @@ export default function App() {
           effectColors={effectColors}
           effectShape={effectShape}
           fillToken={fillToken}
+          background={bgFor('#7bc47f')}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
           subtitle={`Daily #${num}`}
@@ -154,6 +174,7 @@ export default function App() {
           effectColors={effectColors}
           effectShape={effectShape}
           fillToken={fillToken}
+          background={bgFor(chapterOfLevel(level.id)?.tint ?? '#7bc47f')}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
           subtitle={`Level ${idx + 1}`}
@@ -173,6 +194,11 @@ export default function App() {
       const event = eventById(session.eventId);
       const puzzle = puzzleById(session.puzzleId);
       if (!event || !puzzle) return null;
+      const idx = event.puzzleIds.indexOf(puzzle.id);
+      const nextPid =
+        event.puzzleIds.length > 1
+          ? event.puzzleIds[(idx + 1) % event.puzzleIds.length]
+          : undefined;
       return (
         <GameScreen
           key={`event-${event.id}-${puzzle.id}`}
@@ -182,6 +208,7 @@ export default function App() {
           effectColors={effectColors}
           effectShape={effectShape}
           fillToken={fillToken}
+          background={bgFor('#ffcf6b')}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
           subtitle={event.name}
@@ -193,6 +220,8 @@ export default function App() {
             return { bambooEarned: 15 };
           }}
           onHome={goHome}
+          onNext={nextPid ? () => startEvent(event.id, nextPid) : undefined}
+          nextLabel="Next puzzle"
         />
       );
     }
@@ -209,6 +238,7 @@ export default function App() {
         effectColors={effectColors}
         effectShape={effectShape}
         fillToken={fillToken}
+        background={bgFor(PRACTICE_TINT[session.difficulty])}
         bamboo={progress.bamboo}
         onSpendBamboo={spendBamboo}
         subtitle="Practice"

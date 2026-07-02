@@ -246,6 +246,11 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  /* Bleed the per-chapter background tint to the screen edges. */
+  margin: calc(-1 * max(16px, env(safe-area-inset-top))) -16px
+    calc(-1 * max(16px, env(safe-area-inset-bottom)));
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  transition: background 0.4s ease;
 }
 .game-header {
   display: flex;
@@ -341,21 +346,22 @@ body {
   grid-column: 2;
   grid-row: 2;
   display: grid;
-  gap: 2px;
+  gap: 1px;
   aspect-ratio: var(--cols) / var(--rows);
   touch-action: none;
   background: var(--grid-line);
-  padding: 2px;
+  padding: 1px;
   border-radius: 10px;
   user-select: none;
 }
 .cell {
   background: var(--cell-empty);
-  border-radius: 4px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: visible;
 }
 .cell-filled {
   background: var(--accent-soft);
@@ -365,13 +371,13 @@ body {
   background: var(--cell-empty);
 }
 .cell .token {
-  width: 92%;
-  height: 92%;
-  animation: pop 0.16s ease;
+  width: 108%;
+  height: 108%;
+  animation: pop 0.18s ease;
 }
 .cell-crossed .token {
-  width: 74%;
-  height: 74%;
+  width: 82%;
+  height: 82%;
   opacity: 0.9;
 }
 .thick-right {
@@ -468,13 +474,14 @@ body {
 .art-grid {
   display: grid;
   gap: 2px;
-  width: min(240px, 70vw);
+  width: min(280px, 76vw);
   aspect-ratio: 1;
-  margin: 8px auto 14px;
+  margin: 10px auto 16px;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.12));
 }
 .art-cell {
-  border-radius: 3px;
-  animation: pop 0.3s ease both;
+  border-radius: 4px;
+  animation: pop 0.34s ease both;
 }
 .reveal-name {
   margin: 0;

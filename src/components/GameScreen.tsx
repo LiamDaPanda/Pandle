@@ -37,6 +37,8 @@ interface GameScreenProps {
   onSpendBamboo?: (n: number) => void;
   fillToken: IconName;
   effectShape: ParticleShape;
+  /** Optional CSS background for the play area (per-chapter tint). */
+  background?: string;
 }
 
 const HINT_COST = 3;
@@ -54,6 +56,7 @@ export function GameScreen(props: GameScreenProps) {
       setReveal(info);
       celebrate(effectColors, props.effectShape, settings.reducedMotion);
       playWin();
+      navigator.vibrate?.([12, 40, 24]);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [effectColors, props.effectShape, settings.reducedMotion],
@@ -77,7 +80,7 @@ export function GameScreen(props: GameScreenProps) {
   }, [game.marks, game.solved]);
 
   return (
-    <div className="game-screen">
+    <div className="game-screen" style={props.background ? { background: props.background } : undefined}>
       <header className="game-header">
         <button className="btn btn-ghost btn-small" onClick={props.onHome}>
           <Icon name="back" /> Back
