@@ -26,8 +26,8 @@ export function Cell({ x, y, mark, fillToken, thickRight, thickBottom }: CellPro
   const label = `cell ${x + 1}, ${y + 1}${mark === 'empty' ? '' : `, ${mark}`}`;
   return (
     <div className={cls} data-cell data-x={x} data-y={y} aria-label={label}>
-      {mark === 'filled' && <Icon name={fillToken} className="token" />}
-      {mark === 'crossed' && <Icon name="bamboo-token" className="token" />}
+      {mark === 'filled' && <Icon name={fillToken} className="token" size="100%" />}
+      {mark === 'crossed' && <Icon name="bamboo-token" className="token" size="86%" />}
     </div>
   );
 }

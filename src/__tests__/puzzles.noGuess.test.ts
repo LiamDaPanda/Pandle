@@ -19,3 +19,17 @@ describe('every shipped puzzle is solvable by logic alone (no guessing)', () => 
     });
   }
 });
+
+describe('every shipped puzzle is a unique picture', () => {
+  it('no two puzzles share the same silhouette (recolors are not new levels)', () => {
+    const seen = new Map<string, string>();
+    for (const puzzle of ALL_PUZZLES) {
+      const key = toBoolGrid(puzzle)
+        .map((row) => row.map((c) => (c ? '#' : '.')).join(''))
+        .join('|');
+      const clash = seen.get(key);
+      expect(clash ? `${puzzle.id} duplicates ${clash}` : '').toBe('');
+      seen.set(key, puzzle.id);
+    }
+  });
+});

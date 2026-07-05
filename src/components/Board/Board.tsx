@@ -13,44 +13,77 @@ interface BoardProps {
   fillToken: IconName;
 }
 
+interface Stroke {
+  action: PaintAction;
+  last: { x: number; y: number };
+  start: { x: number; y: number };
+  axis: 'row' | 'col' | null;
+}
+
 /**
- * Renders clues + grid and handles tap / drag painting for both mouse and
- * touch. On pointer-down we lock in an action (fill / cross / clear) and drag
- * applies that same action to every cell the finger passes over.
+ * Renders clues + grid and handles tap / slide painting for mouse and touch.
+ * On pointer-down we lock in an action (fill / cross / clear); sliding paints
+ * that same action along the way. The stroke is axis-locked to the row or
+ * column you start moving along (like classic picross apps), the pointer is
+ * captured by the grid so the slide never drops, and cells between samples
+ * are interpolated so fast swipes don't skip squares.
  */
 export function Board({ game, mode, width, height, fillToken }: BoardProps) {
-  const dragAction = useRef<PaintAction | null>(null);
+  const stroke = useRef<Stroke | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
   const cellAt = (clientX: number, clientY: number): { x: number; y: number } | null => {
-    const el = document.elementFromPoint(clientX, clientY) as HTMLElement | null;
-    const cell = el?.closest('[data-cell]') as HTMLElement | null;
-    if (!cell) return null;
-    const x = Number(cell.dataset.x);
-    const y = Number(cell.dataset.y);
-    if (Number.isNaN(x) || Number.isNaN(y)) return null;
+    const rect = gridRef.current?.getBoundingClientRect();
+    if (!rect || rect.width === 0) return null;
+    const x = Math.floor(((clientX - rect.left) / rect.width) * width);
+    const y = Math.floor(((clientY - rect.top) / rect.height) * height);
+    if (x < 0 || y < 0 || x >= width || y >= height) return null;
     return { x, y };
   };
 
   const onPointerDown = (e: React.PointerEvent) => {
     const pos = cellAt(e.clientX, e.clientY);
     if (!pos) return;
-    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
+    gridRef.current?.setPointerCapture(e.pointerId);
     const action = game.actionFor(pos.x, pos.y, mode);
-    dragAction.current = action;
+    stroke.current = { action, last: pos, start: pos, axis: null };
     tick(action);
     game.paint(pos.x, pos.y, action);
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (dragAction.current == null) return;
+    const s = stroke.current;
+    if (!s) return;
     const pos = cellAt(e.clientX, e.clientY);
-    if (!pos) return;
-    game.paint(pos.x, pos.y, dragAction.current);
+    if (!pos || (pos.x === s.last.x && pos.y === s.last.y)) return;
+
+    // Lock the stroke to a row or column on the first real movement.
+    if (!s.axis) {
+      const dx = Math.abs(pos.x - s.start.x);
+      const dy = Math.abs(pos.y - s.start.y);
+      s.axis = dx >= dy ? 'row' : 'col';
+    }
+    const target =
+      s.axis === 'row' ? { x: pos.x, y: s.start.y } : { x: s.start.x, y: pos.y };
+
+    // Paint every cell between the last painted cell and the target so a fast
+    // swipe never leaves gaps.
+    if (s.axis === 'row') {
+      const step = target.x > s.last.x ? 1 : -1;
+      for (let x = s.last.x + step; step > 0 ? x <= target.x : x >= target.x; x += step) {
+        game.paint(x, target.y, s.action);
+      }
+    } else {
+      const step = target.y > s.last.y ? 1 : -1;
+      for (let y = s.last.y + step; step > 0 ? y <= target.y : y >= target.y; y += step) {
+        game.paint(target.x, y, s.action);
+      }
+    }
+    s.last = target;
   };
 
-  const endDrag = () => {
-    dragAction.current = null;
+  const endStroke = () => {
+    stroke.current = null;
   };
 
   return (
@@ -70,9 +103,9 @@ export function Board({ game, mode, width, height, fillToken }: BoardProps) {
         }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerLeave={endDrag}
-        onPointerCancel={endDrag}
+        onPointerUp={endStroke}
+        onPointerCancel={endStroke}
+        onLostPointerCapture={endStroke}
       >
         {game.marks.map((row, y) =>
           row.map((mark, x) => (

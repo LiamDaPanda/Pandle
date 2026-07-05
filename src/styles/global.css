@@ -371,13 +371,9 @@ body {
   background: var(--cell-empty);
 }
 .cell .token {
-  width: 108%;
-  height: 108%;
   animation: pop 0.18s ease;
 }
 .cell-crossed .token {
-  width: 82%;
-  height: 82%;
   opacity: 0.9;
 }
 .thick-right {

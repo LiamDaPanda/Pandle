@@ -70,71 +70,71 @@ interface Critter {
   patch?: string; // panda-style eye patches
 }
 
-/** A round animal face token centred in a 24x24 box (used for board tokens + skins). */
+/** A round animal face token filling the whole 24x24 box (board tokens + skins). */
 function critter({ face, ear, nose, eye = K, innerEar, muzzle, patch }: Critter) {
   return (
     <>
-      <circle cx="6" cy="6.5" r="3.4" fill={ear} />
-      <circle cx="18" cy="6.5" r="3.4" fill={ear} />
+      <circle cx="4.6" cy="4.8" r="4.4" fill={ear} />
+      <circle cx="19.4" cy="4.8" r="4.4" fill={ear} />
       {innerEar && (
         <>
-          <circle cx="6" cy="6.8" r="1.7" fill={innerEar} />
-          <circle cx="18" cy="6.8" r="1.7" fill={innerEar} />
+          <circle cx="4.7" cy="5.1" r="2.2" fill={innerEar} />
+          <circle cx="19.3" cy="5.1" r="2.2" fill={innerEar} />
         </>
       )}
-      <circle cx="12" cy="13" r="8.4" fill={face} />
-      {muzzle && <ellipse cx="12" cy="15.2" rx="4.6" ry="3.7" fill={muzzle} />}
+      <circle cx="12" cy="13.4" r="10.6" fill={face} />
+      {muzzle && <ellipse cx="12" cy="16.4" rx="5.8" ry="4.6" fill={muzzle} />}
       {patch ? (
         <>
-          <ellipse cx="8.4" cy="12" rx="2.1" ry="2.7" fill={patch} />
-          <ellipse cx="15.6" cy="12" rx="2.1" ry="2.7" fill={patch} />
-          <circle cx="8.7" cy="12.6" r="0.7" fill={face} />
-          <circle cx="15.9" cy="12.6" r="0.7" fill={face} />
+          <ellipse cx="7.4" cy="12.2" rx="2.8" ry="3.6" fill={patch} />
+          <ellipse cx="16.6" cy="12.2" rx="2.8" ry="3.6" fill={patch} />
+          <circle cx="7.9" cy="13" r="1" fill={face} />
+          <circle cx="17.1" cy="13" r="1" fill={face} />
         </>
       ) : (
         <>
-          <circle cx="8.7" cy="12" r="1.3" fill={eye} />
-          <circle cx="15.3" cy="12" r="1.3" fill={eye} />
+          <circle cx="7.9" cy="12.2" r="1.7" fill={eye} />
+          <circle cx="16.1" cy="12.2" r="1.7" fill={eye} />
         </>
       )}
-      <ellipse cx="12" cy="16.3" rx="1.6" ry="1.2" fill={nose} />
+      <ellipse cx="12" cy="17.6" rx="2.1" ry="1.6" fill={nose} />
     </>
   );
 }
 
-/** Tiger face token (orange with stripes) in a 24x24 box. */
+/** Tiger face token (orange with stripes) filling the 24x24 box. */
 function tigerFace() {
   return (
     <>
-      <circle cx="6" cy="6.5" r="3.2" fill={O} />
-      <circle cx="18" cy="6.5" r="3.2" fill={O} />
-      <circle cx="6" cy="6.8" r="1.4" fill={K} />
-      <circle cx="18" cy="6.8" r="1.4" fill={K} />
-      <circle cx="12" cy="13" r="8.4" fill={O} />
-      <ellipse cx="12" cy="15.5" rx="4.4" ry="3.4" fill={W} />
-      <path d="M4.5 10.5l1.4 2M6 8l1 2.4M19.5 10.5l-1.4 2M18 8l-1 2.4" stroke={K} strokeWidth="1.1" strokeLinecap="round" />
-      <circle cx="8.7" cy="12" r="1.3" fill={K} />
-      <circle cx="15.3" cy="12" r="1.3" fill={K} />
-      <ellipse cx="12" cy="16.2" rx="1.5" ry="1.1" fill={K} />
+      <circle cx="4.6" cy="4.8" r="4.2" fill={O} />
+      <circle cx="19.4" cy="4.8" r="4.2" fill={O} />
+      <circle cx="4.7" cy="5.1" r="2" fill={K} />
+      <circle cx="19.3" cy="5.1" r="2" fill={K} />
+      <circle cx="12" cy="13.4" r="10.6" fill={O} />
+      <ellipse cx="12" cy="16.6" rx="5.6" ry="4.4" fill={W} />
+      <path d="M2.6 11l1.9 2.6M4.6 7.6l1.4 3.1M21.4 11l-1.9 2.6M19.4 7.6l-1.4 3.1" stroke={K} strokeWidth="1.4" strokeLinecap="round" />
+      <circle cx="7.9" cy="12.2" r="1.7" fill={K} />
+      <circle cx="16.1" cy="12.2" r="1.7" fill={K} />
+      <ellipse cx="12" cy="17.4" rx="2" ry="1.5" fill={K} />
     </>
   );
 }
 
-/** Panda face wearing a red ninja headband. */
+/** Panda face wearing a red ninja headband, filling the 24x24 box. */
 function ninjaFace() {
   return (
     <>
-      <circle cx="6" cy="6.5" r="3.2" fill={K} />
-      <circle cx="18" cy="6.5" r="3.2" fill={K} />
-      <circle cx="12" cy="13" r="8.4" fill={W} />
-      <ellipse cx="8.4" cy="14.5" rx="1.9" ry="2.3" fill={K} />
-      <ellipse cx="15.6" cy="14.5" rx="1.9" ry="2.3" fill={K} />
-      <circle cx="8.7" cy="15" r="0.6" fill={W} />
-      <circle cx="15.9" cy="15" r="0.6" fill={W} />
-      <ellipse cx="12" cy="18" rx="1.4" ry="1" fill={K} />
-      <rect x="2.5" y="9.5" width="19" height="2.8" fill={R} />
-      <path d="M21.5 9.5l3 -1v6l-3 -1.5z" fill={R} />
-      <circle cx="12" cy="10.9" r="1" fill={W} />
+      <circle cx="4.6" cy="4.8" r="4.2" fill={K} />
+      <circle cx="19.4" cy="4.8" r="4.2" fill={K} />
+      <circle cx="12" cy="13.4" r="10.6" fill={W} />
+      <ellipse cx="7.6" cy="15.4" rx="2.4" ry="2.9" fill={K} />
+      <ellipse cx="16.4" cy="15.4" rx="2.4" ry="2.9" fill={K} />
+      <circle cx="8" cy="16" r="0.8" fill={W} />
+      <circle cx="16.8" cy="16" r="0.8" fill={W} />
+      <ellipse cx="12" cy="19.4" rx="1.8" ry="1.3" fill={K} />
+      <rect x="1.4" y="8.6" width="21.2" height="3.6" fill={R} />
+      <path d="M22 8.6l2 -1.2v7l-2 -1.8z" fill={R} />
+      <circle cx="12" cy="10.4" r="1.2" fill={W} />
     </>
   );
 }
@@ -402,25 +402,25 @@ const ICONS: Record<IconName, ReactNode> = {
   ),
   'panda-token': (
     <>
-      <circle cx="5.6" cy="6" r="3.7" fill={K} />
-      <circle cx="18.4" cy="6" r="3.7" fill={K} />
-      <circle cx="12" cy="12.6" r="9.4" fill={W} />
-      <ellipse cx="8" cy="11.6" rx="2.4" ry="3.1" fill={K} />
-      <ellipse cx="16" cy="11.6" rx="2.4" ry="3.1" fill={K} />
-      <circle cx="8.4" cy="12.3" r="0.8" fill={W} />
-      <circle cx="16.4" cy="12.3" r="0.8" fill={W} />
-      <circle cx="5.7" cy="16" r="1.5" fill={P} opacity="0.75" />
-      <circle cx="18.3" cy="16" r="1.5" fill={P} opacity="0.75" />
-      <ellipse cx="12" cy="16.4" rx="1.9" ry="1.4" fill={K} />
+      <circle cx="4.6" cy="4.8" r="4.4" fill={K} />
+      <circle cx="19.4" cy="4.8" r="4.4" fill={K} />
+      <circle cx="12" cy="13.2" r="10.8" fill={W} />
+      <ellipse cx="7.4" cy="12" rx="2.9" ry="3.7" fill={K} />
+      <ellipse cx="16.6" cy="12" rx="2.9" ry="3.7" fill={K} />
+      <circle cx="7.9" cy="12.9" r="1" fill={W} />
+      <circle cx="17.1" cy="12.9" r="1" fill={W} />
+      <circle cx="4.4" cy="17" r="1.9" fill={P} opacity="0.75" />
+      <circle cx="19.6" cy="17" r="1.9" fill={P} opacity="0.75" />
+      <ellipse cx="12" cy="17.4" rx="2.3" ry="1.7" fill={K} />
     </>
   ),
   'bamboo-token': (
     <>
-      <rect x="9.2" y="2.5" width="5.6" height="19" rx="2.6" fill={G} />
-      <rect x="9.2" y="8" width="5.6" height="1.7" fill={DG} />
-      <rect x="9.2" y="14" width="5.6" height="1.7" fill={DG} />
-      <path d="M9.2 6.5q-4.5 0.2 -5.7 -2.8 3.8 -0.8 5.7 2.8z" fill={DG} />
-      <path d="M14.8 12.5q4.5 0.2 5.7 -2.8 -3.8 -0.8 -5.7 2.8z" fill={DG} />
+      <rect x="8.4" y="1.2" width="7.2" height="21.6" rx="3.2" fill={G} />
+      <rect x="8.4" y="7.4" width="7.2" height="2" fill={DG} />
+      <rect x="8.4" y="14.2" width="7.2" height="2" fill={DG} />
+      <path d="M8.4 6q-5.6 0.3 -7 -3.4 4.7 -1 7 3.4z" fill={DG} />
+      <path d="M15.6 13q5.6 0.3 7 -3.4 -4.7 -1 -7 3.4z" fill={DG} />
     </>
   ),
   'red-panda-token': critter({ face: O, ear: '#c96a34', innerEar: W, muzzle: W, nose: K }),
