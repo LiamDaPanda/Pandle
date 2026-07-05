@@ -52,6 +52,14 @@ needs guessing, the no-guess test will tell you.
 
 ## Deploy
 
-Pushes to `main` build and publish to GitHub Pages via
-`.github/workflows/deploy.yml` (served under `/Pandle/`, configured by `base` in
-`vite.config.ts`).
+GitHub Pages serves this branch's repo root directly, so the built app is
+committed at the root. After changing the app, run:
+
+```bash
+npm run build && npm run sync:pages
+```
+
+then commit and push — the site updates on its own. (The app source entry
+lives in `src/index.html`; `vite.config.ts` sets `root: 'src'` so the repo
+root stays free for the build output. `.github/workflows/deploy.yml` still
+runs tests and a build as CI on every push.)

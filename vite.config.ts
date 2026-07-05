@@ -4,8 +4,14 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // Deployed under https://<user>.github.io/Pandle/ on GitHub Pages.
+// The app root lives in src/ so the repo root can hold the committed build
+// output — GitHub Pages "deploy from branch" then serves the built app
+// directly (run `npm run build && npm run sync:pages` before pushing).
 export default defineConfig({
   base: '/Pandle/',
+  root: 'src',
+  publicDir: '../public',
+  build: { outDir: '../dist', emptyOutDir: true },
   plugins: [
     react(),
     VitePWA({
@@ -32,6 +38,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/test-setup.ts',
+    setupFiles: './test-setup.ts',
   },
 });

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#7bc47f"/>
+  <!-- ears -->
+  <circle cx="150" cy="150" r="66" fill="#2b2b2b"/>
+  <circle cx="362" cy="150" r="66" fill="#2b2b2b"/>
+  <!-- face -->
+  <circle cx="256" cy="286" r="168" fill="#ffffff"/>
+  <!-- eye patches -->
+  <ellipse cx="196" cy="272" rx="46" ry="58" fill="#2b2b2b"/>
+  <ellipse cx="316" cy="272" rx="46" ry="58" fill="#2b2b2b"/>
+  <!-- eyes -->
+  <circle cx="196" cy="280" r="16" fill="#ffffff"/>
+  <circle cx="316" cy="280" r="16" fill="#ffffff"/>
+  <!-- nose -->
+  <ellipse cx="256" cy="356" rx="26" ry="18" fill="#2b2b2b"/>
+  <!-- blush -->
+  <circle cx="150" cy="352" r="22" fill="#ffb7c5" opacity="0.8"/>
+  <circle cx="362" cy="352" r="22" fill="#ffb7c5" opacity="0.8"/>
+</svg>
