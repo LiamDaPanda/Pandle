@@ -1,4 +1,4 @@
-import { EVENTS, GameEvent, isEventLive, nextOpenMonth } from '../data/events';
+import { EVENTS, GameEvent, isEventLive, nextOpenMonth, daysLeftInSeason } from '../data/events';
 import { puzzleById } from '../data/puzzles';
 import { Progress, eventProgress } from '../state/progress';
 import { cosmeticById } from '../data/cosmetics';
@@ -24,6 +24,7 @@ function EventCard({
   const rewards = event.rewardCosmetics.map((id) => cosmeticById(id)).filter(Boolean);
   const prog = eventProgress(progress, event);
   const earned = progress.claimedEvents.includes(event.id);
+  const daysLeft = live ? daysLeftInSeason(event) : 0;
   return (
     <section className={`event-card ${live ? 'live' : 'ended'}`}>
       <div className="event-head">
@@ -38,6 +39,12 @@ function EventCard({
           {live ? 'IN SEASON' : `back in ${nextOpenMonth(event)}`}
         </span>
       </div>
+
+      {live && (
+        <p className="event-countdown">
+          <Icon name="flame" /> Ends in {daysLeft} day{daysLeft === 1 ? '' : 's'}
+        </p>
+      )}
 
       <div className="event-progress">
         <div className="event-bar">

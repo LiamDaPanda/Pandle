@@ -14,10 +14,11 @@ export type IconName =
   | 'polar-bear' | 'brown-bear' | 'sun' | 'wave'
   | 'tiger' | 'ninja' | 'fireworks' | 'planet'
   | 'mushroom' | 'strawberry' | 'icecream' | 'balloon' | 'sailboat'
+  | 'bunny' | 'golden-panda'
   // board tokens
   | 'panda-token' | 'bamboo-token'
   | 'red-panda-token' | 'koala-token' | 'polar-token' | 'brown-token'
-  | 'tiger-token' | 'ninja-token';
+  | 'tiger-token' | 'ninja-token' | 'bunny-token' | 'golden-token';
 
 // palette
 const K = '#2b2b2b'; // black
@@ -135,6 +136,42 @@ function ninjaFace() {
       <rect x="1.4" y="8.6" width="21.2" height="3.6" fill={R} />
       <path d="M22 8.6l2 -1.2v7l-2 -1.8z" fill={R} />
       <circle cx="12" cy="10.4" r="1.2" fill={W} />
+    </>
+  );
+}
+
+/** Bunny face token filling the 24x24 box (white with tall ears + pink). */
+function bunnyFace() {
+  return (
+    <>
+      <ellipse cx="8" cy="4.5" rx="2.4" ry="5" fill={W} stroke="#e6e6e6" strokeWidth="0.5" />
+      <ellipse cx="16" cy="4.5" rx="2.4" ry="5" fill={W} stroke="#e6e6e6" strokeWidth="0.5" />
+      <ellipse cx="8" cy="4.8" rx="1.1" ry="3.2" fill={P} />
+      <ellipse cx="16" cy="4.8" rx="1.1" ry="3.2" fill={P} />
+      <circle cx="12" cy="14.4" r="9.4" fill={W} stroke="#e6e6e6" strokeWidth="0.5" />
+      <circle cx="8.4" cy="13.4" r="1.6" fill={K} />
+      <circle cx="15.6" cy="13.4" r="1.6" fill={K} />
+      <circle cx="6.2" cy="16.6" r="1.9" fill={P} opacity="0.7" />
+      <circle cx="17.8" cy="16.6" r="1.9" fill={P} opacity="0.7" />
+      <path d="M12 16.4v1.8M12 18.2l-1.6 1M12 18.2l1.6 1" stroke={K} strokeWidth="1" strokeLinecap="round" fill="none" />
+      <ellipse cx="12" cy="16.2" rx="1.2" ry="0.9" fill={P} />
+    </>
+  );
+}
+
+/** Golden panda face token filling the 24x24 box (gold ears/patches). */
+function goldenFace() {
+  return (
+    <>
+      <circle cx="4.6" cy="4.8" r="4.4" fill={Y} />
+      <circle cx="19.4" cy="4.8" r="4.4" fill={Y} />
+      <circle cx="12" cy="13.2" r="10.8" fill={W} />
+      <ellipse cx="7.4" cy="12" rx="2.9" ry="3.7" fill={Y} />
+      <ellipse cx="16.6" cy="12" rx="2.9" ry="3.7" fill={Y} />
+      <circle cx="7.9" cy="12.9" r="1.1" fill={K} />
+      <circle cx="17.1" cy="12.9" r="1.1" fill={K} />
+      <ellipse cx="12" cy="17.4" rx="2.3" ry="1.7" fill={O} />
+      <path d="M2.6 3.2l1.5 1.4M21.4 3.2l-1.5 1.4" stroke={O} strokeWidth="1" strokeLinecap="round" />
     </>
   );
 }
@@ -508,6 +545,10 @@ const ICONS: Record<IconName, ReactNode> = {
       <path d="M2 15c2 1 4 1 5 0s3-1 5 0 3 1 5 0" fill="none" stroke={B} strokeWidth="1.2" />
     </>
   ),
+  bunny: bunnyFace(),
+  'bunny-token': bunnyFace(),
+  'golden-panda': goldenFace(),
+  'golden-token': goldenFace(),
 };
 
 export interface IconProps {

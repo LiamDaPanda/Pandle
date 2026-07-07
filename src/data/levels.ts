@@ -205,6 +205,34 @@ export const CHAPTERS: Chapter[] = [
       { id: 'fg-5', puzzleId: 'sailboat', targetMs: 170000, rewardBamboo: 45 },
     ],
   },
+  {
+    id: 'toy-chest',
+    name: 'Toy Chest',
+    tint: '#ff9f43',
+    icon: 'gift',
+    levels: [
+      { id: 'tc-1', puzzleId: 'bell', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'tc-2', puzzleId: 'flag', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'tc-3', puzzleId: 'arrow', targetMs: 60000, rewardBamboo: 20 },
+      { id: 'tc-4', puzzleId: 'bone', targetMs: 75000, rewardBamboo: 25 },
+      { id: 'tc-5', puzzleId: 'hourglass', targetMs: 75000, rewardBamboo: 25 },
+      { id: 'tc-6', puzzleId: 'envelope', targetMs: 75000, rewardBamboo: 25 },
+    ],
+  },
+  {
+    id: 'storybook-trail',
+    name: 'Storybook Trail',
+    tint: '#5aa9e6',
+    icon: 'wave',
+    levels: [
+      { id: 'sb-1', puzzleId: 'whale', targetMs: 200000, rewardBamboo: 40 },
+      { id: 'sb-2', puzzleId: 'owl', targetMs: 210000, rewardBamboo: 45 },
+      { id: 'sb-3', puzzleId: 'turtle', targetMs: 210000, rewardBamboo: 45 },
+      { id: 'sb-4', puzzleId: 'snail', targetMs: 230000, rewardBamboo: 50 },
+      { id: 'sb-5', puzzleId: 'crab', targetMs: 230000, rewardBamboo: 50 },
+      { id: 'sb-6', puzzleId: 'castle', targetMs: 240000, rewardBamboo: 55 },
+    ],
+  },
 ];
 
 /** Flat ordered list of levels across all chapters. */

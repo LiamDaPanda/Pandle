@@ -5,7 +5,7 @@ import { puzzleById, puzzlesByDifficulty } from './data/puzzles';
 import { levelById, ALL_LEVELS, levelIndex, chapterOfLevel } from './data/levels';
 import { eventById } from './data/events';
 import { activeEvents } from './data/events';
-import { tokenFor, particleStyle } from './data/cosmetics';
+import { tokenFor, particleStyle, cosmeticById } from './data/cosmetics';
 import { loadProgress, saveProgress, completeLevel, markSolved, Progress } from './state/progress';
 import { loadStats, recordDailyWin, saveStats, Stats } from './state/stats';
 import { loadSettings, saveSettings, prefersReducedMotion, Settings } from './state/settings';
@@ -213,11 +213,21 @@ export default function App() {
           onSpendBamboo={spendBamboo}
           subtitle={event.name}
           onSolved={(): RevealInfo => {
+            // Figure out which exclusive rewards this solve unlocks (if it
+            // completes the event's whole pack) so the reveal can celebrate them.
+            const before = progress.claimedEvents;
+            const after = markSolved(progress, puzzle.id);
+            const newlyClaimed = after.claimedEvents.filter((id) => !before.includes(id));
+            const unlocked = newlyClaimed
+              .flatMap((id) => eventById(id)?.rewardCosmetics ?? [])
+              .map((cid) => cosmeticById(cid))
+              .filter((c): c is NonNullable<typeof c> => Boolean(c))
+              .map((c) => ({ icon: c.icon, name: c.name }));
             setProgress((p) => {
               const m = markSolved(p, puzzle.id);
               return { ...m, bamboo: m.bamboo + 15 };
             });
-            return { bambooEarned: 15 };
+            return { bambooEarned: 15, unlocked: unlocked.length ? unlocked : undefined };
           }}
           onHome={goHome}
           onNext={nextPid ? () => startEvent(event.id, nextPid) : undefined}

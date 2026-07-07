@@ -138,6 +138,40 @@ export const THEMES: Cosmetic[] = [
     },
   },
   {
+    id: 'theme-strawberry',
+    kind: 'theme',
+    name: 'Strawberry Milk',
+    icon: 'strawberry',
+    cost: 50,
+    theme: {
+      '--bg': '#fff1f4',
+      '--surface': '#fffafb',
+      '--ink': '#7a4a55',
+      '--accent': '#ff6f91',
+      '--accent-soft': '#ffe0e8',
+      '--grid-line': '#f4c9d5',
+      '--cell-empty': '#fff5f8',
+      '--cell-fill': '#8a4a58',
+    },
+  },
+  {
+    id: 'theme-charcoal',
+    kind: 'theme',
+    name: 'Charcoal',
+    icon: 'moon',
+    cost: 55,
+    theme: {
+      '--bg': '#20232a',
+      '--surface': '#2b2f38',
+      '--ink': '#e8ebf0',
+      '--accent': '#f0913e',
+      '--accent-soft': '#3a3f4a',
+      '--grid-line': '#3f4550',
+      '--cell-empty': '#262a32',
+      '--cell-fill': '#e8ebf0',
+    },
+  },
+  {
     id: 'theme-galaxy',
     kind: 'theme',
     name: 'Galaxy',
@@ -222,6 +256,26 @@ export const EFFECTS: Cosmetic[] = [
     particleColors: ['#ff6b6b', '#ffd166', '#6bcb77', '#4d96ff', '#c780e8', '#ff9fb6'],
     particleShape: 'star',
   },
+  {
+    id: 'effect-bubbles',
+    kind: 'effect',
+    name: 'Bubbles',
+    icon: 'wave',
+    cost: 0,
+    exclusive: true,
+    particleColors: ['#8ecae6', '#bfe3f2', '#e6f4fb'],
+    particleShape: 'snow',
+  },
+  {
+    id: 'effect-fireflies',
+    kind: 'effect',
+    name: 'Fireflies',
+    icon: 'sun',
+    cost: 0,
+    exclusive: true,
+    particleColors: ['#ffe58a', '#fff3bf', '#d9f08a'],
+    particleShape: 'star',
+  },
 ];
 
 export const SKINS: Cosmetic[] = [
@@ -230,8 +284,10 @@ export const SKINS: Cosmetic[] = [
   { id: 'skin-koala', kind: 'skin', name: 'Koala Buddy', icon: 'koala', cost: 45, mascot: 'koala', token: 'koala-token' },
   { id: 'skin-polar', kind: 'skin', name: 'Polar Bear', icon: 'polar-bear', cost: 65, mascot: 'polar-bear', token: 'polar-token' },
   { id: 'skin-brown', kind: 'skin', name: 'Brown Bear', icon: 'brown-bear', cost: 65, mascot: 'brown-bear', token: 'brown-token' },
+  { id: 'skin-bunny', kind: 'skin', name: 'Bunny', icon: 'bunny', cost: 55, mascot: 'bunny', token: 'bunny-token' },
   { id: 'skin-tiger', kind: 'skin', name: 'Tiger', icon: 'tiger', cost: 0, exclusive: true, mascot: 'tiger', token: 'tiger-token' },
   { id: 'skin-ninja', kind: 'skin', name: 'Ninja Panda', icon: 'ninja', cost: 0, exclusive: true, mascot: 'ninja', token: 'ninja-token' },
+  { id: 'skin-golden', kind: 'skin', name: 'Golden Panda', icon: 'golden-panda', cost: 0, exclusive: true, mascot: 'golden-panda', token: 'golden-token' },
 ];
 
 export const ALL_COSMETICS: Cosmetic[] = [...THEMES, ...EFFECTS, ...SKINS];

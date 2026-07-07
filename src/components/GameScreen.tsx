@@ -16,6 +16,7 @@ export interface RevealInfo {
   bambooEarned?: number;
   streak?: number;
   puzzleNumber?: number;
+  unlocked?: { icon: IconName; name: string }[];
 }
 
 interface GameScreenProps {
@@ -126,6 +127,7 @@ export function GameScreen(props: GameScreenProps) {
           bambooEarned={reveal.bambooEarned}
           streak={reveal.streak}
           puzzleNumber={reveal.puzzleNumber}
+          unlocked={reveal.unlocked}
           mode={props.mode}
           onNext={props.onNext}
           nextLabel={props.nextLabel}

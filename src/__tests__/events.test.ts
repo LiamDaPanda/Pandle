@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { defaultProgress, markSolved, eventProgress } from '../state/progress';
-import { EVENTS, activeEvents, isEventLive, nextOpenMonth } from '../data/events';
+import { EVENTS, activeEvents, isEventLive, nextOpenMonth, daysLeftInSeason } from '../data/events';
 import { cosmeticById } from '../data/cosmetics';
 
 const event = EVENTS.find((e) => e.id === 'summer-splash')!;
@@ -17,6 +17,14 @@ describe('seasonal scheduling', () => {
   });
   it('nextOpenMonth names an upcoming month when out of season', () => {
     expect(nextOpenMonth(event, new Date(2026, 0, 1))).toBe('June');
+  });
+  it('daysLeftInSeason counts through the whole in-season stretch', () => {
+    // summer-splash runs Jun-Aug; from Aug 30 there are 2 days left (30th, 31st).
+    expect(daysLeftInSeason(event, new Date(2026, 7, 30))).toBe(2);
+    // From July 1 the stretch runs through Aug 31: 31 + 31 = 62 days.
+    expect(daysLeftInSeason(event, new Date(2026, 6, 1))).toBe(62);
+    // Out of season → 0.
+    expect(daysLeftInSeason(event, new Date(2026, 0, 1))).toBe(0);
   });
 });
 

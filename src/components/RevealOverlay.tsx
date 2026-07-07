@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PALETTE, Puzzle, EMPTY } from '../game/types';
 import { formatTime, buildShareText, copyToClipboard, ShareResult } from '../game/share';
-import { Icon } from './Icon';
+import { Icon, IconName } from './Icon';
 
 interface RevealOverlayProps {
   puzzle: Puzzle;
@@ -11,6 +11,8 @@ interface RevealOverlayProps {
   streak?: number;
   puzzleNumber?: number;
   mode: ShareResult['mode'];
+  /** Exclusive cosmetics unlocked by finishing this solve (e.g. completing an event). */
+  unlocked?: { icon: IconName; name: string }[];
   nextLabel?: string;
   onNext?: () => void;
   onHome: () => void;
@@ -95,6 +97,18 @@ export function RevealOverlay(props: RevealOverlayProps) {
           <p className="reveal-streak">
             <Icon name="flame" /> Streak {streak}
           </p>
+        )}
+        {props.unlocked && props.unlocked.length > 0 && (
+          <div className="reveal-unlocked">
+            <p className="reveal-unlocked-title">
+              <Icon name="party" /> Exclusive unlocked!
+            </p>
+            {props.unlocked.map((u) => (
+              <span key={u.name} className="reveal-unlocked-item">
+                <Icon name={u.icon} /> {u.name}
+              </span>
+            ))}
+          </div>
         )}
 
         <div className="reveal-actions">

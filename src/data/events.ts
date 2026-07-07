@@ -64,6 +64,24 @@ export const EVENTS: GameEvent[] = [
     puzzleIds: ['firecracker', 'starburst', 'sunny-day'],
     rewardCosmetics: ['effect-fireworks'],
   },
+  {
+    id: 'firefly-nights',
+    name: 'Firefly Nights',
+    icon: 'sun',
+    theme: 'Warm summer evenings glowing with little lights.',
+    months: [6, 7, 8],
+    puzzleIds: ['twinkle', 'tiny-sun', 'starburst'],
+    rewardCosmetics: ['effect-fireflies'],
+  },
+  {
+    id: 'bubble-days',
+    name: 'Bubble Days',
+    icon: 'wave',
+    theme: 'Splash around and chase the bubbles all summer long.',
+    months: [6, 7, 8],
+    puzzleIds: ['water-drop', 'whale', 'crab'],
+    rewardCosmetics: ['effect-bubbles'],
+  },
 ];
 
 const MONTH_NAMES = [
@@ -89,6 +107,24 @@ export function nextOpenMonth(event: GameEvent, date: Date = new Date()): string
     if (event.months.includes(m)) return MONTH_NAMES[m - 1];
   }
   return MONTH_NAMES[event.months[0] - 1];
+}
+
+/**
+ * Days remaining in the current in-season stretch (inclusive of today). Counts
+ * forward through consecutive in-season months and stops at the last day before
+ * the event goes out of season. Returns 0 if the event isn't live.
+ */
+export function daysLeftInSeason(event: GameEvent, date: Date = new Date()): number {
+  if (!isEventLive(event, date)) return 0;
+  const cursor = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  let days = 0;
+  // Walk day-by-day until the month is no longer in season (cap at a year).
+  for (let i = 0; i < 366; i++) {
+    if (!event.months.includes(cursor.getMonth() + 1)) break;
+    days++;
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  return days;
 }
 
 export function eventById(id: string): GameEvent | undefined {
