@@ -40,6 +40,8 @@ interface GameScreenProps {
   effectShape: ParticleShape;
   /** Optional CSS background for the play area (per-chapter tint). */
   background?: string;
+  /** The equipped mascot, shown congratulating the player in the reveal. */
+  mascot?: IconName;
 }
 
 const HINT_COST = 3;
@@ -128,6 +130,7 @@ export function GameScreen(props: GameScreenProps) {
           streak={reveal.streak}
           puzzleNumber={reveal.puzzleNumber}
           unlocked={reveal.unlocked}
+          mascot={props.mascot}
           mode={props.mode}
           onNext={props.onNext}
           nextLabel={props.nextLabel}

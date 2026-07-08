@@ -182,6 +182,30 @@ body {
   text-align: center;
   margin: 24px 0 8px;
 }
+.speech {
+  position: relative;
+  display: inline-block;
+  max-width: 290px;
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 8px 16px;
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  animation: rise 0.4s ease both;
+}
+.speech::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--surface);
+  border-radius: 2px;
+  transform: translateX(-50%) rotate(45deg);
+}
 .mascot-badge {
   position: relative;
   width: 136px;
@@ -547,6 +571,17 @@ body {
   color: #ffcc4d;
   animation: pop 0.3s ease;
 }
+.reveal-praise {
+  margin: 4px 0 2px;
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.reveal-praise .icon {
+  font-size: 1.3rem;
+}
 .reveal-time,
 .reveal-reward,
 .reveal-streak {
@@ -865,6 +900,13 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+}
+.stats-note {
+  text-align: center;
+  margin: 18px auto 0;
+  max-width: 300px;
+  font-size: 0.9rem;
+  opacity: 0.75;
 }
 .stat-card {
   background: var(--surface);

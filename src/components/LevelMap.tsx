@@ -21,6 +21,9 @@ export function LevelMap({ progress, onPlayLevel, onHome }: LevelMapProps) {
           <Icon name="bamboo" /> {progress.bamboo}
         </span>
       </header>
+      <p className="screen-intro">
+        A new little picture hides in every level. No rush — they’ll wait for you.
+      </p>
 
       <div className="chapters">
         {CHAPTERS.map((chapter) => (

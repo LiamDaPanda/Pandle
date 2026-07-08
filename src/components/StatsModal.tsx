@@ -44,6 +44,13 @@ export function StatsScreen({ stats, progress, onHome }: StatsScreenProps) {
           </div>
         ))}
       </div>
+      <p className="stats-note">
+        {stats.played === 0
+          ? 'Your story starts with the first daily puzzle. See you there!'
+          : stats.streak > 0
+            ? 'Keep the streak cozy — one puzzle a day is all it takes.'
+            : 'Every solve adds a page to the story. Today is a good day for one.'}
+      </p>
     </div>
   );
 }

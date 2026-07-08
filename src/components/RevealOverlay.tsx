@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { PALETTE, Puzzle, EMPTY } from '../game/types';
 import { formatTime, buildShareText, copyToClipboard, ShareResult } from '../game/share';
 import { Icon, IconName } from './Icon';
@@ -11,6 +11,8 @@ interface RevealOverlayProps {
   streak?: number;
   puzzleNumber?: number;
   mode: ShareResult['mode'];
+  /** The equipped mascot, who congratulates the player. */
+  mascot?: IconName;
   /** Exclusive cosmetics unlocked by finishing this solve (e.g. completing an event). */
   unlocked?: { icon: IconName; name: string }[];
   nextLabel?: string;
@@ -48,9 +50,21 @@ function ArtGrid({ puzzle }: { puzzle: Puzzle }) {
   );
 }
 
+const PRAISE = [
+  'You found it!',
+  'Beautiful work.',
+  'So satisfying.',
+  'A little masterpiece.',
+  'That one made me smile.',
+  'Solved with style.',
+  'The grove approves.',
+  'Lovely solving.',
+];
+
 export function RevealOverlay(props: RevealOverlayProps) {
   const { puzzle, timeMs, stars, bambooEarned, streak, puzzleNumber, mode } = props;
   const [copied, setCopied] = useState(false);
+  const praise = useMemo(() => PRAISE[Math.floor(Math.random() * PRAISE.length)], []);
 
   // Announce for screen readers.
   useEffect(() => {
@@ -82,6 +96,9 @@ export function RevealOverlay(props: RevealOverlayProps) {
         <h2 id="reveal-title" tabIndex={-1} className="reveal-name">
           <Icon name={puzzle.icon} /> {puzzle.name}
         </h2>
+        <p className="reveal-praise">
+          {props.mascot && <Icon name={props.mascot} />} {praise}
+        </p>
         {stars != null && (
           <div className="stars" aria-label={`${stars} of 3 stars`}>
             {[1, 2, 3].map((s) => (

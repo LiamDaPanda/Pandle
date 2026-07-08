@@ -24,7 +24,9 @@ export function PracticeScreen({ onPick, onHome }: PracticeScreenProps) {
         <h2>Practice</h2>
         <span />
       </header>
-      <p className="screen-intro">Pick a size — you’ll get a random panda to solve. Play as many as you like!</p>
+      <p className="screen-intro">
+        Pick a size and a surprise picture will be waiting inside. Stay as long as you like!
+      </p>
       <div className="tier-grid">
         {TIERS.map((t) => {
           const count = puzzlesByDifficulty(t.d).length;

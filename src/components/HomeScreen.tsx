@@ -20,6 +20,44 @@ const AMBIENT = [
   { left: '85%', size: '18px', dur: '11s', delay: '2.5s' },
 ];
 
+const MORNING = [
+  'Good morning! A fresh puzzle is waiting.',
+  'Morning! The grove is quiet and the grids are fresh.',
+  'Rise and shine — bamboo for breakfast?',
+];
+const AFTERNOON = [
+  'Good afternoon! Time for a little puzzle break?',
+  'A puzzle a day keeps the panda happy.',
+  'Lovely day for finding hidden pictures.',
+];
+const EVENING = [
+  'Good evening! One cozy puzzle before dinner?',
+  'Evenings are for slow, happy solving.',
+  'The fireflies are out — so are the puzzles.',
+];
+const NIGHT = [
+  'Up late? One quiet puzzle, then bed.',
+  'Night owl! The grove is peaceful at this hour.',
+  'The pandas are asleep — solve softly.',
+];
+const DAILY_DONE = [
+  'All done for today — see you tomorrow!',
+  'Daily puzzle: solved. Enjoy the rest of your day.',
+];
+
+/** A warm, time-aware line from the mascot. Stable for a whole day. */
+export function greetingFor(date: Date, streak: number, dailyDone: boolean): string {
+  const day = Math.floor(date.getTime() / 86400000);
+  if (dailyDone) {
+    if (streak >= 3) return `${streak} days in a row — you're amazing!`;
+    return DAILY_DONE[day % DAILY_DONE.length];
+  }
+  if (streak >= 3 && day % 3 === 0) return `Day ${streak} of your streak — keep it cozy!`;
+  const h = date.getHours();
+  const bucket = h < 5 ? NIGHT : h < 12 ? MORNING : h < 17 ? AFTERNOON : h < 22 ? EVENING : NIGHT;
+  return bucket[day % bucket.length];
+}
+
 export function HomeScreen({
   onNavigate,
   bamboo,
@@ -62,6 +100,7 @@ export function HomeScreen({
       </div>
 
       <div className="hero">
+        <p className="speech">{greetingFor(new Date(), streak, dailyDone)}</p>
         <div className="mascot-badge">
           <span className="badge-sprig left" aria-hidden="true">
             <Icon name="bamboo-tall" size="2.2rem" />

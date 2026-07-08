@@ -141,6 +141,7 @@ export default function App() {
           effectColors={effectColors}
           effectShape={effectShape}
           fillToken={fillToken}
+          mascot={mascot}
           background={bgFor('#7bc47f')}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
@@ -176,6 +177,7 @@ export default function App() {
           effectColors={effectColors}
           effectShape={effectShape}
           fillToken={fillToken}
+          mascot={mascot}
           background={bgFor(chapterOfLevel(level.id)?.tint ?? '#7bc47f')}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
@@ -210,6 +212,7 @@ export default function App() {
           effectColors={effectColors}
           effectShape={effectShape}
           fillToken={fillToken}
+          mascot={mascot}
           background={bgFor('#ffcf6b')}
           bamboo={progress.bamboo}
           onSpendBamboo={spendBamboo}
@@ -250,6 +253,7 @@ export default function App() {
         effectColors={effectColors}
         effectShape={effectShape}
         fillToken={fillToken}
+        mascot={mascot}
         background={bgFor(PRACTICE_TINT[session.difficulty])}
         bamboo={progress.bamboo}
         onSpendBamboo={spendBamboo}
