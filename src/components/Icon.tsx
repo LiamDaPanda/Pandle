@@ -55,6 +55,7 @@ function pandaFace(sleepy = false) {
         </>
       )}
       <ellipse cx="12" cy="16.4" rx="1.5" ry="1.1" fill={K} />
+      {!sleepy && <path d="M10.6 18.3q1.4 1.2 2.8 0" fill="none" stroke={K} strokeWidth="1" strokeLinecap="round" opacity="0.6" />}
       <circle cx="6.6" cy="16.2" r="1.3" fill={P} opacity="0.75" />
       <circle cx="17.4" cy="16.2" r="1.3" fill={P} opacity="0.75" />
     </>
@@ -96,9 +97,14 @@ function critter({ face, ear, nose, eye = K, innerEar, muzzle, patch }: Critter)
         <>
           <circle cx="7.9" cy="12.2" r="1.7" fill={eye} />
           <circle cx="16.1" cy="12.2" r="1.7" fill={eye} />
+          <circle cx="8.4" cy="11.6" r="0.55" fill={W} />
+          <circle cx="16.6" cy="11.6" r="0.55" fill={W} />
         </>
       )}
+      <circle cx="3.9" cy="16.6" r="1.8" fill={P} opacity="0.55" />
+      <circle cx="20.1" cy="16.6" r="1.8" fill={P} opacity="0.55" />
       <ellipse cx="12" cy="17.6" rx="2.1" ry="1.6" fill={nose} />
+      <path d="M9.7 20q2.3 1.7 4.6 0" fill="none" stroke={K} strokeWidth="0.9" strokeLinecap="round" opacity="0.55" />
     </>
   );
 }
@@ -116,7 +122,12 @@ function tigerFace() {
       <path d="M2.6 11l1.9 2.6M4.6 7.6l1.4 3.1M21.4 11l-1.9 2.6M19.4 7.6l-1.4 3.1" stroke={K} strokeWidth="1.4" strokeLinecap="round" />
       <circle cx="7.9" cy="12.2" r="1.7" fill={K} />
       <circle cx="16.1" cy="12.2" r="1.7" fill={K} />
+      <circle cx="8.4" cy="11.6" r="0.55" fill={W} />
+      <circle cx="16.6" cy="11.6" r="0.55" fill={W} />
+      <circle cx="3.9" cy="16.4" r="1.7" fill={P} opacity="0.5" />
+      <circle cx="20.1" cy="16.4" r="1.7" fill={P} opacity="0.5" />
       <ellipse cx="12" cy="17.4" rx="2" ry="1.5" fill={K} />
+      <path d="M10 19.6q2 1.5 4 0" fill="none" stroke={K} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
     </>
   );
 }
@@ -134,6 +145,7 @@ function ninjaFace() {
       <circle cx="16.8" cy="16" r="0.8" fill={W} />
       <ellipse cx="12" cy="19.4" rx="1.8" ry="1.3" fill={K} />
       <rect x="1.4" y="8.6" width="21.2" height="3.6" fill={R} />
+      <rect x="1.4" y="9.2" width="21.2" height="0.9" fill="#ff8b85" opacity="0.8" />
       <path d="M22 8.6l2 -1.2v7l-2 -1.8z" fill={R} />
       <circle cx="12" cy="10.4" r="1.2" fill={W} />
     </>
@@ -151,6 +163,8 @@ function bunnyFace() {
       <circle cx="12" cy="14.4" r="9.4" fill={W} stroke="#e6e6e6" strokeWidth="0.5" />
       <circle cx="8.4" cy="13.4" r="1.6" fill={K} />
       <circle cx="15.6" cy="13.4" r="1.6" fill={K} />
+      <circle cx="8.9" cy="12.8" r="0.55" fill={W} />
+      <circle cx="16.1" cy="12.8" r="0.55" fill={W} />
       <circle cx="6.2" cy="16.6" r="1.9" fill={P} opacity="0.7" />
       <circle cx="17.8" cy="16.6" r="1.9" fill={P} opacity="0.7" />
       <path d="M12 16.4v1.8M12 18.2l-1.6 1M12 18.2l1.6 1" stroke={K} strokeWidth="1" strokeLinecap="round" fill="none" />
@@ -170,8 +184,14 @@ function goldenFace() {
       <ellipse cx="16.6" cy="12" rx="2.9" ry="3.7" fill={Y} />
       <circle cx="7.9" cy="12.9" r="1.1" fill={K} />
       <circle cx="17.1" cy="12.9" r="1.1" fill={K} />
+      <circle cx="8.2" cy="12.5" r="0.45" fill={W} />
+      <circle cx="17.4" cy="12.5" r="0.45" fill={W} />
+      <circle cx="3.9" cy="16.6" r="1.7" fill={P} opacity="0.55" />
+      <circle cx="20.1" cy="16.6" r="1.7" fill={P} opacity="0.55" />
       <ellipse cx="12" cy="17.4" rx="2.3" ry="1.7" fill={O} />
+      <path d="M10 19.8q2 1.6 4 0" fill="none" stroke="#d99a2b" strokeWidth="0.9" strokeLinecap="round" />
       <path d="M2.6 3.2l1.5 1.4M21.4 3.2l-1.5 1.4" stroke={O} strokeWidth="1" strokeLinecap="round" />
+      <path d="M12 1l.5 1.2 1.2.5-1.2.5-.5 1.2-.5-1.2-1.2-.5 1.2-.5z" fill={Y} />
     </>
   );
 }
@@ -180,6 +200,7 @@ function bambooShape(tall = false) {
   return (
     <>
       <rect x={tall ? 9.5 : 9} y="2" width={tall ? 5 : 6} height="20" rx="2.5" fill={G} />
+      <rect x={tall ? 10.2 : 9.8} y="3" width="1.2" height="18" rx="0.6" fill="#a8d8a0" opacity="0.8" />
       <rect x={tall ? 9.5 : 9} y="8" width={tall ? 5 : 6} height="1.6" fill={DG} />
       <rect x={tall ? 9.5 : 9} y="14" width={tall ? 5 : 6} height="1.6" fill={DG} />
       <path d="M9 6q-5 0 -6 -3 4 -1 6 3z" fill={DG} />
@@ -248,8 +269,18 @@ const ICONS: Record<IconName, ReactNode> = {
       <circle cx="12" cy="12" r="1.4" fill={K} />
     </>
   ),
-  flame: <path d="M12 2c1 3-2 4-2 7 0-1.5-1.5-2-1.5-2C7 9 6 11 6 13.5A6 6 0 0018 14c0-3-2-5-3.2-7.3C13.6 4.5 13 3 12 2z" fill={O} />,
-  star: <path d="M12 3l2.6 5.5 6 .8-4.4 4.2 1.1 6L12 16.9 6.7 19.5l1.1-6L3.4 9.3l6-.8z" fill={Y} />,
+  flame: (
+    <>
+      <path d="M12 2c1 3-2 4-2 7 0-1.5-1.5-2-1.5-2C7 9 6 11 6 13.5A6 6 0 0018 14c0-3-2-5-3.2-7.3C13.6 4.5 13 3 12 2z" fill={O} />
+      <path d="M12 10.2c1.3 1.5 2.4 2.6 2.4 4.1a2.4 2.4 0 11-4.8 0c0-1.5 1.4-2.3 2.4-4.1z" fill={Y} />
+    </>
+  ),
+  star: (
+    <>
+      <path d="M12 3l2.6 5.5 6 .8-4.4 4.2 1.1 6L12 16.9 6.7 19.5l1.1-6L3.4 9.3l6-.8z" fill={Y} stroke="#eab949" strokeWidth="0.8" strokeLinejoin="round" />
+      <path d="M10.2 7.6L12 4.4l1 2.1" fill="none" stroke="#fff3cf" strokeWidth="1.2" strokeLinecap="round" />
+    </>
+  ),
   'star-outline': <path d="M12 3l2.6 5.5 6 .8-4.4 4.2 1.1 6L12 16.9 6.7 19.5l1.1-6L3.4 9.3l6-.8z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" opacity="0.5" />,
   lock: (
     <>
@@ -279,6 +310,7 @@ const ICONS: Record<IconName, ReactNode> = {
       <path d="M6 4h12l3 5-9 11L3 9z" fill={B} />
       <path d="M6 4l2.5 5H3zM18 4l-2.5 5H21zM8.5 9L12 20 15.5 9z" fill="#a9d9ee" />
       <path d="M8.5 9h7L12 20z" fill={B} />
+      <circle cx="9.2" cy="6.4" r="0.8" fill="#fff" opacity="0.9" />
     </>
   ),
   gift: (
@@ -311,8 +343,18 @@ const ICONS: Record<IconName, ReactNode> = {
       <path d="M12 12l1 8" stroke={DG} strokeWidth="1.6" strokeLinecap="round" />
     </>
   ),
-  heart: <path d="M12 20S3.5 14.5 3.5 8.8A4.3 4.3 0 0112 6a4.3 4.3 0 018.5 2.8C20.5 14.5 12 20 12 20z" fill={P} />,
-  cloud: <path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.3A3.8 3.8 0 0117 18z" fill={B} />,
+  heart: (
+    <>
+      <path d="M12 20S3.5 14.5 3.5 8.8A4.3 4.3 0 0112 6a4.3 4.3 0 018.5 2.8C20.5 14.5 12 20 12 20z" fill={P} />
+      <ellipse cx="8.2" cy="9.2" rx="1.9" ry="1.2" fill="#fff" opacity="0.5" transform="rotate(-24 8.2 9.2)" />
+    </>
+  ),
+  cloud: (
+    <>
+      <path d="M7 18a4 4 0 010-8 5 5 0 019.6-1.3A3.8 3.8 0 0117 18z" fill={B} />
+      <ellipse cx="10" cy="11.6" rx="3.2" ry="1.7" fill="#fff" opacity="0.38" />
+    </>
+  ),
   rice: (
     <>
       <path d="M12 4c3 0 7 9 6 12H6c-1-3 3-12 6-12z" fill={W} stroke="#e4e4e4" strokeWidth="1" />
@@ -359,7 +401,14 @@ const ICONS: Record<IconName, ReactNode> = {
       <path d="M12 14.5l-1 1M12 14.5l1 1" stroke={K} strokeWidth="1" strokeLinecap="round" />
     </>
   ),
-  moon: <path d="M15 3a9 9 0 100 18 7 7 0 010-18z" fill={Y} />,
+  moon: (
+    <>
+      <path d="M15 3a9 9 0 100 18 7 7 0 010-18z" fill={Y} />
+      <circle cx="10" cy="9" r="1.3" fill="#eab949" opacity="0.8" />
+      <circle cx="8.4" cy="14.4" r="1.7" fill="#eab949" opacity="0.8" />
+      <circle cx="12.6" cy="17" r="1" fill="#eab949" opacity="0.8" />
+    </>
+  ),
   cup: (
     <>
       <path d="M5 10h12v4a6 6 0 01-12 0z" fill={W} stroke={K} strokeWidth="1.2" />
@@ -418,6 +467,10 @@ const ICONS: Record<IconName, ReactNode> = {
       <circle cx="12" cy="13" r="7" fill={GR} />
       <circle cx="9.3" cy="12" r="1.2" fill={K} />
       <circle cx="14.7" cy="12" r="1.2" fill={K} />
+      <circle cx="9.6" cy="11.6" r="0.4" fill={W} />
+      <circle cx="15" cy="11.6" r="0.4" fill={W} />
+      <circle cx="6.9" cy="14.6" r="1.1" fill={P} opacity="0.6" />
+      <circle cx="17.1" cy="14.6" r="1.1" fill={P} opacity="0.6" />
       <ellipse cx="12" cy="15.5" rx="2.2" ry="1.7" fill={K} />
     </>
   ),
@@ -434,7 +487,10 @@ const ICONS: Record<IconName, ReactNode> = {
       <ellipse cx="15" cy="13" rx="1.5" ry="2" fill="#7a3b1d" />
       <circle cx="9" cy="13" r="0.9" fill={K} />
       <circle cx="15" cy="13" r="0.9" fill={K} />
+      <circle cx="9.3" cy="12.7" r="0.35" fill={W} />
+      <circle cx="15.3" cy="12.7" r="0.35" fill={W} />
       <ellipse cx="12" cy="16.5" rx="1.3" ry="1" fill={K} />
+      <path d="M10.8 18.2q1.2 1 2.4 0" fill="none" stroke={K} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
     </>
   ),
   'panda-token': (
@@ -449,11 +505,13 @@ const ICONS: Record<IconName, ReactNode> = {
       <circle cx="4.4" cy="17" r="1.9" fill={P} opacity="0.75" />
       <circle cx="19.6" cy="17" r="1.9" fill={P} opacity="0.75" />
       <ellipse cx="12" cy="17.4" rx="2.3" ry="1.7" fill={K} />
+      <path d="M9.7 20.1q2.3 1.7 4.6 0" fill="none" stroke={K} strokeWidth="1" strokeLinecap="round" opacity="0.6" />
     </>
   ),
   'bamboo-token': (
     <>
       <rect x="8.4" y="1.2" width="7.2" height="21.6" rx="3.2" fill={G} />
+      <rect x="9.4" y="2.4" width="1.5" height="19.2" rx="0.75" fill="#a8d8a0" opacity="0.8" />
       <rect x="8.4" y="7.4" width="7.2" height="2" fill={DG} />
       <rect x="8.4" y="14.2" width="7.2" height="2" fill={DG} />
       <path d="M8.4 6q-5.6 0.3 -7 -3.4 4.7 -1 7 3.4z" fill={DG} />
@@ -472,6 +530,7 @@ const ICONS: Record<IconName, ReactNode> = {
         <rect key={a} x="11" y="1.5" width="2" height="4" rx="1" fill={O} transform={`rotate(${a} 12 12)`} />
       ))}
       <circle cx="12" cy="12" r="6" fill={Y} />
+      <circle cx="10.2" cy="10.2" r="2.1" fill="#ffe9a8" opacity="0.9" />
     </>
   ),
   wave: (

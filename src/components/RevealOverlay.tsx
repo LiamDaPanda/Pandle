@@ -76,7 +76,9 @@ export function RevealOverlay(props: RevealOverlayProps) {
     <div className="overlay" role="dialog" aria-modal="true">
       <div className="reveal-card">
         <div className="reveal-burst"><Icon name="party" size="2.4rem" /></div>
-        <ArtGrid puzzle={puzzle} />
+        <div className="art-frame">
+          <ArtGrid puzzle={puzzle} />
+        </div>
         <h2 id="reveal-title" tabIndex={-1} className="reveal-name">
           <Icon name={puzzle.icon} /> {puzzle.name}
         </h2>

@@ -21,6 +21,7 @@ import { EventsScreen } from './components/EventsScreen';
 import { CustomizeScreen } from './components/CustomizeScreen';
 import { StatsScreen } from './components/StatsModal';
 import { PracticeScreen } from './components/PracticeScreen';
+import { Scenery } from './components/Scenery';
 
 export type Screen =
   | 'home'
@@ -91,9 +92,10 @@ export default function App() {
   const spendBamboo = (n: number) =>
     setProgress((p) => ({ ...p, bamboo: Math.max(0, p.bamboo - n) }));
 
-  // A soft, theme-safe background tint for the play area.
+  // A soft, theme-safe background tint for the play area. Transparent at the
+  // bottom so the ambient scenery shows through beneath the board.
   const bgFor = (tint: string) =>
-    `radial-gradient(135% 95% at 50% -20%, ${tint}3a, transparent 62%), var(--bg)`;
+    `radial-gradient(135% 95% at 50% -20%, ${tint}3a, transparent 62%)`;
   const PRACTICE_TINT: Record<Difficulty, string> = {
     easy: '#9ccc65',
     medium: '#6fb7e0',
@@ -274,6 +276,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <Scenery />
       {screen === 'home' && (
         <HomeScreen
           onNavigate={(s) => (s === 'daily' ? startDaily() : setScreen(s))}

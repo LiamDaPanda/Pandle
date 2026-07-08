@@ -62,8 +62,16 @@ export function HomeScreen({
       </div>
 
       <div className="hero">
-        <div className="mascot">
-          <Icon name={mascot} size="5rem" />
+        <div className="mascot-badge">
+          <span className="badge-sprig left" aria-hidden="true">
+            <Icon name="bamboo-tall" size="2.2rem" />
+          </span>
+          <div className="mascot">
+            <Icon name={mascot} size="4.6rem" />
+          </div>
+          <span className="badge-sprig right" aria-hidden="true">
+            <Icon name="bamboo-tall" size="2.2rem" />
+          </span>
         </div>
         <h1 className="logo">Pandle</h1>
         <p className="tagline">Fill the grid. Find the little picture hiding inside.</p>
