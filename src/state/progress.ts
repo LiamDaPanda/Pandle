@@ -1,7 +1,9 @@
 import { load, save } from './storage';
-import { ALL_LEVELS, Level, levelIndex, starsForTime } from '../data/levels';
+import { ALL_LEVELS, CHAPTERS, Chapter, Level, chapterOfLevel, levelIndex, starsForTime } from '../data/levels';
 import { DEFAULT_EQUIPPED, cosmeticById, defaultOwned } from '../data/cosmetics';
 import { EVENTS, GameEvent } from '../data/events';
+import { MILESTONES, Milestone } from '../data/milestones';
+import type { Stats } from './stats';
 
 export interface Progress {
   /** levelId -> best star rating earned (1-3). */
@@ -13,6 +15,10 @@ export interface Progress {
   claimedEvents: string[];
   /** Ids of every puzzle the player has ever solved. */
   solvedPuzzles: string[];
+  /** Milestone ids whose bamboo reward has been granted. */
+  claimedMilestones: string[];
+  /** Chapter ids whose clear bonus has been granted. */
+  claimedChapters: string[];
 }
 
 export function defaultProgress(): Progress {
@@ -23,6 +29,8 @@ export function defaultProgress(): Progress {
     equipped: { ...DEFAULT_EQUIPPED },
     claimedEvents: [],
     solvedPuzzles: [],
+    claimedMilestones: [],
+    claimedChapters: [],
   };
 }
 
@@ -34,12 +42,27 @@ export function saveProgress(p: Progress): void {
   save('progress', p);
 }
 
-/** A level is unlocked if it is the first level or the previous one is starred. */
+/**
+ * A level is unlocked if it is the first level or the previous one is starred.
+ * The first level of a chapter also opens once all but two of the previous
+ * chapter's levels are cleared, so one tricky puzzle never blocks the whole
+ * adventure.
+ */
 export function isLevelUnlocked(p: Progress, levelId: string): boolean {
   const idx = levelIndex(levelId);
   if (idx <= 0) return true;
   const prev = ALL_LEVELS[idx - 1];
-  return (p.stars[prev.id] ?? 0) > 0;
+  if ((p.stars[prev.id] ?? 0) > 0) return true;
+
+  const chapter = chapterOfLevel(levelId);
+  if (chapter && chapter.levels[0]?.id === levelId) {
+    const prevChapter = CHAPTERS[CHAPTERS.indexOf(chapter) - 1];
+    if (prevChapter) {
+      const cleared = prevChapter.levels.filter((l) => (p.stars[l.id] ?? 0) > 0).length;
+      return cleared >= Math.max(1, prevChapter.levels.length - 2);
+    }
+  }
+  return false;
 }
 
 /**
@@ -112,6 +135,48 @@ export function eventProgress(
   const done = event.puzzleIds.filter((id) => p.solvedPuzzles.includes(id)).length;
   const total = event.puzzleIds.length;
   return { done, total, complete: total > 0 && done === total };
+}
+
+export const CHAPTER_CLEAR_BONUS = 40;
+
+/**
+ * Grant the one-time bamboo bonus for every newly fully-cleared chapter.
+ * Idempotent: already-claimed chapters are skipped.
+ */
+export function claimChapterBonuses(p: Progress): { progress: Progress; cleared: Chapter[] } {
+  const cleared = CHAPTERS.filter(
+    (c) =>
+      !p.claimedChapters.includes(c.id) &&
+      c.levels.every((l) => (p.stars[l.id] ?? 0) > 0),
+  );
+  if (cleared.length === 0) return { progress: p, cleared };
+  return {
+    progress: {
+      ...p,
+      bamboo: p.bamboo + cleared.length * CHAPTER_CLEAR_BONUS,
+      claimedChapters: [...p.claimedChapters, ...cleared.map((c) => c.id)],
+    },
+    cleared,
+  };
+}
+
+/**
+ * Grant the bamboo reward of every milestone that is now reached but not yet
+ * claimed. Idempotent.
+ */
+export function claimMilestones(p: Progress, stats: Stats): { progress: Progress; earned: Milestone[] } {
+  const earned = MILESTONES.filter(
+    (m) => !p.claimedMilestones.includes(m.id) && m.measure(p, stats) >= m.target,
+  );
+  if (earned.length === 0) return { progress: p, earned };
+  return {
+    progress: {
+      ...p,
+      bamboo: p.bamboo + earned.reduce((sum, m) => sum + m.reward, 0),
+      claimedMilestones: [...p.claimedMilestones, ...earned.map((m) => m.id)],
+    },
+    earned,
+  };
 }
 
 /**

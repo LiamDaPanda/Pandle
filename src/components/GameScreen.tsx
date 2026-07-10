@@ -17,6 +17,8 @@ export interface RevealInfo {
   streak?: number;
   puzzleNumber?: number;
   unlocked?: { icon: IconName; name: string }[];
+  /** Milestones / chapter bonuses earned by this solve. */
+  goals?: { icon: IconName; name: string; reward: number }[];
 }
 
 interface GameScreenProps {
@@ -130,6 +132,7 @@ export function GameScreen(props: GameScreenProps) {
           streak={reveal.streak}
           puzzleNumber={reveal.puzzleNumber}
           unlocked={reveal.unlocked}
+          goals={reveal.goals}
           mascot={props.mascot}
           mode={props.mode}
           onNext={props.onNext}

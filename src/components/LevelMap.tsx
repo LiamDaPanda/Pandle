@@ -26,10 +26,16 @@ export function LevelMap({ progress, onPlayLevel, onHome }: LevelMapProps) {
       </p>
 
       <div className="chapters">
-        {CHAPTERS.map((chapter) => (
+        {CHAPTERS.map((chapter) => {
+          const cleared = chapter.levels.filter((l) => (progress.stars[l.id] ?? 0) > 0).length;
+          const complete = cleared === chapter.levels.length;
+          return (
           <section key={chapter.id} className="chapter">
             <h3 className="chapter-title">
               <Icon name={chapter.icon} /> {chapter.name}
+              <span className={`chapter-progress ${complete ? 'complete' : ''}`}>
+                {complete ? <Icon name="star" /> : null} {cleared}/{chapter.levels.length}
+              </span>
             </h3>
             <div className="level-grid">
               {chapter.levels.map((level, i) => {
@@ -57,7 +63,8 @@ export function LevelMap({ progress, onPlayLevel, onHome }: LevelMapProps) {
               })}
             </div>
           </section>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

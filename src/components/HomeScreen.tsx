@@ -9,6 +9,8 @@ interface HomeScreenProps {
   mascot: IconName;
   dailyDone: boolean;
   activeEventCount: number;
+  /** Progress note for the Adventure card, e.g. "Toy Chest · 3/6". */
+  adventureNote: string;
   reducedMotion: boolean;
 }
 
@@ -65,6 +67,7 @@ export function HomeScreen({
   mascot,
   dailyDone,
   activeEventCount,
+  adventureNote,
   reducedMotion,
 }: HomeScreenProps) {
   return (
@@ -120,12 +123,18 @@ export function HomeScreen({
         <button className="menu-btn primary" onClick={() => onNavigate('daily')}>
           <span className="menu-emoji"><Icon name="calendar" size="2rem" /></span>
           <span className="menu-label">Daily Puzzle</span>
-          <span className="menu-note">{dailyDone ? 'Nice — see you tomorrow' : "Today's is ready"}</span>
+          <span className="menu-note">
+            {dailyDone
+              ? 'Nice — see you tomorrow'
+              : streak > 0
+                ? `Keep the ${streak}-day streak alive`
+                : "Today's is ready"}
+          </span>
         </button>
         <button className="menu-btn" onClick={() => onNavigate('levels')}>
           <span className="menu-emoji"><Icon name="map" size="2rem" /></span>
           <span className="menu-label">Adventure</span>
-          <span className="menu-note">Chapter by chapter</span>
+          <span className="menu-note">{adventureNote}</span>
         </button>
         <button className="menu-btn" onClick={() => onNavigate('events')}>
           <span className="menu-emoji"><Icon name="party" size="2rem" /></span>

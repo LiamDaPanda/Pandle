@@ -1,6 +1,7 @@
 import { Stats } from '../state/stats';
 import { Progress, totalStars } from '../state/progress';
 import { ALL_LEVELS } from '../data/levels';
+import { MILESTONES, milestoneValue } from '../data/milestones';
 import { formatTime } from '../game/share';
 import { Icon, IconName } from './Icon';
 
@@ -43,6 +44,41 @@ export function StatsScreen({ stats, progress, onHome }: StatsScreenProps) {
             <div className="stat-label">{c.label}</div>
           </div>
         ))}
+      </div>
+      <h3 className="goals-title">
+        <Icon name="star" /> Goals
+      </h3>
+      <div className="goals">
+        {MILESTONES.map((m) => {
+          const value = milestoneValue(m, progress, stats);
+          const done = progress.claimedMilestones.includes(m.id) || value >= m.target;
+          return (
+            <div key={m.id} className={`goal-card ${done ? 'done' : ''}`}>
+              <span className="goal-icon">
+                <Icon name={done ? 'star' : m.icon} size="1.6rem" />
+              </span>
+              <div className="goal-body">
+                <div className="goal-name">{m.name}</div>
+                <div className="goal-desc">{m.desc}</div>
+                <div className="goal-bar">
+                  <span style={{ width: `${(value / m.target) * 100}%` }} />
+                </div>
+              </div>
+              <span className="goal-meta">
+                {done ? (
+                  <Icon name="star" title="Done" />
+                ) : (
+                  <>
+                    {value}/{m.target}
+                  </>
+                )}
+                <span className="goal-pay">
+                  <Icon name="bamboo" /> {m.reward}
+                </span>
+              </span>
+            </div>
+          );
+        })}
       </div>
       <p className="stats-note">
         {stats.played === 0

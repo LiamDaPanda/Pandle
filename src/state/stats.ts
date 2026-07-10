@@ -54,6 +54,14 @@ export function applyDailyWin(stats: Stats, timeMs: number, todayKey: string): S
   };
 }
 
+/**
+ * Bamboo earned for a daily solve: a base amount plus a streak bonus, capped
+ * so long streaks stay rewarding without breaking the economy.
+ */
+export function dailyReward(streak: number): number {
+  return 12 + 2 * Math.min(Math.max(streak, 0), 12);
+}
+
 export function loadStats(): Stats {
   return load<Stats>('stats', DEFAULT_STATS);
 }

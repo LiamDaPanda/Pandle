@@ -15,6 +15,8 @@ interface RevealOverlayProps {
   mascot?: IconName;
   /** Exclusive cosmetics unlocked by finishing this solve (e.g. completing an event). */
   unlocked?: { icon: IconName; name: string }[];
+  /** Milestones / chapter bonuses earned by this solve. */
+  goals?: { icon: IconName; name: string; reward: number }[];
   nextLabel?: string;
   onNext?: () => void;
   onHome: () => void;
@@ -116,6 +118,18 @@ export function RevealOverlay(props: RevealOverlayProps) {
           <p className="reveal-streak">
             <Icon name="flame" /> Streak {streak}
           </p>
+        )}
+        {props.goals && props.goals.length > 0 && (
+          <div className="reveal-unlocked reveal-goals">
+            <p className="reveal-unlocked-title">
+              <Icon name="star" /> Goal reached!
+            </p>
+            {props.goals.map((g) => (
+              <span key={g.name} className="reveal-unlocked-item">
+                <Icon name={g.icon} /> {g.name} <span className="goal-reward">+{g.reward}</span>
+              </span>
+            ))}
+          </div>
         )}
         {props.unlocked && props.unlocked.length > 0 && (
           <div className="reveal-unlocked">

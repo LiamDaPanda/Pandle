@@ -2,12 +2,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { CellMark, Difficulty, Puzzle } from './game/types';
 import { getDailyPuzzle, puzzleNumber, dateKey } from './game/daily';
 import { puzzleById, puzzlesByDifficulty } from './data/puzzles';
-import { levelById, ALL_LEVELS, levelIndex, chapterOfLevel } from './data/levels';
+import { levelById, ALL_LEVELS, CHAPTERS, levelIndex, chapterOfLevel } from './data/levels';
 import { eventById } from './data/events';
 import { activeEvents } from './data/events';
 import { tokenFor, particleStyle, cosmeticById } from './data/cosmetics';
-import { loadProgress, saveProgress, completeLevel, markSolved, Progress } from './state/progress';
-import { loadStats, recordDailyWin, saveStats, Stats } from './state/stats';
+import {
+  loadProgress, saveProgress, completeLevel, markSolved, Progress,
+  claimChapterBonuses, claimMilestones, CHAPTER_CLEAR_BONUS,
+} from './state/progress';
+import { loadStats, recordDailyWin, saveStats, dailyReward, Stats } from './state/stats';
 import { loadSettings, saveSettings, prefersReducedMotion, Settings } from './state/settings';
 import { loadRaw, save } from './state/storage';
 import { useTheme } from './hooks/useTheme';
@@ -92,6 +95,28 @@ export default function App() {
   const spendBamboo = (n: number) =>
     setProgress((p) => ({ ...p, bamboo: Math.max(0, p.bamboo - n) }));
 
+  // Grant chapter bonuses + milestones now reached; returns updated progress
+  // and reveal-ready goal entries.
+  const grantGoals = (p: Progress, s: Stats) => {
+    const chapters = claimChapterBonuses(p);
+    const miles = claimMilestones(chapters.progress, s);
+    const goals = [
+      ...chapters.cleared.map((c) => ({
+        icon: c.icon,
+        name: `${c.name} cleared!`,
+        reward: CHAPTER_CLEAR_BONUS,
+      })),
+      ...miles.earned.map((m) => ({ icon: m.icon, name: m.name, reward: m.reward })),
+    ];
+    return { progress: miles.progress, goals: goals.length ? goals : undefined };
+  };
+
+  // The chapter the player is currently working through (for the home note).
+  const nextChapter = CHAPTERS.find((c) => c.levels.some((l) => (progress.stars[l.id] ?? 0) === 0));
+  const adventureNote = nextChapter
+    ? `${nextChapter.name} · ${nextChapter.levels.filter((l) => (progress.stars[l.id] ?? 0) > 0).length}/${nextChapter.levels.length}`
+    : 'All chapters clear!';
+
   // A soft, theme-safe background tint for the play area. Transparent at the
   // bottom so the ambient scenery shows through beneath the board.
   const bgFor = (tint: string) =>
@@ -154,8 +179,16 @@ export default function App() {
             save(`daily:${today}`, { marks: [], solved: true, timeMs } as DailySave);
             const next = recordDailyWin(timeMs);
             setStats(next);
-            setProgress((p) => markSolved(p, puzzle.id));
-            return { streak: next.streak, puzzleNumber: num };
+            const reward = dailyReward(next.streak);
+            const solved = markSolved(progress, puzzle.id);
+            const granted = grantGoals({ ...solved, bamboo: solved.bamboo + reward }, next);
+            setProgress(granted.progress);
+            return {
+              streak: next.streak,
+              puzzleNumber: num,
+              bambooEarned: reward,
+              goals: granted.goals,
+            };
           }}
           onHome={goHome}
         />
@@ -184,8 +217,13 @@ export default function App() {
           subtitle={`Level ${idx + 1}`}
           onSolved={(timeMs): RevealInfo => {
             const result = completeLevel(progress, level, timeMs);
-            setProgress(markSolved(result.progress, puzzle.id));
-            return { stars: result.stars, bambooEarned: result.bambooEarned };
+            const granted = grantGoals(markSolved(result.progress, puzzle.id), stats);
+            setProgress(granted.progress);
+            return {
+              stars: result.stars,
+              bambooEarned: result.bambooEarned,
+              goals: granted.goals,
+            };
           }}
           onHome={goHome}
           onNext={next ? () => startLevel(next.id) : undefined}
@@ -228,11 +266,13 @@ export default function App() {
               .map((cid) => cosmeticById(cid))
               .filter((c): c is NonNullable<typeof c> => Boolean(c))
               .map((c) => ({ icon: c.icon, name: c.name }));
-            setProgress((p) => {
-              const m = markSolved(p, puzzle.id);
-              return { ...m, bamboo: m.bamboo + 15 };
-            });
-            return { bambooEarned: 15, unlocked: unlocked.length ? unlocked : undefined };
+            const granted = grantGoals({ ...after, bamboo: after.bamboo + 15 }, stats);
+            setProgress(granted.progress);
+            return {
+              bambooEarned: 15,
+              unlocked: unlocked.length ? unlocked : undefined,
+              goals: granted.goals,
+            };
           }}
           onHome={goHome}
           onNext={nextPid ? () => startEvent(event.id, nextPid) : undefined}
@@ -259,11 +299,10 @@ export default function App() {
         onSpendBamboo={spendBamboo}
         subtitle="Practice"
         onSolved={(): RevealInfo => {
-          setProgress((p) => {
-            const m = markSolved(p, puzzle.id);
-            return { ...m, bamboo: m.bamboo + 5 };
-          });
-          return { bambooEarned: 5 };
+          const solved = markSolved(progress, puzzle.id);
+          const granted = grantGoals({ ...solved, bamboo: solved.bamboo + 5 }, stats);
+          setProgress(granted.progress);
+          return { bambooEarned: 5, goals: granted.goals };
         }}
         onHome={goHome}
         onNext={() =>
@@ -289,6 +328,7 @@ export default function App() {
           mascot={mascot}
           dailyDone={dailyDone}
           activeEventCount={activeEvents().length}
+          adventureNote={adventureNote}
           reducedMotion={settings.reducedMotion}
         />
       )}
