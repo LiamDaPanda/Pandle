@@ -19,6 +19,8 @@ export interface Progress {
   claimedMilestones: string[];
   /** Chapter ids whose clear bonus has been granted. */
   claimedChapters: string[];
+  /** Lucky Capsule pulls since the last cosmetic drop (pity counter). */
+  gachaPity: number;
 }
 
 export function defaultProgress(): Progress {
@@ -31,6 +33,7 @@ export function defaultProgress(): Progress {
     solvedPuzzles: [],
     claimedMilestones: [],
     claimedChapters: [],
+    gachaPity: 0,
   };
 }
 

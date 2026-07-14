@@ -406,6 +406,22 @@ body {
 }
 .clue-done {
   opacity: 0.28;
+  animation: clue-pop 0.45s ease;
+}
+@keyframes clue-pop {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    color: var(--accent);
+  }
+  45% {
+    transform: scale(1.25);
+    color: var(--accent);
+  }
+  100% {
+    opacity: 0.28;
+    transform: scale(1);
+  }
 }
 .clue-num {
   line-height: 1;
@@ -999,6 +1015,65 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 3px;
+}
+
+/* ---------- lucky capsules (gacha) ---------- */
+.gacha-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0 18px;
+  min-height: 300px;
+}
+.gacha-machine {
+  width: min(230px, 60vw);
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.14));
+}
+.gacha-machine.shaking {
+  animation: gacha-shake 0.7s ease;
+}
+@keyframes gacha-shake {
+  0%, 100% { transform: rotate(0) translateX(0); }
+  15% { transform: rotate(-3deg) translateX(-4px); }
+  30% { transform: rotate(3deg) translateX(4px); }
+  45% { transform: rotate(-3deg) translateX(-4px); }
+  60% { transform: rotate(2deg) translateX(3px); }
+  75% { transform: rotate(-1.5deg) translateX(-2px); }
+}
+.gacha-result {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border-radius: 24px;
+  animation: rise 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.35);
+}
+.gacha-result-icon {
+  animation: pop 0.5s ease;
+}
+.gacha-result-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.gacha-result-kind {
+  font-weight: 600;
+  color: var(--accent);
+}
+.gacha-pull {
+  align-self: center;
+  min-width: 200px;
+  font-size: 1.1rem;
+}
+.gacha-hint {
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin: 10px 0 0;
 }
 .stat-card {
   background: var(--surface);

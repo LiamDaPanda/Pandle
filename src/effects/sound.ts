@@ -56,6 +56,29 @@ export function playWin() {
   notes.forEach((n, i) => blip(n, 0.22, 'triangle', 0.06, i * 0.1));
 }
 
+/** Soft two-note chime when a row/column's clues are satisfied. */
+export function playLineClear() {
+  blip(784, 0.09, 'sine', 0.045);
+  blip(1046.5, 0.14, 'sine', 0.04, 0.07);
+}
+
+/** Rattly capsule-machine crank. */
+export function playGachaCrank() {
+  [340, 300, 360, 320, 380].forEach((f, i) => blip(f, 0.05, 'triangle', 0.035, i * 0.09));
+}
+
+/** Capsule pops open. */
+export function playGachaPop() {
+  blip(660, 0.08, 'triangle', 0.06);
+  blip(990, 0.16, 'sine', 0.055, 0.07);
+}
+
+/** Big win — rising fanfare. */
+export function playJackpot() {
+  const notes = [523.25, 659.25, 783.99, 1046.5, 1318.5, 1568];
+  notes.forEach((n, i) => blip(n, 0.2, 'triangle', 0.06, i * 0.08));
+}
+
 export function tick(action: 'fill' | 'cross' | 'clear') {
   if (action === 'fill') playFill();
   else if (action === 'cross') playCross();

@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { GameState, PaintAction } from '../../hooks/useGameState';
-import { tick } from '../../effects/sound';
+import { tick, playLineClear } from '../../effects/sound';
 import { IconName } from '../Icon';
 import { Cell } from './Cell';
 import { ColClues, RowClues } from './Clues';
@@ -31,6 +31,20 @@ interface Stroke {
 export function Board({ game, mode, width, height, fillToken }: BoardProps) {
   const stroke = useRef<Stroke | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+
+  // A satisfying chime whenever a row/column's clues become satisfied (but not
+  // for lines already done on mount, e.g. a restored daily, and not on the
+  // solving move — the win fanfare covers that).
+  const prevDone = useRef<{ rows: boolean[]; cols: boolean[] } | null>(null);
+  useEffect(() => {
+    const prev = prevDone.current;
+    prevDone.current = { rows: game.rowDone, cols: game.colDone };
+    if (!prev || game.solved) return;
+    const newlyDone =
+      game.rowDone.some((d, i) => d && !prev.rows[i]) ||
+      game.colDone.some((d, i) => d && !prev.cols[i]);
+    if (newlyDone) playLineClear();
+  }, [game.rowDone, game.colDone, game.solved]);
 
   const cellAt = (clientX: number, clientY: number): { x: number; y: number } | null => {
     const rect = gridRef.current?.getBoundingClientRect();

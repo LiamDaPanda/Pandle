@@ -25,6 +25,8 @@ import { CustomizeScreen } from './components/CustomizeScreen';
 import { StatsScreen } from './components/StatsModal';
 import { PracticeScreen } from './components/PracticeScreen';
 import { Scenery } from './components/Scenery';
+import { GachaScreen } from './components/GachaScreen';
+import { GACHA_COST, GachaResult, pullCapsule } from './game/gacha';
 
 export type Screen =
   | 'home'
@@ -34,6 +36,7 @@ export type Screen =
   | 'practice'
   | 'customize'
   | 'stats'
+  | 'gacha'
   | 'help'
   | 'game';
 
@@ -109,6 +112,14 @@ export default function App() {
       ...miles.earned.map((m) => ({ icon: m.icon, name: m.name, reward: m.reward })),
     ];
     return { progress: miles.progress, goals: goals.length ? goals : undefined };
+  };
+
+  // One Lucky Capsule pull; deducts the cost and applies winnings.
+  const doPull = (): GachaResult | null => {
+    if (progress.bamboo < GACHA_COST) return null;
+    const { progress: next, result } = pullCapsule(progress);
+    setProgress(next);
+    return result;
   };
 
   // The chapter the player is currently working through (for the home note).
@@ -350,6 +361,14 @@ export default function App() {
         />
       )}
       {screen === 'stats' && <StatsScreen stats={stats} progress={progress} onHome={goHome} />}
+      {screen === 'gacha' && (
+        <GachaScreen
+          progress={progress}
+          onPull={doPull}
+          reducedMotion={settings.reducedMotion}
+          onHome={goHome}
+        />
+      )}
       {screen === 'help' && <HowToPlay onClose={goHome} />}
     </div>
   );

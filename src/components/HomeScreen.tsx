@@ -153,6 +153,11 @@ export function HomeScreen({
           <span className="menu-label">Customize</span>
           <span className="menu-note">Make it yours</span>
         </button>
+        <button className="menu-btn" onClick={() => onNavigate('gacha')}>
+          <span className="menu-emoji"><Icon name="gift" size="2rem" /></span>
+          <span className="menu-label">Lucky Capsules</span>
+          <span className="menu-note">Feeling lucky?</span>
+        </button>
         <button className="menu-btn" onClick={() => onNavigate('stats')}>
           <span className="menu-emoji"><Icon name="chart" size="2rem" /></span>
           <span className="menu-label">Stats</span>
