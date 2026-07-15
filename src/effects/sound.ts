@@ -56,6 +56,12 @@ export function playWin() {
   notes.forEach((n, i) => blip(n, 0.22, 'triangle', 0.06, i * 0.1));
 }
 
+/** Gentle "oops" buzz for a rejected fill in guided mode. */
+export function playMistake() {
+  blip(180, 0.09, 'square', 0.03);
+  blip(150, 0.12, 'square', 0.03, 0.08);
+}
+
 /** Soft two-note chime when a row/column's clues are satisfied. */
 export function playLineClear() {
   blip(784, 0.09, 'sine', 0.045);

@@ -44,4 +44,46 @@ describe('useGameState', () => {
     });
     expect(result.current.rowDone[0]).toBe(true);
   });
+
+  it('auto-crosses the rest of a satisfied line', () => {
+    // Middle row clue is "1 1" (K.K): filling both ends completes the row,
+    // so the centre cell should be auto-crossed.
+    const { result } = renderHook(() =>
+      useGameState(puzzle, undefined, undefined, { autoCross: true }),
+    );
+    act(() => {
+      result.current.paint(0, 1, 'fill');
+      result.current.paint(2, 1, 'fill');
+    });
+    expect(result.current.marks[1][1]).toBe('crossed');
+    // One undo unwinds the fill and its auto-cross together.
+    act(() => result.current.undo());
+    expect(result.current.marks[1][1]).toBe('empty');
+    expect(result.current.marks[2][1]).toBe('empty');
+  });
+
+  it('does not auto-cross when disabled', () => {
+    const { result } = renderHook(() => useGameState(puzzle));
+    act(() => {
+      result.current.paint(0, 1, 'fill');
+      result.current.paint(2, 1, 'fill');
+    });
+    expect(result.current.marks[1][1]).toBe('empty');
+  });
+
+  it('guided mode rejects a wrong fill and reports it', () => {
+    const onMistake = vi.fn();
+    const { result } = renderHook(() =>
+      useGameState(puzzle, undefined, undefined, { mistakeAlerts: true, onMistake }),
+    );
+    act(() => result.current.paint(1, 1, 'fill')); // centre is empty in the solution
+    expect(result.current.marks[1][1]).toBe('empty');
+    expect(result.current.mistake).toMatchObject({ x: 1, y: 1 });
+    expect(onMistake).toHaveBeenCalledWith(1, 1);
+    // A rejected fill leaves nothing on the undo stack.
+    expect(result.current.canUndo).toBe(false);
+    // Correct fills still work.
+    act(() => result.current.paint(0, 0, 'fill'));
+    expect(result.current.marks[0][0]).toBe('filled');
+  });
 });

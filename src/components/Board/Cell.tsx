@@ -8,18 +8,24 @@ interface CellProps {
   fillToken: IconName;
   thickRight: boolean;
   thickBottom: boolean;
+  /** Part of the row/column the current slide-stroke is locked to. */
+  active?: boolean;
+  /** Briefly flagged as a rejected wrong fill (guided mode). */
+  mistake?: boolean;
 }
 
 /**
  * A single board cell. Filled shows a panda token, crossed shows a bamboo token
  * — distinct shapes (not just color) for colorblind friendliness.
  */
-export function Cell({ x, y, mark, fillToken, thickRight, thickBottom }: CellProps) {
+export function Cell({ x, y, mark, fillToken, thickRight, thickBottom, active, mistake }: CellProps) {
   const cls = [
     'cell',
     `cell-${mark}`,
     thickRight ? 'thick-right' : '',
     thickBottom ? 'thick-bottom' : '',
+    active ? 'cell-active' : '',
+    mistake ? 'cell-mistake' : '',
   ]
     .filter(Boolean)
     .join(' ');

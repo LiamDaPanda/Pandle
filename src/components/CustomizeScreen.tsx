@@ -109,6 +109,26 @@ export function CustomizeScreen({
       ))}
 
       <section className="shop-group">
+        <h3>Gameplay</h3>
+        <label className="toggle-row">
+          <span>Auto-cross finished lines</span>
+          <input
+            type="checkbox"
+            checked={settings.autoCross}
+            onChange={(e) => onSettings({ ...settings, autoCross: e.target.checked })}
+          />
+        </label>
+        <label className="toggle-row">
+          <span>Mistake alerts (guided mode)</span>
+          <input
+            type="checkbox"
+            checked={settings.mistakeAlerts}
+            onChange={(e) => onSettings({ ...settings, mistakeAlerts: e.target.checked })}
+          />
+        </label>
+      </section>
+
+      <section className="shop-group">
         <h3>Accessibility</h3>
         <label className="toggle-row">
           <span>Background music</span>

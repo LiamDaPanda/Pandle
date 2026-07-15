@@ -3,7 +3,7 @@ import { CellMark, Puzzle } from '../game/types';
 import { useGameState } from '../hooks/useGameState';
 import { Settings } from '../state/settings';
 import { celebrate } from '../effects/celebrate';
-import { playWin, playHint } from '../effects/sound';
+import { playWin, playHint, playMistake } from '../effects/sound';
 import { Icon, IconName } from './Icon';
 import type { ParticleShape } from '../data/cosmetics';
 import { Board } from './Board/Board';
@@ -67,7 +67,14 @@ export function GameScreen(props: GameScreenProps) {
     [effectColors, props.effectShape, settings.reducedMotion],
   );
 
-  const game = useGameState(puzzle, props.initialMarks, handleSolved);
+  const game = useGameState(puzzle, props.initialMarks, handleSolved, {
+    autoCross: settings.autoCross,
+    mistakeAlerts: settings.mistakeAlerts,
+    onMistake: () => {
+      playMistake();
+      navigator.vibrate?.(60);
+    },
+  });
 
   const bamboo = props.bamboo ?? 0;
   const canHint = !game.solved && bamboo >= HINT_COST;

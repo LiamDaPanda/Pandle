@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { GameState, PaintAction } from '../../hooks/useGameState';
 import { tick, playLineClear } from '../../effects/sound';
 import { IconName } from '../Icon';
@@ -31,6 +31,8 @@ interface Stroke {
 export function Board({ game, mode, width, height, fillToken }: BoardProps) {
   const stroke = useRef<Stroke | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  // The row/column a slide-stroke is locked to, highlighted while painting.
+  const [activeLine, setActiveLine] = useState<{ axis: 'row' | 'col'; index: number } | null>(null);
 
   // A satisfying chime whenever a row/column's clues become satisfied (but not
   // for lines already done on mount, e.g. a restored daily, and not on the
@@ -76,6 +78,7 @@ export function Board({ game, mode, width, height, fillToken }: BoardProps) {
       const dx = Math.abs(pos.x - s.start.x);
       const dy = Math.abs(pos.y - s.start.y);
       s.axis = dx >= dy ? 'row' : 'col';
+      setActiveLine({ axis: s.axis, index: s.axis === 'row' ? s.start.y : s.start.x });
     }
     const target =
       s.axis === 'row' ? { x: pos.x, y: s.start.y } : { x: s.start.x, y: pos.y };
@@ -98,6 +101,7 @@ export function Board({ game, mode, width, height, fillToken }: BoardProps) {
 
   const endStroke = () => {
     stroke.current = null;
+    setActiveLine(null);
   };
 
   return (
@@ -131,6 +135,11 @@ export function Board({ game, mode, width, height, fillToken }: BoardProps) {
               fillToken={fillToken}
               thickRight={(x + 1) % 5 === 0 && x + 1 < width}
               thickBottom={(y + 1) % 5 === 0 && y + 1 < height}
+              active={
+                activeLine != null &&
+                (activeLine.axis === 'row' ? activeLine.index === y : activeLine.index === x)
+              }
+              mistake={game.mistake != null && game.mistake.x === x && game.mistake.y === y}
             />
           )),
         )}

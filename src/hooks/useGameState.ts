@@ -6,6 +6,15 @@ import { computeHint } from '../game/hint';
 
 export type PaintAction = 'fill' | 'cross' | 'clear';
 
+export interface GameOptions {
+  /** Auto-cross the leftover cells of a line once its clues are satisfied. */
+  autoCross?: boolean;
+  /** Reject wrong fills (guided mode); the cell flashes instead of filling. */
+  mistakeAlerts?: boolean;
+  /** Called when a wrong fill is rejected (for sound/haptics). */
+  onMistake?: (x: number, y: number) => void;
+}
+
 export interface GameState {
   clues: Clues;
   marks: CellMark[][];
@@ -13,6 +22,8 @@ export interface GameState {
   elapsedMs: number;
   rowDone: boolean[];
   colDone: boolean[];
+  /** The most recent rejected fill (guided mode), cleared after a moment. */
+  mistake: { x: number; y: number; seq: number } | null;
   paint: (x: number, y: number, action: PaintAction) => void;
   actionFor: (x: number, y: number, mode: 'fill' | 'cross') => PaintAction;
   undo: () => void;
@@ -30,6 +41,7 @@ export function useGameState(
   puzzle: Puzzle,
   initialMarks?: CellMark[][],
   onSolved?: (elapsedMs: number) => void,
+  options?: GameOptions,
 ): GameState {
   const clues = useMemo(() => deriveClues(puzzle), [puzzle]);
   const [marks, setMarks] = useState<CellMark[][]>(
@@ -38,8 +50,18 @@ export function useGameState(
   const [history, setHistory] = useState<CellMark[][][]>([]);
   const [solved, setSolved] = useState(false);
   const [elapsedMs, setElapsedMs] = useState(0);
+  const [mistake, setMistake] = useState<{ x: number; y: number; seq: number } | null>(null);
   const startRef = useRef<number>(Date.now());
   const solvedRef = useRef(false);
+  const optsRef = useRef(options);
+  optsRef.current = options;
+
+  // Clear the mistake flash after a moment.
+  useEffect(() => {
+    if (!mistake) return;
+    const t = setTimeout(() => setMistake(null), 500);
+    return () => clearTimeout(t);
+  }, [mistake]);
 
   // Reset everything when the puzzle changes.
   useEffect(() => {
@@ -71,6 +93,17 @@ export function useGameState(
   const paint = useCallback(
     (x: number, y: number, action: PaintAction) => {
       if (solvedRef.current) return;
+
+      // Guided mode: reject a fill the solution says is empty.
+      if (action === 'fill' && optsRef.current?.mistakeAlerts) {
+        const solutionCh = puzzle.grid[y]?.[x] ?? '.';
+        if (solutionCh === '.') {
+          setMistake({ x, y, seq: Date.now() });
+          optsRef.current?.onMistake?.(x, y);
+          return;
+        }
+      }
+
       setMarks((prev) => {
         const target: CellMark =
           action === 'fill' ? 'filled' : action === 'cross' ? 'crossed' : 'empty';
@@ -78,10 +111,23 @@ export function useGameState(
         setHistory((h) => [...h.slice(-99), cloneMarks(prev)]);
         const next = cloneMarks(prev);
         next[y][x] = target;
+
+        // Auto-cross the rest of any line this fill just completed (part of
+        // the same undo step as the fill itself).
+        if (action === 'fill' && optsRef.current?.autoCross) {
+          if (isLineSatisfied(next[y], clues.rows[y])) {
+            next[y] = next[y].map((m) => (m === 'empty' ? 'crossed' : m));
+          }
+          if (isLineSatisfied(next.map((row) => row[x]), clues.cols[x])) {
+            for (let yy = 0; yy < next.length; yy++) {
+              if (next[yy][x] === 'empty') next[yy][x] = 'crossed';
+            }
+          }
+        }
         return next;
       });
     },
-    [],
+    [puzzle, clues],
   );
 
   const undo = useCallback(() => {
@@ -137,6 +183,7 @@ export function useGameState(
     elapsedMs,
     rowDone,
     colDone,
+    mistake,
     paint,
     actionFor,
     undo,

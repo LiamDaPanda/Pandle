@@ -6,6 +6,10 @@ export interface Settings {
   muted: boolean;
   music: boolean;
   defaultPaintMode: 'fill' | 'cross';
+  /** Auto-cross the leftover cells of a line once its clues are satisfied. */
+  autoCross: boolean;
+  /** Flag wrong fills immediately (guided mode) instead of finding out at the end. */
+  mistakeAlerts: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -14,6 +18,8 @@ export const DEFAULT_SETTINGS: Settings = {
   muted: false,
   music: true,
   defaultPaintMode: 'fill',
+  autoCross: true,
+  mistakeAlerts: false,
 };
 
 export function loadSettings(): Settings {
