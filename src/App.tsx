@@ -27,6 +27,9 @@ import { PracticeScreen } from './components/PracticeScreen';
 import { Scenery } from './components/Scenery';
 import { GachaScreen } from './components/GachaScreen';
 import { GACHA_COST, GachaResult, pullCapsule } from './game/gacha';
+import { ArcadeScreen, ArcadeGame } from './components/ArcadeScreen';
+import { PairsGame } from './components/PairsGame';
+import { LightningGame } from './components/LightningGame';
 
 export type Screen =
   | 'home'
@@ -37,6 +40,9 @@ export type Screen =
   | 'customize'
   | 'stats'
   | 'gacha'
+  | 'arcade'
+  | 'pairs'
+  | 'lightning'
   | 'help'
   | 'game';
 
@@ -112,6 +118,16 @@ export default function App() {
       ...miles.earned.map((m) => ({ icon: m.icon, name: m.name, reward: m.reward })),
     ];
     return { progress: miles.progress, goals: goals.length ? goals : undefined };
+  };
+
+  // ---- arcade mini games: full bonus once per game per day, small repeats ----
+  const arcadeKey = `arcade:${today}`;
+  const arcadePlays = loadRaw<Record<ArcadeGame, number>>(arcadeKey, { pairs: 0, lightning: 0 });
+  const arcadeReward = (game: ArcadeGame, first: number, repeat: number): number => {
+    const plays = loadRaw<Record<ArcadeGame, number>>(arcadeKey, { pairs: 0, lightning: 0 });
+    const amount = (plays[game] ?? 0) === 0 ? first : repeat;
+    save(arcadeKey, { ...plays, [game]: (plays[game] ?? 0) + 1 });
+    return amount;
   };
 
   // One Lucky Capsule pull; deducts the cost and applies winnings.
@@ -277,10 +293,11 @@ export default function App() {
               .map((cid) => cosmeticById(cid))
               .filter((c): c is NonNullable<typeof c> => Boolean(c))
               .map((c) => ({ icon: c.icon, name: c.name }));
-            const granted = grantGoals({ ...after, bamboo: after.bamboo + 15 }, stats);
+            // Events pay double bamboo while they're in season.
+            const granted = grantGoals({ ...after, bamboo: after.bamboo + 30 }, stats);
             setProgress(granted.progress);
             return {
-              bambooEarned: 15,
+              bambooEarned: 30,
               unlocked: unlocked.length ? unlocked : undefined,
               goals: granted.goals,
             };
@@ -367,6 +384,34 @@ export default function App() {
           onPull={doPull}
           reducedMotion={settings.reducedMotion}
           onHome={goHome}
+        />
+      )}
+      {screen === 'arcade' && (
+        <ArcadeScreen playsToday={arcadePlays} onPlay={(g) => setScreen(g)} onHome={goHome} />
+      )}
+      {screen === 'pairs' && (
+        <PairsGame
+          reducedMotion={settings.reducedMotion}
+          onBack={() => setScreen('arcade')}
+          onWin={(misses) => {
+            const amount = arcadeReward('pairs', Math.max(8, 24 - 2 * misses), 4);
+            setProgress((p) => ({ ...p, bamboo: p.bamboo + amount }));
+            return amount;
+          }}
+        />
+      )}
+      {screen === 'lightning' && (
+        <LightningGame
+          settings={settings}
+          fillToken={fillToken}
+          onBack={() => setScreen('arcade')}
+          onWin={(puzzleId) => {
+            const amount = arcadeReward('lightning', 20, 5);
+            const solved = markSolved(progress, puzzleId);
+            const granted = grantGoals({ ...solved, bamboo: solved.bamboo + amount }, stats);
+            setProgress(granted.progress);
+            return amount;
+          }}
         />
       )}
       {screen === 'help' && <HowToPlay onClose={goHome} />}

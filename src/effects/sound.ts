@@ -85,6 +85,16 @@ export function playJackpot() {
   notes.forEach((n, i) => blip(n, 0.2, 'triangle', 0.06, i * 0.08));
 }
 
+/** Sparkly rising gliss for a shiny drop. */
+export function playShiny() {
+  [880, 1108, 1318, 1760, 2217].forEach((f, i) => blip(f, 0.14, 'sine', 0.05, i * 0.06));
+}
+
+/** Soft descending "time's up". */
+export function playLose() {
+  [392, 330, 262].forEach((f, i) => blip(f, 0.18, 'triangle', 0.045, i * 0.12));
+}
+
 export function tick(action: 'fill' | 'cross' | 'clear') {
   if (action === 'fill') playFill();
   else if (action === 'cross') playCross();

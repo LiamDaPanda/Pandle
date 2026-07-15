@@ -1,7 +1,7 @@
 import { EVENTS, GameEvent, isEventLive, nextOpenMonth, daysLeftInSeason } from '../data/events';
 import { puzzleById } from '../data/puzzles';
 import { Progress, eventProgress } from '../state/progress';
-import { cosmeticById } from '../data/cosmetics';
+import { ALL_COSMETICS, cosmeticById } from '../data/cosmetics';
 import { Icon } from './Icon';
 
 interface EventsScreenProps {
@@ -43,6 +43,9 @@ function EventCard({
       {live && (
         <p className="event-countdown">
           <Icon name="flame" /> Ends in {daysLeft} day{daysLeft === 1 ? '' : 's'}
+          <span className="event-double">
+            <Icon name="bamboo" /> 2× bamboo
+          </span>
         </p>
       )}
 
@@ -86,6 +89,29 @@ function EventCard({
   );
 }
 
+/** Collection strip of every event exclusive — owned ones lit, the rest greyed. */
+function Album({ progress }: { progress: Progress }) {
+  const exclusives = ALL_COSMETICS.filter((c) => c.exclusive);
+  const owned = exclusives.filter((c) => progress.ownedCosmetics.includes(c.id)).length;
+  return (
+    <section className="album">
+      <h3 className="album-title">
+        <Icon name="crown" /> Exclusives collected: {owned}/{exclusives.length}
+      </h3>
+      <div className="album-strip">
+        {exclusives.map((c) => {
+          const has = progress.ownedCosmetics.includes(c.id);
+          return (
+            <span key={c.id} className={`album-item ${has ? 'owned' : ''}`} title={c.name}>
+              <Icon name={has ? c.icon : 'question'} size="1.5rem" />
+            </span>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 export function EventsScreen({ progress, onPlayEventPuzzle, onHome }: EventsScreenProps) {
   // In-season events first, then the rest by when they next return.
   const ordered = [...EVENTS].sort((a, b) => {
@@ -109,6 +135,9 @@ export function EventsScreen({ progress, onPlayEventPuzzle, onHome }: EventsScre
           ? `${liveCount} event${liveCount > 1 ? 's' : ''} in season right now. Rewards only stick around while they’re live.`
           : 'Nothing running this week — check back as the seasons turn.'}
       </p>
+
+      <Album progress={progress} />
+
       <div className="events">
         {ordered.map((event) => (
           <EventCard

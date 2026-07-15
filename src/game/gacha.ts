@@ -5,10 +5,15 @@ export const GACHA_COST = 30;
 /** A cosmetic is guaranteed within this many pulls. */
 export const GACHA_PITY = 5;
 
+/** Chance a capsule comes up shiny (doubled bamboo / bonus on cosmetics). */
+export const SHINY_CHANCE = 0.06;
+/** Extra bamboo paid alongside a shiny cosmetic drop. */
+export const SHINY_COSMETIC_BONUS = 30;
+
 export type GachaResult =
-  | { kind: 'bamboo'; amount: number }
-  | { kind: 'jackpot'; amount: number }
-  | { kind: 'cosmetic'; cosmetic: Cosmetic };
+  | { kind: 'bamboo'; amount: number; shiny: boolean }
+  | { kind: 'jackpot'; amount: number; shiny: boolean }
+  | { kind: 'cosmetic'; cosmetic: Cosmetic; shiny: boolean };
 
 /** Buyable cosmetics the player doesn't own yet (exclusives never drop). */
 export function gachaPool(p: Progress): Cosmetic[] {
@@ -35,40 +40,36 @@ export function pullCapsule(
   if (cosmeticHit) {
     if (pool.length > 0) {
       const win = pool[Math.floor(rng() * pool.length)];
+      const shiny = rng() < SHINY_CHANCE;
       return {
         progress: {
           ...paid,
+          bamboo: paid.bamboo + (shiny ? SHINY_COSMETIC_BONUS : 0),
           ownedCosmetics: [...paid.ownedCosmetics, win.id],
           gachaPity: 0,
         },
-        result: { kind: 'cosmetic', cosmetic: win },
+        result: { kind: 'cosmetic', cosmetic: win, shiny },
       };
     }
     // Everything owned — the capsule pays out generously instead.
+    const shiny = rng() < SHINY_CHANCE;
+    const amount = shiny ? 100 : 50;
     return {
-      progress: { ...paid, bamboo: paid.bamboo + 50, gachaPity: 0 },
-      result: { kind: 'jackpot', amount: 50 },
+      progress: { ...paid, bamboo: paid.bamboo + amount, gachaPity: 0 },
+      result: { kind: 'jackpot', amount, shiny },
     };
   }
 
   const pity = (p.gachaPity ?? 0) + 1;
-  if (roll < 0.3) {
-    const amount = 60 + Math.floor(rng() * 41); // 60-100
+  const payout = (base: number, kind: 'bamboo' | 'jackpot'): { progress: Progress; result: GachaResult } => {
+    const shiny = rng() < SHINY_CHANCE;
+    const amount = shiny ? base * 2 : base;
     return {
       progress: { ...paid, bamboo: paid.bamboo + amount, gachaPity: pity },
-      result: { kind: 'jackpot', amount },
+      result: { kind, amount, shiny },
     };
-  }
-  if (roll < 0.6) {
-    const amount = 25 + Math.floor(rng() * 16); // 25-40
-    return {
-      progress: { ...paid, bamboo: paid.bamboo + amount, gachaPity: pity },
-      result: { kind: 'bamboo', amount },
-    };
-  }
-  const amount = 10 + Math.floor(rng() * 11); // 10-20
-  return {
-    progress: { ...paid, bamboo: paid.bamboo + amount, gachaPity: pity },
-    result: { kind: 'bamboo', amount },
   };
+  if (roll < 0.3) return payout(60 + Math.floor(rng() * 41), 'jackpot'); // 60-100
+  if (roll < 0.6) return payout(25 + Math.floor(rng() * 16), 'bamboo'); // 25-40
+  return payout(10 + Math.floor(rng() * 11), 'bamboo'); // 10-20
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Progress } from '../state/progress';
 import { GACHA_COST, GACHA_PITY, GachaResult, gachaPool } from '../game/gacha';
 import { celebrate } from '../effects/celebrate';
-import { playGachaCrank, playGachaPop, playJackpot } from '../effects/sound';
+import { playGachaCrank, playGachaPop, playJackpot, playShiny } from '../effects/sound';
 import { Icon } from './Icon';
 
 interface GachaScreenProps {
@@ -71,7 +71,10 @@ export function GachaScreen({ progress, onPull, reducedMotion, onHome }: GachaSc
       }
       setResult(r);
       setPhase('result');
-      if (r.kind === 'cosmetic' || r.kind === 'jackpot') {
+      if (r.shiny) {
+        playShiny();
+        celebrate(['#ffd66b', '#ff8fab', '#8ecae6', '#a78bfa', '#7bc47f'], 'star', reducedMotion);
+      } else if (r.kind === 'cosmetic' || r.kind === 'jackpot') {
         playJackpot();
         celebrate(['#ffd66b', '#ffb7c5', '#8ecae6', '#7bc47f'], 'star', reducedMotion);
       } else {
@@ -102,14 +105,17 @@ export function GachaScreen({ progress, onPull, reducedMotion, onHome }: GachaSc
         <Machine shaking={phase === 'shaking'} />
 
         {phase === 'result' && result && (
-          <div className="gacha-result" role="status">
+          <div className={`gacha-result ${result.shiny ? 'shiny' : ''}`} role="status">
+            {result.shiny && <span className="gacha-shiny-tag">SHINY!</span>}
             {result.kind === 'cosmetic' ? (
               <>
                 <span className="gacha-result-icon">
                   <Icon name={result.cosmetic.icon} size="3rem" />
                 </span>
                 <span className="gacha-result-name">{result.cosmetic.name}</span>
-                <span className="gacha-result-kind">New cosmetic unlocked!</span>
+                <span className="gacha-result-kind">
+                  {result.shiny ? 'New cosmetic + 30 bonus bamboo!' : 'New cosmetic unlocked!'}
+                </span>
               </>
             ) : (
               <>

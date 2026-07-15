@@ -120,7 +120,7 @@ export function HomeScreen({
       </div>
 
       <div className="menu">
-        <button className="menu-btn primary" onClick={() => onNavigate('daily')}>
+        <button className="menu-btn primary shimmer" onClick={() => onNavigate('daily')}>
           <span className="menu-emoji"><Icon name="calendar" size="2rem" /></span>
           <span className="menu-label">Daily Puzzle</span>
           <span className="menu-note">
@@ -152,6 +152,11 @@ export function HomeScreen({
           <span className="menu-emoji"><Icon name="palette" size="2rem" /></span>
           <span className="menu-label">Customize</span>
           <span className="menu-note">Make it yours</span>
+        </button>
+        <button className="menu-btn" onClick={() => onNavigate('arcade')}>
+          <span className="menu-emoji"><Icon name="dice" size="2rem" /></span>
+          <span className="menu-label">Arcade</span>
+          <span className="menu-note">Mini games, daily bonus</span>
         </button>
         <button className="menu-btn" onClick={() => onNavigate('gacha')}>
           <span className="menu-emoji"><Icon name="gift" size="2rem" /></span>

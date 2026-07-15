@@ -46,11 +46,22 @@ describe('lucky capsules', () => {
 
   it('jackpot pays 60-100 bamboo', () => {
     const p = { ...defaultProgress(), bamboo: 100 };
-    const { result } = pullCapsule(p, seq(0.25, 0)); // 0.2 <= r < 0.3
+    const { result } = pullCapsule(p, seq(0.25, 0, 0.99)); // 0.2 <= r < 0.3, not shiny
     expect(result.kind).toBe('jackpot');
     if (result.kind === 'jackpot') {
       expect(result.amount).toBeGreaterThanOrEqual(60);
       expect(result.amount).toBeLessThanOrEqual(100);
+    }
+  });
+
+  it('a shiny capsule doubles the bamboo payout', () => {
+    const p = { ...defaultProgress(), bamboo: 100 };
+    // Small bamboo roll (0.99), amount rng 0.5 -> 15, shiny rng 0.01 -> shiny.
+    const { progress, result } = pullCapsule(p, seq(0.99, 0.5, 0.01));
+    expect(result.shiny).toBe(true);
+    if (result.kind === 'bamboo') {
+      expect(result.amount).toBe(30); // 15 doubled
+      expect(progress.bamboo).toBe(100 - GACHA_COST + 30);
     }
   });
 
@@ -61,8 +72,8 @@ describe('lucky capsules', () => {
       ownedCosmetics: ALL_COSMETICS.map((c) => c.id),
     };
     expect(gachaPool(p)).toHaveLength(0);
-    const { progress, result } = pullCapsule(p, seq(0.05, 0));
-    expect(result).toEqual({ kind: 'jackpot', amount: 50 });
+    const { progress, result } = pullCapsule(p, seq(0.05, 0.99));
+    expect(result).toEqual({ kind: 'jackpot', amount: 50, shiny: false });
     expect(progress.bamboo).toBe(100 - GACHA_COST + 50);
   });
 
